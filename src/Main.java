@@ -36,8 +36,6 @@ public class Main extends Application{
 	 */
 	@Override
 	public void start(Stage arg0) throws Exception {
-		//Calls the constructor to instantiate all the dimensions and resolutions
-		Main program = new Main();
 		
 	}
 	
@@ -63,6 +61,7 @@ public class Main extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 	
 	
