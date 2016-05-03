@@ -1,5 +1,6 @@
 //JavaFx Imports
 import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -7,7 +8,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Tools {
-	//Loads the different types of fonts for the whole class
+	//static initializer which runs when the class is initialized, loads different types of fonts for the whole class
+	//Site used to learn initializer : https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
 	static
 	{
 		
@@ -37,7 +39,7 @@ public class Tools {
 	 * @param col the text color
 	 * @param eff any visual effect 
 	 * @param f the text font
-	 * @return the text with all the aforemetioned adjustments
+	 * @return the text with all the aforementioned settings
 	 */
 	public static Text createText(double xLoc, double yLoc, double widthRatio, double heightRatio, 
 			String content, Color col, Effect eff, Font f) 
@@ -52,5 +54,16 @@ public class Tools {
 		AnchorPane.setLeftAnchor(text, xLoc * widthRatio);
 	
 		return text;
+	}
+	
+	/**Loads an image and returns it based on a given string
+	 * Uses ClassLoader to load the class and get its resources
+	 * Site used to learn how to load images: http://stackoverflow.com/questions/14089146/file-loading-by-getclass-getresource
+	 * @param name name of the image file, ex: "image.png"
+	 * @return image that is at the given location
+	 */
+	public static Image createImage(String name)
+	{
+		return new Image(ClassLoader.getSystemClassLoader().getResourceAsStream("res/" + name));
 	}
 }
