@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
+	//static constants to store highest resolution
+	private final double HIGHEST_WIDTH = 1920.0;
+	private final double HIGHEST_HEIGHT = 1080.0;
+	
 	//Initial dimensions of the computer screen
 	private final double dispWidth = getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth(); 
 	private final double dispHeight = getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -36,7 +40,7 @@ public class Main extends Application{
 	 */
 	@Override
 	public void start(Stage arg0) throws Exception {
-		
+	
 	}
 	
 	/**Sets the new x and y resolutions based on given values and updates the ratios.
@@ -54,15 +58,13 @@ public class Main extends Application{
 	 */
 	public void updateRatio()
 	{
-		widthRatio = xResolution / 1920.0;
-		heightRatio = yResolution / 1080.0;
+		widthRatio = xResolution / HIGHEST_WIDTH;
+		heightRatio = yResolution / HIGHEST_HEIGHT;
 		smallestRatio = (widthRatio > heightRatio) ? heightRatio : widthRatio;
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
-		Tools.createImage("Camo.jpeg");
-		System.out.println("test work");
 	}
 	
 	
