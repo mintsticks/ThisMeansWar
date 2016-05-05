@@ -1,6 +1,8 @@
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 public class Unit extends UIElement{
 	
@@ -10,7 +12,7 @@ public class Unit extends UIElement{
 	private int damage;
 	private double moveRange;
 	private int cost;
-	private ImageView appearance;
+	private Image appearance;
 	
 	/**Creates a unit with the given statistics of health, attack/movement ranges, damage, cost, and appearance
 	 * @param health the health value that the unit has
@@ -19,15 +21,20 @@ public class Unit extends UIElement{
 	 * @param moveRange the distance that this unit can travel in one turn
 	 * @param cost the amount of money that it takes for a Player to purchase this unit
 	 * @param appearance the image that this unit will display on the UI screen
+	 * @param collShape collision shape of the Unit, which is used to check for intersection
 	 */
-	public Unit (int health, double attackRange, int damage, double moveRange, int cost, ImageView appearance)
+	public Unit (int health, double attackRange, int damage, double moveRange, int cost, Image appearance)
 	{
 		this.health = health;
 		this.attackRange = attackRange;
 		this.damage = damage;
 		this.moveRange = moveRange;
 		this.cost = cost;
+		
 		this.appearance = appearance;
+		this.setImage(appearance);
+		
+		super.createCollShape();
 	}
 	
 	/**Returns the health of the unit
@@ -73,7 +80,7 @@ public class Unit extends UIElement{
 	/**Returns the appearance of this unit in an ImageView
 	 * @return the image that this unit will display on the UI screen
 	 */
-	public ImageView getAppearance()
+	public Image getAppearance()
 	{
 		return appearance;
 	}
@@ -87,11 +94,11 @@ public class Unit extends UIElement{
 	}
 	
 	/**Sets the appearance of this unit
-	 * @param ImageView that the unit will be changed to
+	 * @param Image that the unit will be changed to
 	 */
-	public void setAppearance(ImageView picture)
+	public void setAppearance(Image picture)
 	{
 		appearance = picture;
+		this.setImage(appearance);
 	}
-	
 }

@@ -6,11 +6,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Tools {
+	
+	//Constant statistics for units
+	public static final int PRIV_HEALTH = 1;
+	public static final double PRIV_ATT_RANGE = 1;
+	public static final int PRIV_DMG = 1;
+	public static final double PRIV_MOVE_RANGE = 1;
+	public static final int PRIV_COST = 1;
+
 	//static initializer which runs when the class is initialized, loads different types of fonts for the whole class
 	//Site used to learn initializer : https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
 	static
@@ -59,6 +68,16 @@ public class Tools {
 		return text;
 	}
 	
+	public static Rectangle createRoundedRectangle()
+	{
+		return null;
+	}
+	
+	public static Ellipse createEllipse()
+	{
+		return null;
+	}
+	
 	/**Loads an image and returns it based on a given string
 	 * Uses ClassLoader to load the class and get its resources
 	 * Site used to learn how to load images: http://stackoverflow.com/questions/14089146/file-loading-by-getclass-getresource
@@ -104,19 +123,38 @@ public class Tools {
 		return imgV;
 	}
 	
-	public static Rectangle createRoundedRectangle()
+	/**Generates a Unit with the statistics of a private. It is displayed on the screen in a given location with a given image, size, and effect
+	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the Private unit with the given settings
+	 */
+	public static Unit createPrivate(double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
-	}
-	
-	public static Ellipse createEllipse()
-	{
-		return null;
-	}
-	
-	public static Unit createPrivate()
-	{
-		return null;
+		Unit priv = new Unit(PRIV_HEALTH, PRIV_ATT_RANGE, PRIV_DMG, PRIV_MOVE_RANGE, PRIV_COST, createImage("Units/Private.png"));
+		
+		priv.setEffect(eff);
+		
+		priv.setFitHeight(height * smallestRatio);
+		priv.setFitWidth(width * smallestRatio);
+		
+		//set the quality of the image
+		priv.setPreserveRatio(true);
+		priv.setSmooth(true);
+		priv.setCache(true);
+		
+		AnchorPane.setLeftAnchor(priv, xLoc * widthRatio);
+		AnchorPane.setTopAnchor(priv, yLoc * heightRatio);
+		
+		priv.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return priv;
 	}
 	
 	public static Unit createCorporal()
