@@ -19,7 +19,42 @@ public class Tools {
 	public static final int PRIV_DMG = 1;
 	public static final double PRIV_MOVE_RANGE = 1;
 	public static final int PRIV_COST = 1;
+	
+	public static final int CORP_HEALTH = 2;
+	public static final double CORP_ATT_RANGE = 2;
+	public static final int CORP_DMG = 2;
+	public static final double CORP_MOVE_RANGE = 2;
+	public static final int CORP_COST = 2;
+	
+	public static final int SERG_HEALTH = 3;
+	public static final double SERG_ATT_RANGE = 3;
+	public static final int SERG_DMG = 3;
+	public static final double SERG_MOVE_RANGE = 3;
+	public static final int SERG_COST = 3;
 
+	public static final int TANK_HEALTH = 4;
+	public static final double TANK_ATT_RANGE = 4;
+	public static final int TANK_DMG = 4;
+	public static final double TANK_MOVE_RANGE = 2;
+	public static final int TANK_COST = 4;
+	
+	public static final int SCOUT_HEALTH = 2;
+	public static final double SCOUT_ATT_RANGE = 2;
+	public static final int SCOUT_DMG = 1;
+	public static final double SCOUT_MOVE_RANGE = 4;
+	public static final int SCOUT_COST = 2;
+	
+	public static final int SNIP_HEALTH = 1;
+	public static final double SNIP_ATT_RANGE = 4;
+	public static final int SNIP_DMG = 3;
+	public static final double SNIP_MOVE_RANGE = 2;
+	public static final int SNIP_COST = 2;
+	
+	public static final int MONEY_BAG_SMALL = 100;
+	public static final int MONEY_BAG_MEDIUM = 200;
+	public static final int MONEY_BAG_LARGE = 500;
+	public static final int MONEY_BAG_XLARGE = 1000;
+	
 	//static initializer which runs when the class is initialized, loads different types of fonts for the whole class
 	//Site used to learn initializer : https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
 	static
@@ -123,8 +158,40 @@ public class Tools {
 		return imgV;
 	}
 	
-	/**Generates a Unit with the statistics of a private. It is displayed on the screen in a given location with a given image, size, and effect
+	/**Sets the characteristics of given image view to the values given, including its
+	 * height, width, x location, y location, and effect.
+	 * @param imgV image view to modify and return
 	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the image view after it has been modified 
+	 */
+	public static ImageView setImgView(ImageView imgV, double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
+	{
+		imgV.setEffect(eff);
+		
+		imgV.setFitHeight(height * smallestRatio);
+		imgV.setFitWidth(width * smallestRatio);
+		
+		//set the quality of the image
+		imgV.setPreserveRatio(true);
+		imgV.setSmooth(true);
+		imgV.setCache(true);
+		
+		AnchorPane.setLeftAnchor(imgV, xLoc * widthRatio);
+		AnchorPane.setTopAnchor(imgV, yLoc * heightRatio);
+
+		return imgV;
+	}
+	
+	/**Generates a Unit with the statistics of a private. 
+	 * It is displayed on the screen in a specified location with a given size and effect	 * @param height desired height of image view 
 	 * @param width desired width of image view
 	 * @param xLoc the x-coordinate of the image view
 	 * @param yLoc the y-coordinate of the image view
@@ -138,53 +205,163 @@ public class Tools {
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
 		Unit priv = new Unit(PRIV_HEALTH, PRIV_ATT_RANGE, PRIV_DMG, PRIV_MOVE_RANGE, PRIV_COST, createImage("Units/Private.png"));
-		
-		priv.setEffect(eff);
-		
-		priv.setFitHeight(height * smallestRatio);
-		priv.setFitWidth(width * smallestRatio);
-		
-		//set the quality of the image
-		priv.setPreserveRatio(true);
-		priv.setSmooth(true);
-		priv.setCache(true);
-		
-		AnchorPane.setLeftAnchor(priv, xLoc * widthRatio);
-		AnchorPane.setTopAnchor(priv, yLoc * heightRatio);
-		
-		priv.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
-		
+		priv = (Unit)setImgView(priv, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		return priv;
 	}
 	
-	public static Unit createCorporal()
+	/**Generates a Unit with the statistics of a corporal. 
+	 * It is displayed on the screen in a specified location with a given size and effect	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the Corporal unit with the given settings
+	 */
+	public static Unit createCorporal(double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		Unit corp = new Unit(CORP_HEALTH, CORP_ATT_RANGE, CORP_DMG, CORP_MOVE_RANGE, CORP_COST, createImage("Units/Corporal.png"));
+		corp = (Unit)setImgView(corp, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		corp.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return corp;
 	}
 	
-	public static Unit createSergeant()
+	/**Generates a Unit with the statistics of a sergeant. 
+	 * It is displayed on the screen in a specified location with a given size and effect	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the Sergeant unit with the given settings
+	 */
+	public static Unit createSergeant(double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		Unit serg = new Unit(SERG_HEALTH, SERG_ATT_RANGE, SERG_DMG, SERG_MOVE_RANGE, SERG_COST, createImage("Units/Sergeant.png"));
+		serg = (Unit)setImgView(serg, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		serg.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return serg;
 	}
 	
-	public static Unit createTank()
+	/**Generates a Unit with the statistics of a tank. 
+     * It is displayed on the screen in a specified location with a given size and effect	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the tank unit with the given settings
+	 */
+	public static Unit createTank(double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		Unit tank = new Unit(TANK_HEALTH, TANK_ATT_RANGE, TANK_DMG, TANK_MOVE_RANGE, TANK_COST, createImage("Units/Tank.png"));
+		tank = (Unit)setImgView(tank, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		tank.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return tank;
 	}
 	
-	public static Unit createScout()
+	/**Generates a Unit with the statistics of a scout. 
+	 * It is displayed on the screen in a specified location with a given size and effect
+	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the Scout unit with the given settings
+	 */
+	public static Unit createScout(double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		Unit scout = new Unit(SCOUT_HEALTH, SCOUT_ATT_RANGE, SCOUT_DMG, SCOUT_MOVE_RANGE, SCOUT_COST, createImage("Units/Scout.png"));
+		scout = (Unit)setImgView(scout, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		scout.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return scout;
 	}
 	
-	public static Unit createSniper()
+	/**Generates a Unit with the statistics of a sniper. 
+	 * It is displayed on the screen in a specified location with a given size and effect	 * @param height desired height of image view 
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return the Sniper unit with the given settings
+	 */
+	public static Unit createSniper(double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		Unit sniper = new Unit(SNIP_HEALTH, SNIP_ATT_RANGE, SNIP_DMG, SNIP_MOVE_RANGE, SNIP_COST, createImage("Units/Sniper.png"));
+		sniper = (Unit)setImgView(sniper, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		sniper.updateCollShape(height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return sniper;
 	}
 	
-	public static MoneyBag createMoneyBag()
+	/**Creates a money bag with values based on a given setting number. 
+	 * It is displayed on the screen in a specified location with a given size and effect
+	 * @param setting a number to indicate what type of money bag desired
+	 * 1: Smallest money bag, 2: medium money bag, 3: large money bag, 4: extra large money bag
+	 * @param height desired height of image view
+	 * @param width desired width of image view
+	 * @param xLoc the x-coordinate of the image view
+	 * @param yLoc the y-coordinate of the image view
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return MoneyBag with the given image and money value, 
+	 */
+	public static MoneyBag createMoneyBag(int setting, double height, double width, double xLoc, double yLoc,
+			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		MoneyBag bag;
+		if(setting == 1)
+		{
+			bag = new MoneyBag(MONEY_BAG_SMALL);
+			bag.setImage(createImage("SmallBag"));
+		}
+		else if(setting == 2)
+		{
+			bag = new MoneyBag(MONEY_BAG_MEDIUM);
+			bag.setImage(createImage("MediumBag"));
+		}
+		else if(setting == 3)
+		{
+			bag = new MoneyBag(MONEY_BAG_LARGE);
+			bag.setImage(createImage("LargeBag"));
+		}
+		else if(setting == 4)
+		{
+			bag = new MoneyBag(MONEY_BAG_XLARGE);
+			bag.setImage(createImage("ExtraLargeBag"));
+		}
+		//default case
+		else
+		{
+			bag = new MoneyBag(MONEY_BAG_MEDIUM);
+			bag.setImage(createImage("MediumBag"));
+		}
+		bag = (MoneyBag)setImgView(bag, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		bag.createCollShape();
+		return bag;
 	}
 	
 	public static Obstacle createRock()

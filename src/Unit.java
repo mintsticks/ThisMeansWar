@@ -14,6 +14,10 @@ public class Unit extends UIElement{
 	private int cost;
 	private Image appearance;
 	
+	//Stores whether the unit has attacked or moved this turn. If both are true, then the unit cannot be selected anymore
+	private boolean attacked;
+	private boolean moved;
+	
 	/**Creates a unit with the given statistics of health, attack/movement ranges, damage, cost, and appearance
 	 * @param health the health value that the unit has
 	 * @param attackRange the distance that a bullet fired by this unit can travel
@@ -35,6 +39,7 @@ public class Unit extends UIElement{
 		this.setImage(appearance);
 		
 		super.createCollShape();
+		refreshAction();
 	}
 	
 	/**Returns the health of the unit
@@ -85,6 +90,22 @@ public class Unit extends UIElement{
 		return appearance;
 	}
 	
+	/**Returns boolean based on if the unit has attacked this turn
+	 * @return whether the unit has attacked this turn
+	 */
+	public boolean hasAttacked()
+	{
+		return attacked;
+	}
+	
+	/**Returns boolean based on if the unit has moved this turn
+	 * @return whether the unit has moved this turn
+	 */
+	public boolean hasMoved()
+	{
+		return moved;
+	}
+	
 	/**Sets the new health of the unit
 	 * @param the health value that the unit has
 	 */
@@ -100,5 +121,14 @@ public class Unit extends UIElement{
 	{
 		appearance = picture;
 		this.setImage(appearance);
+	}
+	
+	/**Refreshes the variables for moving and attacking 
+	 * to allow the actions to be done again
+	 */
+	public void refreshAction()
+	{
+		attacked = false;
+		moved = false;
 	}
 }

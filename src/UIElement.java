@@ -44,7 +44,10 @@ public abstract class UIElement extends ImageView{
 	public void updateCollShape(double height, double width, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio)
 	{
-		setCollShape(new Rectangle(xLoc * widthRatio, yLoc * heightRatio, width * smallestRatio, height * smallestRatio));
+		collisionShape.setLayoutX(xLoc * widthRatio);
+		collisionShape.setLayoutY(yLoc * heightRatio);
+		collisionShape.setScaleX(width * smallestRatio);
+		collisionShape.setScaleY(height * heightRatio);
 	}
 	
 	/**Checks the current shape with another given shape and checks for intersection. This method uses the intersect method in Shape,
