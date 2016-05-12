@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 public class Tools {
 	//Constants available for every class
 	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0, Color.BLACK);
+	public static final InnerShadow MEDIUM_SHADE = new InnerShadow(3.0, Color.BLACK);
 	
 	//Constant statistics for units
 	public static final int PRIV_HEALTH = 1;
@@ -52,6 +53,7 @@ public class Tools {
 	public static final double SNIP_MOVE_RANGE = 2;
 	public static final int SNIP_COST = 2;
 	
+	//Other element settings
 	public static final int MONEY_BAG_SMALL = 100;
 	public static final int MONEY_BAG_MEDIUM = 200;
 	public static final int MONEY_BAG_LARGE = 500;

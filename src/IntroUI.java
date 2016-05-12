@@ -1,5 +1,4 @@
 import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -43,23 +42,19 @@ public class IntroUI extends Stage{
 		this.initStyle(StageStyle.TRANSPARENT);
 		AnchorPane root = new AnchorPane();
 		Scene scene = new Scene(root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
-		
-		//Editing the root, which is what elements display on
-		root.setBackground(new Background(INTRO_BACK));
-		root.setEffect(Tools.LARGE_SHADE);
-		this.setScene(scene);
-		
 		//Creates the border
 		Stage border = createIntroBorder();
-		border.show();
-		border.centerOnScreen();
-		
+				
 		//Connects the intro screen with its border
 		this.initOwner(border);
 		this.setX(border.getX() + OFFSET * widthRatio);
 		this.setY(border.getY() + OFFSET * heightRatio);
 		
+		//Editing the root, which is what elements display on
+		root.setBackground(new Background(INTRO_BACK));
+		root.setEffect(Tools.LARGE_SHADE);
 		
+		this.setScene(scene);
 	}
 	
 	private Stage createIntroBorder() {
@@ -71,7 +66,9 @@ public class IntroUI extends Stage{
 
 		root.setBackground(new Background(INTRO_BORDER));
 		border.setScene(scene);
-
+		border.show();
+		border.centerOnScreen();
+		
 		return border;
 	}
 	
