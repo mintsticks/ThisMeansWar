@@ -6,7 +6,7 @@ public class Player {
 	List<Unit> units;
 	int money;
 	
-	public Player()
+	public Player() 
 	{
 		units = new ArrayList<Unit>();
 		money = 100; //some default value we can change later
