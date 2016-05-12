@@ -11,9 +11,9 @@ public abstract class UIElement extends ImageView{
 	
 	/**Creates the collision shape for the UIElement
 	 */
-	public void createCollShape()
+	protected void createCollShape()
 	{
-		setCollShape(new Rectangle(this.getX(), this.getY(), this.getFitWidth(), this.getFitHeight()));
+		setCollShape(new Rectangle(0, 0, 1, 1));
 	}
 
 	/**Retrieves the collision shape for the element
@@ -35,19 +35,25 @@ public abstract class UIElement extends ImageView{
 	/**Updates the collision shape to a new size or position
 	 * @param height desired height of shape
 	 * @param width desired width of shape
+	 * @param angle desired angle of shape
 	 * @param xLoc the x-coordinate of the shape
 	 * @param yLoc the y-coordinate of the shape
 	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
 	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
 	 * @param smallestRatio smallest of the two ratios, used to resize the image
 	 */
-	public void updateCollShape(double height, double width, double xLoc, double yLoc,
+	public void updateCollShape(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio)
 	{
+		if(collisionShape == null)
+		{
+			createCollShape();
+		}
 		collisionShape.setLayoutX(xLoc * widthRatio);
 		collisionShape.setLayoutY(yLoc * heightRatio);
 		collisionShape.setScaleX(width * smallestRatio);
-		collisionShape.setScaleY(height * heightRatio);
+		collisionShape.setScaleY(height * smallestRatio);
+		collisionShape.setRotate(angle);
 	}
 	
 	/**Checks the current shape with another given shape and checks for intersection. This method uses the intersect method in Shape,

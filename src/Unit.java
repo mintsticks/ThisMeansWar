@@ -38,7 +38,6 @@ public class Unit extends UIElement{
 		this.appearance = appearance;
 		this.setImage(appearance);
 		
-		super.createCollShape();
 		refreshAction();
 	}
 	
