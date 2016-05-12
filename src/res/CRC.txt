@@ -50,7 +50,6 @@ Add Unit
 Remove Unit	
 Add Money	
 Remove Money	
-Refresh Units Movement	
 
 Name: Tools	Superclass: 	Subclass
 Primary Responsibility: Contains many useful static methods to create similar gameplay elements

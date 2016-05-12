@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Player {
 	
-	List<Unit> units;
-	int money;
+	private List<Unit> units;
+	private int money;
 	
 	public Player() 
 	{
@@ -17,19 +16,23 @@ public class Player {
 		return units;
 	}
 	
+	public boolean isEmpty()
+	{
+		return units.size() == 0;
+	}
 	public int getAmountOfMoney()
 	{
 		return money;
 	}
 	
-	public void addUnit(Unit u)
+	public void addUnit(Unit unit)
 	{
-		units.add(u);
+		units.add(unit);
 	}
 	
-	public void removeUnit (Unit u)
+	public void removeUnit (Unit unit)
 	{
-		units.remove(u);
+		units.remove(unit);
 	}
 	
 	public void addMoney(int toAdd)
