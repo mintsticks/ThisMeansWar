@@ -116,7 +116,6 @@ public class Tools {
 	}
 	
 	/**Generates a rounded rectangle on the screen with a given size, arc size, effect, color, and location.
-	 * It is displayed on the screen in a specified location with a given size and effect.
 	 * @param width width of the rectangle
 	 * @param height height of the rectangle
 	 * @param arcW width of the arc at the corners of the rectangle
@@ -146,7 +145,20 @@ public class Tools {
 		return rect;
 	}
 	
-	public static Ellipse createEllipse()
+	/**Generates an ellipse on the screen with a given x and y radius, location, color, and effect
+	 * @param centerX x coordinate of the center of the ellipse
+	 * @param centerY y coordinate of the center of the ellipse
+	 * @param radiusX size of the radius in the x direction of the ellipse
+	 * @param radiusY size of the radius in the y direction of the ellipse
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param col color of the ellipse
+	 * @param eff given visual effect of the ellipse
+	 * @return ellipse with the given settings
+	 */
+	public static Ellipse createEllipse(double centerX, double centerY, double radiusX, double radiusY, double widthRatio,
+			double heightRatio, double smallestRatio, Color col, Effect eff)
 	{
 		return null;
 	}
