@@ -1,17 +1,19 @@
 //JavaFx Imports
 import javafx.scene.effect.Effect;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Tools {
+	//Constants available for every class
+	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0, Color.BLACK);
 	
 	//Constant statistics for units
 	public static final int PRIV_HEALTH = 1;
@@ -387,7 +389,7 @@ public class Tools {
 	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
 	 * @param smallestRatio smallest of the two ratios, used to resize the image
 	 * @param eff given visual effect
-	 * @return MoneyBag with the given image and money value, 
+	 * @return MoneyBag with the given settings
 	 */
 	public static MoneyBag createMoneyBag(int setting, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
@@ -455,10 +457,10 @@ public class Tools {
 	
 	/**Creates a solid object, which is a object which players cannot pass through
 	 * It is displayed on the screen in a specified location with a given size and effect
-	 * @param height desired height of image view 
-	 * @param width desired width of image view
-	 * @param xLoc the x-coordinate of the image view
-	 * @param yLoc the y-coordinate of the image view
+	 * @param height desired height of solid 
+	 * @param width desired width of solid
+	 * @param xLoc the x-coordinate of the solid
+	 * @param yLoc the y-coordinate of the solid
 	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
 	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
 	 * @param smallestRatio smallest of the two ratios, used to resize the image
@@ -474,9 +476,29 @@ public class Tools {
 		solid.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		return solid;
 	}
-	
-	public static Projectile createProjectile()
+	/**Creates a projectile that has a certain amount of damage.
+	 * Displays on the field with a given angle, size, location, and effect
+	 * @param damage damage that the projectile will inflict on a unit that it hits
+	 * @param height desired height of projectile
+	 * @param width desired width of projectile
+	 * @param startXLoc the starting x-coordinate of the projectile
+	 * @param startYLoc the starting y-coordinate of the projectile
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param smallestRatio smallest of the two ratios, used to resize the image
+	 * @param eff given visual effect
+	 * @return projectile with the given settings
+	 */
+	public static Projectile createProjectile(double damage, double height, double width, double angle, double startXLoc,
+			double startYLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		return null;
+		Projectile bullet = new Projectile(damage);
+		bullet.setImage(createImage("Bullet.png"));
+		bullet = (Projectile)setImgView(bullet, height, width, startXLoc, startYLoc, widthRatio, heightRatio, smallestRatio, eff);
+		
+		bullet.setRotate(angle);
+		bullet.updateCollShape(height, widthRatio, angle, startXLoc, startYLoc, widthRatio, heightRatio, smallestRatio);
+		
+		return bullet;
 	}
 }

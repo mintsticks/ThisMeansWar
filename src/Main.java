@@ -3,7 +3,17 @@ import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
 //Java FX Class Imports
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class Main extends Application{
@@ -26,6 +36,10 @@ public class Main extends Application{
 	private double heightRatio;
 	private double smallestRatio;
 	
+	//Stages that can display on the screen
+	private Stage intro;
+	private Stage game;
+	private Stage settings;
 	/**Instantiates the desired resolution variables to default values, which is the size of the screen,
 	 * as well as the ratio instance variables to fit current screen resolution.
 	 */
@@ -40,9 +54,11 @@ public class Main extends Application{
 	 */
 	@Override
 	public void start(Stage arg0) throws Exception {
-	
+		intro = new IntroUI(widthRatio, heightRatio, smallestRatio);
+		intro.show();
+		
+		game = new GameUI();
 	}
-	
 	/**Sets the new x and y resolutions based on given values and updates the ratios.
 	 * @param xResolution the new x resolution
 	 * @param yResolution the new y resolution
