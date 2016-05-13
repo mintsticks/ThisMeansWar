@@ -14,19 +14,25 @@ import javafx.stage.StageStyle;
 	
 public class IntroUI extends Stage{
 	
-	public static final int SCENE_WIDTH = 1000;
-	public static final int SCENE_HEIGHT = 600;
-	public static final int BORDER_WIDTH = 1020;
-	public static final int BORDER_HEIGHT = 620;
+	public static final int SCENE_WIDTH = (int) (1000 * 1.5);
+	public static final int SCENE_HEIGHT = (int) (563 * 1.5);
+	public static final int BORDER_WIDTH = (int) (1020 * 1.5);
+	public static final int BORDER_HEIGHT = (int) (583 * 1.5);
 	public static final int OFFSET = 10;
 	
 	public static final Image INTRO_BORDER_IMAGE = Tools.createImage("background.jpg");
 	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth()/3, INTRO_BORDER_IMAGE.getHeight()/3, false, false, false, false));
 	
-	public static final Image INTRO_BACK_IMAGE = Tools.createImage("Camo.jpeg");
+	public static final Image INTRO_BACK_IMAGE = Tools.createImage("IntroBack.png");
 	public static final BackgroundImage INTRO_BACK = new BackgroundImage(INTRO_BACK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(INTRO_BACK_IMAGE.getWidth()/3, INTRO_BACK_IMAGE.getHeight()/3, false, false, false, false));
+			new BackgroundSize(INTRO_BACK_IMAGE.getWidth()/3, INTRO_BACK_IMAGE.getHeight()/3, false, false, true, false));
+	
+	public static final Image HELP_TEST_IMAGE = Tools.createImage("Testhelp.jpg");
+	public static final BackgroundImage HELP_TEST = new BackgroundImage(INTRO_BACK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BACK_IMAGE.getWidth()/3, INTRO_BACK_IMAGE.getHeight()/3, false, false, true, false));
+	
+	
 	
 	private double widthRatio;
 	private double heightRatio;
@@ -57,8 +63,8 @@ public class IntroUI extends Stage{
 		root.setBackground(new Background(INTRO_BACK));
 		root.setEffect(Tools.LARGE_SHADE);
 		
-		Text test = Tools.createText(50, 50, widthRatio, heightRatio, "GG TEST", Color.BLACK, Tools.MEDIUM_SHADE, Tools.createFont("Bookman Old Style", FontWeight.BOLD, 50, smallestRatio));
-		root.getChildren().addAll(test);
+		//Text test = Tools.createText(50, 50, widthRatio, heightRatio, "GG TEST", Color.BLACK, Tools.MEDIUM_SHADE, Tools.createFont("Bookman Old Style", FontWeight.BOLD, 50, smallestRatio));
+		//root.getChildren().addAll(test);
 		this.setScene(scene);
 	}
 	
@@ -75,6 +81,14 @@ public class IntroUI extends Stage{
 		border.centerOnScreen();
 		
 		return border;
+	}
+	
+	private void showHelpScreen()
+	{
+		AnchorPane root = new AnchorPane();
+		Scene helpScene = new Scene (root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
+		root.setBackground(new Background(HELP_TEST));
+		this.setScene(helpScene);	
 	}
 	
 
