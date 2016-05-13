@@ -236,13 +236,15 @@ public class IntroUI extends Stage{
 		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
 		ObservableList<String> options = FXCollections.observableArrayList("1 Player", "2 Players", "3 Players", "4 Players");
 		ComboBox comboBox = new ComboBox(options);
-		comboBox.setLayoutX(150);
-		comboBox.setLayoutY(100);
+		comboBox.setLayoutX(150*widthRatio);
+		comboBox.setLayoutY(100*heightRatio);
+		comboBox.setPrefWidth(300*smallestRatio);
 		
 		root.setEffect(Tools.LARGE_SHADE);
 		
 		root.getChildren().addAll(comboBox);
 		
+		root.setBackground(new Background(INTRO_BORDER));
 		numSelect.setScene(scene);
 		numSelect.show();
 	}
