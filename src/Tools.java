@@ -70,12 +70,13 @@ public class Tools {
 	public static final int MONEY_BAG_XLARGE_W = 175;
 	
 	public static final double DEFAULT_ANGLE = 0;
+	public static final int DEFAULT_FONT = 10;
 	
 	//static initializer which runs when the class is initialized, loads different types of fonts for the whole class
 	//Site used to learn initializer : https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
 	static
 	{
-		
+		Font.loadFont(ClassLoader.getSystemResourceAsStream("res/BOOKOSB.TTF"), DEFAULT_FONT);
 	}
 	
 	/**Creates a font based on desired font type, font weight, and size. 

@@ -6,6 +6,9 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 	
@@ -54,6 +57,8 @@ public class IntroUI extends Stage{
 		root.setBackground(new Background(INTRO_BACK));
 		root.setEffect(Tools.LARGE_SHADE);
 		
+		Text test = Tools.createText(50, 50, widthRatio, heightRatio, "GG TEST", Color.BLACK, Tools.MEDIUM_SHADE, Tools.createFont("Bookman-Bold", null, 50, smallestRatio));
+		root.getChildren().addAll(test);
 		this.setScene(scene);
 	}
 	
