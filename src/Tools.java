@@ -16,6 +16,8 @@ public class Tools {
 	public static final InnerShadow XLARGE_SHADE = new InnerShadow(10.0, Color.BLACK);
 	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0, Color.BLACK);
 	public static final InnerShadow MEDIUM_SHADE = new InnerShadow(3.0, Color.BLACK);
+	public static final InnerShadow SMALL_SHADE = new InnerShadow(2.0, Color.BLACK);
+
 	
 	//Constant statistics for units
 	public static final int PRIV_HEALTH = 1;

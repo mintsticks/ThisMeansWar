@@ -11,8 +11,8 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 	
@@ -23,10 +23,21 @@ public class IntroUI extends Stage{
 	public static final int BORDER_WIDTH = 1220;
 	public static final int BORDER_HEIGHT = 695;
 	
-	public static final double PLAY_WIDTH = 287.25;
-	public static final int PLAY_HEIGHT = 153;
-	public static final double PLAY_X = 699.75;
+	public static final double HELP_WIDTH = 287.25;
+	public static final double HELP_HEIGHT = 153;
+	public static final double HELP_X = 699.75;
+	public static final double HELP_Y = 420.75;
+	
+	public static final double PLAY_WIDTH = 482.25;
+	public static final double PLAY_HEIGHT = 153;
+	public static final double PLAY_X = 182.25;
 	public static final double PLAY_Y = 420.75;
+	
+	public static final double CLOSE_X = 1150;
+	public static final double MIN_X = 1110;
+	public static final double CLOSE_Y = 5;
+	public static final double MIN_Y = 0;
+	
 	public static final double RECT_ARC_SIZE = 22.5;
 	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
 	
@@ -70,7 +81,7 @@ public class IntroUI extends Stage{
 		AnchorPane root = new AnchorPane();
 		Scene scene = new Scene(root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
 		//Creates the border
-		Stage border = createIntroBorder();
+		createIntroBorder();
 				
 		//Connects the intro screen with its border
 		this.initOwner(border);
@@ -80,7 +91,58 @@ public class IntroUI extends Stage{
 		//Editing the root, which is what elements display on
 		root.setBackground(new Background(INTRO_BACK));
 		
-		Rectangle helpPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
+		Rectangle helpPanel = createHelpPanel(root);
+		Rectangle playPanel = createPlayPanel(root);
+		
+		Text close = createCloseButton(root);
+		Text minimize = createMinButton(root);
+		
+		root.getChildren().addAll(helpPanel, playPanel, close, minimize);
+		root.setEffect(Tools.XLARGE_SHADE);
+		this.setScene(scene);
+	}
+	
+	public Text createCloseButton(AnchorPane root)
+	{
+		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "x", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 50, smallestRatio));
+
+		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				closeScreen();
+			}
+        });
+		
+		return close;
+	}
+	
+	public Text createMinButton(AnchorPane root)
+	{
+		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 60, smallestRatio));
+		
+		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				minimizeScreen();
+			}
+        });
+		
+		return minimize;
+	}
+	public void closeScreen()
+	{
+		this.close();
+		border.close();
+	}
+	
+	public void minimizeScreen()
+	{
+		this.setIconified(true);
+		border.setIconified(true);
+	}
+	public Rectangle createHelpPanel(AnchorPane root)
+	{
+		Rectangle helpPanel = Tools.createRoundedRectangle(HELP_WIDTH, HELP_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HELP_X, HELP_Y, 
 				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
 		
 		helpPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -104,17 +166,46 @@ public class IntroUI extends Stage{
 		helpPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_BACK));
+				root.setBackground(new Background(INTRO_HELP_HOVER));
 			}
         });
 		
-		root.getChildren().addAll(helpPanel);
-		root.setEffect(Tools.XLARGE_SHADE);
-		this.setScene(scene);
+		return helpPanel;
 	}
-	
-	private Stage createIntroBorder() {
-		Stage border = new Stage();
+	public Rectangle createPlayPanel(AnchorPane root)
+	{
+		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
+				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
+		
+		playPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_PLAY_HOVER));
+			}
+        });
+		playPanel.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_BACK));
+			}
+        });
+		playPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_PLAY_CLICK));
+			}
+        });
+		playPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_PLAY_HOVER));
+			}
+        });
+		
+		return playPanel;
+	}
+	private void createIntroBorder() {
+		border = new Stage();
 		border.initStyle(StageStyle.TRANSPARENT);
 
 		AnchorPane root = new AnchorPane();
@@ -125,8 +216,6 @@ public class IntroUI extends Stage{
 		border.setScene(scene);
 		border.show();
 		border.centerOnScreen();
-		
-		return border;
 	}
 	
 	private void showHelpScreen()
