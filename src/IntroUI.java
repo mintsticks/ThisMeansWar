@@ -23,11 +23,11 @@ public class IntroUI extends Stage{
 	public static final int BORDER_WIDTH = 1220;
 	public static final int BORDER_HEIGHT = 695;
 	
-	public static final int PLAY_WIDTH = 383;
-	public static final int PLAY_HEIGHT = 204;
-	public static final int PLAY_X = 933;
-	public static final int PLAY_Y = 561;
-	public static final int RECT_ARC_SIZE = 30;
+	public static final double PLAY_WIDTH = 287.25;
+	public static final int PLAY_HEIGHT = 153;
+	public static final double PLAY_X = 699.75;
+	public static final double PLAY_Y = 420.75;
+	public static final double RECT_ARC_SIZE = 22.5;
 	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
 	
 	public static final int OFFSET = 10;
@@ -81,7 +81,7 @@ public class IntroUI extends Stage{
 		root.setBackground(new Background(INTRO_BACK));
 		
 		Rectangle helpPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
-				widthRatio, heightRatio, smallestRatio, Color.BLUE, null);
+				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
 		
 		helpPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
