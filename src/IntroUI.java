@@ -57,7 +57,7 @@ public class IntroUI extends Stage{
 		root.setBackground(new Background(INTRO_BACK));
 		root.setEffect(Tools.LARGE_SHADE);
 		
-		Text test = Tools.createText(50, 50, widthRatio, heightRatio, "GG TEST", Color.BLACK, Tools.MEDIUM_SHADE, Tools.createFont("Bookman-Bold", null, 50, smallestRatio));
+		Text test = Tools.createText(50, 50, widthRatio, heightRatio, "GG TEST", Color.BLACK, Tools.MEDIUM_SHADE, Tools.createFont("Bookman Old Style", FontWeight.BOLD, 50, smallestRatio));
 		root.getChildren().addAll(test);
 		this.setScene(scene);
 	}
