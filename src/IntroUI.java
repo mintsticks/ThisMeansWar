@@ -44,10 +44,22 @@ public class IntroUI extends Stage{
 	public static final double CLOSE_Y = 5;
 	public static final double MIN_Y = 0;
 	
+	public static final double COMBO_X = 50;
+	public static final double COMBO_Y = 180;
+	public static final double COMBO_WIDTH = 360;
+	public static final double COMBO_HEIGHT = 50;
+	
+	public static final double OK_WIDTH = 65.745;
+	public static final double OK_HEIGHT = 45.42;
+	public static final double OK_ARC_SIZE = 7.5;
+	public static final double OK_X = 430;
+	public static final double OK_Y = 180;
+	
 	public static final double RECT_ARC_SIZE = 22.5;
 	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
 	
 	public static final int OFFSET = 10;
+	
 	
 	public static final Image INTRO_BORDER_IMAGE = Tools.createImage("background.jpg");
 	public static final Image INTRO_BACK_IMAGE = Tools.createImage("IntroBack.png");
@@ -55,7 +67,9 @@ public class IntroUI extends Stage{
 	public static final Image INTRO_HELP_HOVER_IMAGE = Tools.createImage("IntroHelpHover.png");
 	public static final Image INTRO_PLAY_CLICK_IMAGE = Tools.createImage("IntroPlayClick.png");
 	public static final Image INTRO_PLAY_HOVER_IMAGE = Tools.createImage("IntroPlayHover.png");
-
+	public static final Image NUM_PLAY_IMAGE = Tools.createImage("NumPlayers.png");
+	public static final Image NUM_PLAY_CLICKED_IMAGE = Tools.createImage("NumPlayersClicked.png");
+	
 	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, false, false));
 	public static final BackgroundImage INTRO_BACK = new BackgroundImage(INTRO_BACK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
@@ -68,6 +82,10 @@ public class IntroUI extends Stage{
 			new BackgroundSize(INTRO_PLAY_CLICK_IMAGE.getWidth(), INTRO_PLAY_CLICK_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage INTRO_PLAY_HOVER = new BackgroundImage(INTRO_PLAY_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_PLAY_HOVER_IMAGE.getWidth(), INTRO_PLAY_HOVER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage NUM_PLAY = new BackgroundImage(NUM_PLAY_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_IMAGE.getWidth(), NUM_PLAY_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage NUM_PLAY_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
 	
 	private double widthRatio;
 	private double heightRatio;
@@ -227,6 +245,27 @@ public class IntroUI extends Stage{
 		border.show();
 		border.centerOnScreen();
 	}
+	
+	public Rectangle createOK()
+	{
+		Rectangle okPanel = Tools.createRoundedRectangle(OK_WIDTH, OK_HEIGHT, OK_ARC_SIZE, OK_ARC_SIZE, OK_X, OK_Y, 
+				widthRatio, heightRatio, smallestRatio, Color.BLUE, null);
+		
+		okPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(NUM_PLAY_CLICKED));
+			}
+        });
+		okPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(NUM_PLAY));
+			}
+        });
+		
+		return okPanel;
+	}
 	private void createNumSelect()
 	{
 		numSelect = new Stage();
@@ -236,18 +275,22 @@ public class IntroUI extends Stage{
 		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
 		ObservableList<String> options = FXCollections.observableArrayList("1 Player", "2 Players", "3 Players", "4 Players");
 		ComboBox comboBox = new ComboBox(options);
-		comboBox.setLayoutX(150*widthRatio);
-		comboBox.setLayoutY(100*heightRatio);
-		comboBox.setPrefWidth(300*smallestRatio);
+		
+		comboBox.setLayoutX(COMBO_X * widthRatio);
+		comboBox.setLayoutY(COMBO_Y * heightRatio);
+		comboBox.setPrefWidth(COMBO_WIDTH * smallestRatio);
+		comboBox.setPrefHeight(COMBO_HEIGHT * smallestRatio);
+		Rectangle ok = createOK();
 		
 		root.setEffect(Tools.LARGE_SHADE);
 		
-		root.getChildren().addAll(comboBox);
+		root.getChildren().addAll(comboBox, ok);
 		
-		root.setBackground(new Background(INTRO_BORDER));
+		root.setBackground(new Background(NUM_PLAY));
 		numSelect.setScene(scene);
 		numSelect.show();
 	}
+	
 	private void showHelpScreen()
 	{
 		AnchorPane root = new AnchorPane();
