@@ -1,6 +1,9 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +25,9 @@ public class IntroUI extends Stage{
 	public static final int SCENE_HEIGHT = 675;
 	public static final int BORDER_WIDTH = 1220;
 	public static final int BORDER_HEIGHT = 695;
+	
+	public static final int NUM_SELECT_WIDTH = 600;
+	public static final int NUM_SELECT_HEIGHT = 300;
 	
 	public static final double HELP_WIDTH = 287.25;
 	public static final double HELP_HEIGHT = 153;
@@ -70,6 +76,7 @@ public class IntroUI extends Stage{
 	private AnchorPane root;
 	private Scene scene;
 	private Stage border;
+	private Stage numSelect;
 	
 	public IntroUI(double widthRatio, double heightRatio, double smallestRatio)
 	{
@@ -199,12 +206,15 @@ public class IntroUI extends Stage{
 			@Override
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(INTRO_PLAY_HOVER));
+				createNumSelect();
+				closeScreen();
 			}
         });
 		
 		return playPanel;
 	}
-	private void createIntroBorder() {
+	private void createIntroBorder() 
+	{
 		border = new Stage();
 		border.initStyle(StageStyle.TRANSPARENT);
 
@@ -217,7 +227,25 @@ public class IntroUI extends Stage{
 		border.show();
 		border.centerOnScreen();
 	}
-	
+	private void createNumSelect()
+	{
+		numSelect = new Stage();
+		numSelect.initStyle(StageStyle.TRANSPARENT);
+		
+		AnchorPane root = new AnchorPane();
+		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
+		ObservableList<String> options = FXCollections.observableArrayList("1 Player", "2 Players", "3 Players", "4 Players");
+		ComboBox comboBox = new ComboBox(options);
+		comboBox.setLayoutX(150);
+		comboBox.setLayoutY(100);
+		
+		root.setEffect(Tools.LARGE_SHADE);
+		
+		root.getChildren().addAll(comboBox);
+		
+		numSelect.setScene(scene);
+		numSelect.show();
+	}
 	private void showHelpScreen()
 	{
 		AnchorPane root = new AnchorPane();
