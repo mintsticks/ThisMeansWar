@@ -25,10 +25,9 @@ public class Main extends Application{
 	private double heightRatio;
 	private double smallestRatio;
 	
-	//Stages that can display on the screen
+	//Stage that can display on the screen
 	private Stage intro;
-	private Stage game;
-	private Stage settings;
+
 	/**Instantiates the desired resolution variables to default values, which is the size of the screen,
 	 * as well as the ratio instance variables to fit current screen resolution.
 	 */
@@ -45,18 +44,6 @@ public class Main extends Application{
 	public void start(Stage arg0) throws Exception {
 		intro = new IntroUI(widthRatio, heightRatio, smallestRatio);
 		intro.show();
-		
-		game = new GameUI(4);
-	}
-	
-	public void openIntroUI()
-	{
-		intro = new IntroUI(widthRatio, heightRatio, smallestRatio);
-		intro.show();
-	}
-	public void openGameUI(int players)
-	{
-		
 	}
 	/**Sets the new x and y resolutions based on given values and updates the ratios.
 	 * @param xResolution the new x resolution

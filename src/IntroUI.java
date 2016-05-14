@@ -1,6 +1,5 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -49,11 +48,14 @@ public class IntroUI extends Stage{
 	public static final double COMBO_WIDTH = 360;
 	public static final double COMBO_HEIGHT = 50;
 	
-	public static final double OK_WIDTH = 65.745;
-	public static final double OK_HEIGHT = 45.42;
-	public static final double OK_ARC_SIZE = 7.5;
-	public static final double OK_X = 430;
-	public static final double OK_Y = 180;
+	public static final double OK_WIDTH = 100;
+	public static final double OK_HEIGHT = 60.42;
+	public static final double OK_ARC_SIZE = 10;
+	public static final double OK_X = 447;
+	public static final double OK_Y = 175;
+	
+	private static final double NUM_CLOSE_X = 575;
+	private static final double NUM_CLOSE_Y = 5;
 	
 	public static final double RECT_ARC_SIZE = 22.5;
 	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
@@ -95,6 +97,7 @@ public class IntroUI extends Stage{
 	private Scene scene;
 	private Stage border;
 	private Stage numSelect;
+	private ComboBox comboBox;
 	
 	public IntroUI(double widthRatio, double heightRatio, double smallestRatio)
 	{
@@ -102,12 +105,16 @@ public class IntroUI extends Stage{
 		this.heightRatio = heightRatio;
 		this.smallestRatio = smallestRatio;
 		
+		//Creates the border
+		createIntroBorder();
+		createIntroUI();
+	}
+	public void createIntroUI()
+	{
 		this.initStyle(StageStyle.TRANSPARENT);
 		AnchorPane root = new AnchorPane();
 		Scene scene = new Scene(root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
-		//Creates the border
-		createIntroBorder();
-				
+		
 		//Connects the intro screen with its border
 		this.initOwner(border);
 		this.setX(border.getX() + OFFSET * widthRatio);
@@ -126,7 +133,6 @@ public class IntroUI extends Stage{
 		root.setEffect(Tools.XLARGE_SHADE);
 		this.setScene(scene);
 	}
-	
 	public Text createCloseButton(AnchorPane root)
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "x", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 50, smallestRatio));
@@ -164,6 +170,12 @@ public class IntroUI extends Stage{
 	{
 		this.setIconified(true);
 		border.setIconified(true);
+	}
+	
+	public void openScreen()
+	{
+		border.show();
+		this.show();
 	}
 	public Rectangle createHelpPanel(AnchorPane root)
 	{
@@ -246,10 +258,10 @@ public class IntroUI extends Stage{
 		border.centerOnScreen();
 	}
 	
-	public Rectangle createOK()
+	public Rectangle createOK(AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(OK_WIDTH, OK_HEIGHT, OK_ARC_SIZE, OK_ARC_SIZE, OK_X, OK_Y, 
-				widthRatio, heightRatio, smallestRatio, Color.BLUE, null);
+				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
 		
 		okPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -261,10 +273,45 @@ public class IntroUI extends Stage{
 			@Override
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(NUM_PLAY));
+				String players = (String)comboBox.getValue();
+				int numPlay = 0;
+				if(players != null)
+				{
+					switch(players)
+					{
+						case "2 Players": numPlay = 2;
+							break;
+						case "3 Players": numPlay = 3;
+							break;
+						case "4 Players": numPlay = 4;
+							break;
+					}
+				}
+				if(numPlay != 0)
+				{
+					GameUI game = new GameUI(numPlay);
+					game.show();
+					numSelect.close();
+				}	
+			}
+        });
+		return okPanel;
+	}
+	
+	public Text createNumCloseButton(AnchorPane root)
+	{
+		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", Color.LIGHTGRAY, 
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
+
+		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				closeNumScreen();
+				openScreen();
 			}
         });
 		
-		return okPanel;
+		return close;
 	}
 	private void createNumSelect()
 	{
@@ -273,24 +320,30 @@ public class IntroUI extends Stage{
 		
 		AnchorPane root = new AnchorPane();
 		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
-		ObservableList<String> options = FXCollections.observableArrayList("1 Player", "2 Players", "3 Players", "4 Players");
-		ComboBox comboBox = new ComboBox(options);
+		ObservableList<String> options = FXCollections.observableArrayList("2 Players", "3 Players", "4 Players");
+		comboBox = new ComboBox(options);
 		
 		comboBox.setLayoutX(COMBO_X * widthRatio);
 		comboBox.setLayoutY(COMBO_Y * heightRatio);
 		comboBox.setPrefWidth(COMBO_WIDTH * smallestRatio);
 		comboBox.setPrefHeight(COMBO_HEIGHT * smallestRatio);
-		Rectangle ok = createOK();
+		comboBox.setStyle("-fx-font: 20px \"Agency FB\";");
+		comboBox.setEffect(Tools.LARGE_SHADE);
 		
+		Rectangle ok = createOK(root);
+		Text close = createNumCloseButton(root);
 		root.setEffect(Tools.LARGE_SHADE);
 		
-		root.getChildren().addAll(comboBox, ok);
+		root.getChildren().addAll(comboBox, ok, close);
 		
 		root.setBackground(new Background(NUM_PLAY));
 		numSelect.setScene(scene);
 		numSelect.show();
 	}
-	
+	public void closeNumScreen()
+	{
+		numSelect.close();
+	}
 	private void showHelpScreen()
 	{
 		AnchorPane root = new AnchorPane();

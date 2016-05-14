@@ -80,6 +80,8 @@ public class Tools {
 	static
 	{
 		Font.loadFont(ClassLoader.getSystemResourceAsStream("res/BOOKOSB.TTF"), DEFAULT_FONT);
+		Font.loadFont(ClassLoader.getSystemResourceAsStream("res/Agency_FB.ttf"), DEFAULT_FONT);
+
 	}
 	
 	/**Creates a font based on desired font type, font weight, and size. 
