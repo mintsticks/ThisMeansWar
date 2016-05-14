@@ -109,6 +109,7 @@ public class IntroUI extends Stage{
 		createIntroBorder();
 		createIntroUI();
 	}
+	
 	public void createIntroUI()
 	{
 		this.initStyle(StageStyle.TRANSPARENT);
@@ -126,57 +127,42 @@ public class IntroUI extends Stage{
 		Rectangle helpPanel = createHelpPanel(root);
 		Rectangle playPanel = createPlayPanel(root);
 		
-		Text close = createCloseButton(root);
-		Text minimize = createMinButton(root);
+		Text close = createIntroCloseButton(root);
+		Text minimize = createIntroMinButton(root);
 		
 		root.getChildren().addAll(helpPanel, playPanel, close, minimize);
 		root.setEffect(Tools.XLARGE_SHADE);
 		this.setScene(scene);
 	}
-	public Text createCloseButton(AnchorPane root)
+	
+	public Text createIntroCloseButton(AnchorPane root)
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "x", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 50, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				closeScreen();
+				closeIntroScreen();
 			}
         });
 		
 		return close;
 	}
 	
-	public Text createMinButton(AnchorPane root)
+	public Text createIntroMinButton(AnchorPane root)
 	{
 		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 60, smallestRatio));
 		
 		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				minimizeScreen();
+				minimizeIntroScreen();
 			}
         });
 		
 		return minimize;
 	}
-	public void closeScreen()
-	{
-		this.close();
-		border.close();
-	}
 	
-	public void minimizeScreen()
-	{
-		this.setIconified(true);
-		border.setIconified(true);
-	}
-	
-	public void openScreen()
-	{
-		border.show();
-		this.show();
-	}
 	public Rectangle createHelpPanel(AnchorPane root)
 	{
 		Rectangle helpPanel = Tools.createRoundedRectangle(HELP_WIDTH, HELP_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HELP_X, HELP_Y, 
@@ -209,6 +195,7 @@ public class IntroUI extends Stage{
 		
 		return helpPanel;
 	}
+	
 	public Rectangle createPlayPanel(AnchorPane root)
 	{
 		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
@@ -237,7 +224,7 @@ public class IntroUI extends Stage{
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(INTRO_PLAY_HOVER));
 				createNumSelect();
-				closeScreen();
+				closeIntroScreen();
 			}
         });
 		
@@ -256,6 +243,34 @@ public class IntroUI extends Stage{
 		border.setScene(scene);
 		border.show();
 		border.centerOnScreen();
+	}
+
+	private void createNumSelect()
+	{
+		numSelect = new Stage();
+		numSelect.initStyle(StageStyle.TRANSPARENT);
+		
+		AnchorPane root = new AnchorPane();
+		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
+		ObservableList<String> options = FXCollections.observableArrayList("2 Players", "3 Players", "4 Players");
+		comboBox = new ComboBox(options);
+		
+		comboBox.setLayoutX(COMBO_X * widthRatio);
+		comboBox.setLayoutY(COMBO_Y * heightRatio);
+		comboBox.setPrefWidth(COMBO_WIDTH * smallestRatio);
+		comboBox.setPrefHeight(COMBO_HEIGHT * smallestRatio);
+		comboBox.setStyle("-fx-font: 20px \"Agency FB\";");
+		comboBox.setEffect(Tools.LARGE_SHADE);
+		
+		Rectangle ok = createOK(root);
+		Text close = createNumCloseButton(root);
+		root.setEffect(Tools.LARGE_SHADE);
+		
+		root.getChildren().addAll(comboBox, ok, close);
+		
+		root.setBackground(new Background(NUM_PLAY));
+		numSelect.setScene(scene);
+		numSelect.show();
 	}
 	
 	public Rectangle createOK(AnchorPane root)
@@ -307,50 +322,32 @@ public class IntroUI extends Stage{
 			@Override
 			public void handle(MouseEvent arg0) {
 				closeNumScreen();
-				openScreen();
+				openIntroScreen();
 			}
         });
 		
 		return close;
 	}
-	private void createNumSelect()
+	
+	public void closeIntroScreen()
 	{
-		numSelect = new Stage();
-		numSelect.initStyle(StageStyle.TRANSPARENT);
-		
-		AnchorPane root = new AnchorPane();
-		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
-		ObservableList<String> options = FXCollections.observableArrayList("2 Players", "3 Players", "4 Players");
-		comboBox = new ComboBox(options);
-		
-		comboBox.setLayoutX(COMBO_X * widthRatio);
-		comboBox.setLayoutY(COMBO_Y * heightRatio);
-		comboBox.setPrefWidth(COMBO_WIDTH * smallestRatio);
-		comboBox.setPrefHeight(COMBO_HEIGHT * smallestRatio);
-		comboBox.setStyle("-fx-font: 20px \"Agency FB\";");
-		comboBox.setEffect(Tools.LARGE_SHADE);
-		
-		Rectangle ok = createOK(root);
-		Text close = createNumCloseButton(root);
-		root.setEffect(Tools.LARGE_SHADE);
-		
-		root.getChildren().addAll(comboBox, ok, close);
-		
-		root.setBackground(new Background(NUM_PLAY));
-		numSelect.setScene(scene);
-		numSelect.show();
+		this.close();
+		border.close();
+	}
+	
+	public void minimizeIntroScreen()
+	{
+		this.setIconified(true);
+		border.setIconified(true);
+	}
+	
+	public void openIntroScreen()
+	{
+		border.show();
+		this.show();
 	}
 	public void closeNumScreen()
 	{
 		numSelect.close();
 	}
-	private void showHelpScreen()
-	{
-		AnchorPane root = new AnchorPane();
-		Scene helpScene = new Scene (root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
-		root.setBackground(new Background(INTRO_BACK));
-		this.setScene(helpScene);	
-	}
-	
-
 }

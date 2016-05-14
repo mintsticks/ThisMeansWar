@@ -10,5 +10,6 @@ public class GameUI extends Stage {
 	{
 		players = new ArrayList<Player>(numPlayers);
 		this.initStyle(StageStyle.TRANSPARENT);
+		this.setFullScreen(true);
 	}
 }
