@@ -1,3 +1,4 @@
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -26,7 +27,7 @@ public class IntroUI extends Stage{
 	public static final int BORDER_HEIGHT = 695;
 	
 	public static final int NUM_SELECT_WIDTH = 600;
-	public static final int NUM_SELECT_HEIGHT = 300;
+	public static final int NUM_SELECT_HEIGHT = 290;
 	
 	public static final double HELP_WIDTH = 287.25;
 	public static final double HELP_HEIGHT = 153;
@@ -54,7 +55,7 @@ public class IntroUI extends Stage{
 	public static final double OK_X = 447;
 	public static final double OK_Y = 175;
 	
-	private static final double NUM_CLOSE_X = 570;
+	private static final double NUM_CLOSE_X = 565;
 	private static final double NUM_CLOSE_Y = 5;
 	
 	public static final double RECT_ARC_SIZE = 22.5;
@@ -259,8 +260,9 @@ public class IntroUI extends Stage{
 		comboBox.setLayoutY(COMBO_Y * heightRatio);
 		comboBox.setPrefWidth(COMBO_WIDTH * smallestRatio);
 		comboBox.setPrefHeight(COMBO_HEIGHT * smallestRatio);
-		comboBox.setStyle("-fx-font: 20px \"Agency FB\";");
+		comboBox.setStyle("-fx-font: 20px \"Bookman Old Style\";");
 		comboBox.setEffect(Tools.LARGE_SHADE);
+		scene.getStylesheets().add(IntroUI.class.getResource("edits.css").toExternalForm());
 		
 		Rectangle ok = createOK(root);
 		Text close = createNumCloseButton(root);
@@ -304,7 +306,8 @@ public class IntroUI extends Stage{
 				}
 				if(numPlay != 0)
 				{
-					GameUI game = new GameUI(numPlay);
+					//Edit to add name setting
+					GameUI game = new GameUI(numPlay, widthRatio, heightRatio, smallestRatio);
 					game.show();
 					numSelect.close();
 				}	
