@@ -54,7 +54,7 @@ public class IntroUI extends Stage{
 	public static final double OK_X = 447;
 	public static final double OK_Y = 175;
 	
-	private static final double NUM_CLOSE_X = 575;
+	private static final double NUM_CLOSE_X = 570;
 	private static final double NUM_CLOSE_Y = 5;
 	
 	public static final double RECT_ARC_SIZE = 22.5;
