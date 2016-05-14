@@ -27,7 +27,7 @@ public class IntroUI extends Stage{
 	public static final int BORDER_HEIGHT = 695;
 	
 	public static final int NUM_SELECT_WIDTH = 600;
-	public static final int NUM_SELECT_HEIGHT = 290;
+	public static final int NUM_SELECT_HEIGHT = 220;
 	
 	public static final double HELP_WIDTH = 287.25;
 	public static final double HELP_HEIGHT = 153;
@@ -44,23 +44,23 @@ public class IntroUI extends Stage{
 	public static final double CLOSE_Y = 5;
 	public static final double MIN_Y = 0;
 	
-	public static final double COMBO_X = 50;
-	public static final double COMBO_Y = 180;
-	public static final double COMBO_WIDTH = 360;
-	public static final double COMBO_HEIGHT = 50;
+	public static final double COMBO_X = 30;
+	public static final double COMBO_Y = 125;
+	public static final double COMBO_WIDTH = 400;
+	public static final double COMBO_HEIGHT = 45;
 	
-	public static final double OK_WIDTH = 100;
-	public static final double OK_HEIGHT = 60.42;
+	public static final double OK_WIDTH = 90;
+	public static final double OK_HEIGHT = 55;
 	public static final double OK_ARC_SIZE = 10;
-	public static final double OK_X = 447;
-	public static final double OK_Y = 175;
+	public static final double OK_X = 472;
+	public static final double OK_Y = 122;
 	
 	private static final double NUM_CLOSE_X = 565;
 	private static final double NUM_CLOSE_Y = 5;
 	
 	public static final double RECT_ARC_SIZE = 22.5;
 	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
-	
+	public static final Color DARK_GREEN = Color.web("#2a5a1e");
 	public static final int OFFSET = 10;
 	
 	
@@ -253,6 +253,8 @@ public class IntroUI extends Stage{
 		
 		AnchorPane root = new AnchorPane();
 		Scene scene = new Scene(root, NUM_SELECT_WIDTH * widthRatio, NUM_SELECT_HEIGHT * heightRatio);
+		
+		//Setting up the combo box within the panel
 		ObservableList<String> options = FXCollections.observableArrayList("2 Players", "3 Players", "4 Players");
 		comboBox = new ComboBox(options);
 		
@@ -261,7 +263,9 @@ public class IntroUI extends Stage{
 		comboBox.setPrefWidth(COMBO_WIDTH * smallestRatio);
 		comboBox.setPrefHeight(COMBO_HEIGHT * smallestRatio);
 		comboBox.setStyle("-fx-font: 20px \"Bookman Old Style\";");
-		comboBox.setEffect(Tools.LARGE_SHADE);
+		comboBox.setEffect(Tools.LARGE_OUT_SHADE);
+		
+		//adds coloring to the list cells, unchangeable otherwise
 		scene.getStylesheets().add(IntroUI.class.getResource("edits.css").toExternalForm());
 		
 		Rectangle ok = createOK(root);
@@ -318,7 +322,7 @@ public class IntroUI extends Stage{
 	
 	public Text createNumCloseButton(AnchorPane root)
 	{
-		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", Color.LIGHTGRAY, 
+		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", DARK_GREEN , 
 				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
