@@ -14,6 +14,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Tools {
+	public static final Color[] TEAM_COLORS = {Color.web("#ff0000"), Color.web("#24fff7"), Color.web("#69ff34"), Color.web("#f334ff")};
+	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
+	public static final Color DARK_GREEN = Color.web("#2a5a1e");
+	
 	//Constants available for every class
 	public static final InnerShadow XLARGE_SHADE = new InnerShadow(10.0, Color.BLACK);
 	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0, Color.BLACK);
@@ -21,9 +25,11 @@ public class Tools {
 	public static final InnerShadow SMALL_SHADE = new InnerShadow(2.0, Color.BLACK);
 	public static final DropShadow LARGE_OUT_SHADE = new DropShadow(5.0, Color.BLACK);
 	
-	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
-	public static final Color DARK_GREEN = Color.web("#2a5a1e");
-	
+	public static final DropShadow RED_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[0]);
+	public static final DropShadow CYAN_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[1]);
+	public static final DropShadow GREEN_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[2]);
+	public static final DropShadow PINK_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[3]);
+
 	//Constant statistics for units
 	public static final int PRIV_HEALTH = 1;
 	public static final double PRIV_ATT_RANGE = 1;
