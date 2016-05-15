@@ -25,7 +25,6 @@ public class Unit extends UIElement{
 	 * @param moveRange the distance that this unit can travel in one turn
 	 * @param cost the amount of money that it takes for a Player to purchase this unit
 	 * @param appearance the image that this unit will display on the UI screen
-	 * @param collShape collision shape of the Unit, which is used to check for intersection
 	 */
 	public Unit (int health, double attackRange, int damage, double moveRange, int cost, Image appearance)
 	{

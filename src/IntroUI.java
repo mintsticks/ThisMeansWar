@@ -98,7 +98,7 @@ public class IntroUI extends Stage{
 	private Scene scene;
 	private Stage border;
 	private Stage numSelect;
-	private ComboBox comboBox;
+	private ComboBox<String> comboBox;
 	
 	public IntroUI(double widthRatio, double heightRatio, double smallestRatio)
 	{
@@ -256,7 +256,7 @@ public class IntroUI extends Stage{
 		
 		//Setting up the combo box within the panel
 		ObservableList<String> options = FXCollections.observableArrayList("2 Players", "3 Players", "4 Players");
-		comboBox = new ComboBox(options);
+		comboBox = new ComboBox<String>(options);
 		
 		comboBox.setLayoutX(COMBO_X * widthRatio);
 		comboBox.setLayoutY(COMBO_Y * heightRatio);
