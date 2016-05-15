@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +14,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -65,7 +67,21 @@ public class GameUI extends Stage {
 	public static final double FIELD_WIDTH = 390;
 	public static final double FIELD_HEIGHT = 40;
 	
+	public static final Color PLAYER_NAME = Color.web("#636363");
+	public static final Color PLAYER_MONEY = Color.web("477628");
 	public static final int MAX_LENGTH = 12;
+	
+	public static final double PLAYER_NAME_X = 175;
+	public static final double PLAYER_NAME_Y = 23;
+	public static final double PLAYER_MONEY_X = 125;
+	public static final double PLAYER_MONEY_Y = 95;
+	public static final int NAME_SIZE = 50;
+	public static final int MONEY_SIZE = 35;
+	
+	public static final double UNIT_ICON_SIZE = 55;
+	public static final double[] UNIT_X = {30, 101, 170, 239, 309, 380};
+	public static final double UNIT_LIST_Y = 206;
+	
 	private double widthRatio;
 	private double heightRatio;
 	private double smallestRatio;
@@ -76,21 +92,35 @@ public class GameUI extends Stage {
 	private TextField secondName;
 	private TextField thirdName;
 	private TextField fourthName;
+	
+	private Text playerName;
+	private Text playerMoney;
+	
+	//Display unit list
+	private ImageView pUnit1;
+	private ImageView pUnit2;
+	private ImageView pUnit3;
+	private ImageView pUnit4;
+	private ImageView pUnit5;
+	private ImageView pUnit6;
+	
+	
+	
 	private int currentPlayer; // player index who is currently making the moves.
 	private Unit currentUnit;  //- unit that is currently selected.
-		//* gamePane- AnchorPane that contains all the actual units and good stuff.
-		//* selectionPane- AnchorPane that completely overlaps the game pane. This will
+	private AnchorPane gamePane; //that contains all the actual units and good stuff.
+	private AnchorPane selectionPane; //AnchorPane that completely overlaps the game pane. This will
 		//   usually be disabled to mouse clicks by using the Pane.setMouseTransparent(false) clause.
 		//   This has a Mouse.PRESSED event handler that automatically cancels any attack/move when clicked.
-		//* attackEllipse- Ellipse that contains the range of an attack. This will be added as a 
+	private Ellipse attackEllipse; //Ellipse that contains the range of an attack. This will be added as a 
 		//   child of the selectionPane and will be positioned and sized property to the unit. This has
 		//   a Mouse.PRESSED event handler that will finalize an attack with the currentActor. Usually will
 		//   be invisible.
-		//* moveEllipse- Ellipse that contains the range of a move. This will be added as a 
+	private Ellipse moveEllipse; //- Ellipse that contains the range of a move. This will be added as a 
 		//   child of the selectionPane and will be positioned and sized property to the unit. This has
 		//   a Mouse.PRESSED event handler that will finalize an movement with the currentActor. Usually
 		//   will be invisible.
-		//* playerBases- arraylist of bases corresponding to the players by index
+	private List<Obstacle> playerBases;	//* playerBases- arraylist of bases corresponding to the players by index
 	
 	private Stage nameSet;
 	
@@ -115,13 +145,78 @@ public class GameUI extends Stage {
 		
 		Text close = createGameCloseButton(root);
 		Text minimize = createGameMinButton(root);
+		players.get(0).addUnit(Tools.createPrivate(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, null));
+		players.get(0).addUnit(Tools.createSergeant(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, null));
+		players.get(0).addUnit(Tools.createScout(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, null));
+		players.get(0).addUnit(Tools.createSniper(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, null));
+		players.get(0).addUnit(Tools.createCorporal(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, null));
+		players.get(0).addUnit(Tools.createTank(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, null));
+		updateInfo(root);
 		
 		root.getChildren().addAll(close, minimize);
-		
 		root.setBackground(new Background(GRASSY_GROUND));
 		
 		this.setScene(scene);
 		this.show();
+	}
+	
+	public void updateInfo(AnchorPane root)
+	{
+		playerName = Tools.createText(PLAYER_NAME_X, PLAYER_NAME_Y, widthRatio, heightRatio, players.get(currentPlayer).getName(), PLAYER_NAME,
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, NAME_SIZE, smallestRatio));
+		
+		playerMoney = Tools.createText(PLAYER_MONEY_X, PLAYER_MONEY_Y, widthRatio, heightRatio, "$" + players.get(currentPlayer).getAmountOfMoney(), 
+				PLAYER_MONEY, Tools.SMALL_SHADE,Tools.createFont("Agency FB", null, MONEY_SIZE, smallestRatio));
+		
+		root.getChildren().remove(pUnit1);
+		root.getChildren().remove(pUnit2);
+		root.getChildren().remove(pUnit3);
+		root.getChildren().remove(pUnit4);
+		root.getChildren().remove(pUnit5);
+		root.getChildren().remove(pUnit6);
+		addUnitIcons(root);
+		
+		root.getChildren().addAll(playerName, playerMoney);
+	}
+	
+	public void addUnitIcons(AnchorPane root)
+	{
+		if(players.get(currentPlayer).getUnitList().size() >= 1)
+		{
+			pUnit1 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(0).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[0], UNIT_LIST_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+			root.getChildren().add(pUnit1);
+		}
+		if(players.get(currentPlayer).getUnitList().size() >= 2)
+		{
+			pUnit2 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(1).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[1], UNIT_LIST_Y, 
+					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+			root.getChildren().add(pUnit2);
+		}
+		if(players.get(currentPlayer).getUnitList().size() >= 3)
+		{
+			pUnit3 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(2).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[2], UNIT_LIST_Y, 
+					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+			root.getChildren().add(pUnit3);
+		}
+		if(players.get(currentPlayer).getUnitList().size() >= 4)
+		{
+			pUnit4 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(3).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[3], UNIT_LIST_Y, 
+					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+			root.getChildren().add(pUnit4);
+		}
+		if(players.get(currentPlayer).getUnitList().size() >= 5)
+		{
+			pUnit5 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(4).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[4], UNIT_LIST_Y, 
+					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+			root.getChildren().add(pUnit5);
+		}
+		if(players.get(currentPlayer).getUnitList().size() == 6)
+		{
+			pUnit6 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(5).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[5], UNIT_LIST_Y, 
+					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+			root.getChildren().add(pUnit6);
+		}
 	}
 	
 	public Text createGameCloseButton(AnchorPane root)
@@ -266,6 +361,8 @@ public class GameUI extends Stage {
 			players.add(new Player(thirdName.getText()));
 		if(fourthName != null)
 			players.add(new Player(fourthName.getText()));
+		
+		currentPlayer = 0;
 	}
 	
 	public void closeGameScreen()

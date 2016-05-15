@@ -80,6 +80,22 @@ public class Tools {
 	public static final double DEFAULT_ANGLE = 0;
 	public static final int DEFAULT_FONT = 10;
 	
+	//Icons for the units
+	public static final Image PRIVATE_ICON = Tools.createImage("Icons/PrivateIcon.png");
+	public static final Image CORP_ICON = Tools.createImage("Icons/CorpIcon.png");
+	public static final Image SERG_ICON = Tools.createImage("Icons/SergIcon.png");
+	public static final Image TANK_ICON = Tools.createImage("Icons/TankIcon.png");
+	public static final Image SNIPER_ICON = Tools.createImage("Icons/SniperIcon.png");
+	public static final Image SCOUT_ICON = Tools.createImage("Icons/ScoutIcon.png");
+	
+	//Images for the units
+	public static final Image PRIVATE = Tools.createImage("Units/Private.png");
+	public static final Image CORP = Tools.createImage("Units/Corporal.png");
+	public static final Image SERG = Tools.createImage("Units/Sergeant.png");
+	public static final Image TANK = Tools.createImage("Units/Tank.png");
+	public static final Image SNIPER = Tools.createImage("Units/Sniper.png");
+	public static final Image SCOUT = Tools.createImage("Units/Scout.png");
+	
 	//static initializer which runs when the class is initialized, loads different types of fonts for the whole class
 	//Site used to learn initializer : https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
 	static
@@ -293,7 +309,7 @@ public class Tools {
 	public static Unit createPrivate(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit priv = new Unit(PRIV_HEALTH, PRIV_ATT_RANGE, PRIV_DMG, PRIV_MOVE_RANGE, PRIV_COST, createImage("Units/Private.png"));
+		Unit priv = new Unit(PRIV_HEALTH, PRIV_ATT_RANGE, PRIV_DMG, PRIV_MOVE_RANGE, PRIV_COST, PRIVATE_ICON, PRIVATE);
 		priv = (Unit)setImgView(priv, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		priv.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		return priv;
@@ -315,7 +331,7 @@ public class Tools {
 	public static Unit createCorporal(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit corp = new Unit(CORP_HEALTH, CORP_ATT_RANGE, CORP_DMG, CORP_MOVE_RANGE, CORP_COST, createImage("Units/Corporal.png"));
+		Unit corp = new Unit(CORP_HEALTH, CORP_ATT_RANGE, CORP_DMG, CORP_MOVE_RANGE, CORP_COST, CORP_ICON, CORP);
 		corp = (Unit)setImgView(corp, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		corp.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -338,7 +354,7 @@ public class Tools {
 	public static Unit createSergeant(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit serg = new Unit(SERG_HEALTH, SERG_ATT_RANGE, SERG_DMG, SERG_MOVE_RANGE, SERG_COST, createImage("Units/Sergeant.png"));
+		Unit serg = new Unit(SERG_HEALTH, SERG_ATT_RANGE, SERG_DMG, SERG_MOVE_RANGE, SERG_COST, SERG_ICON, SERG);
 		serg = (Unit)setImgView(serg, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		serg.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -361,7 +377,7 @@ public class Tools {
 	public static Unit createTank(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit tank = new Unit(TANK_HEALTH, TANK_ATT_RANGE, TANK_DMG, TANK_MOVE_RANGE, TANK_COST, createImage("Units/Tank.png"));
+		Unit tank = new Unit(TANK_HEALTH, TANK_ATT_RANGE, TANK_DMG, TANK_MOVE_RANGE, TANK_COST, TANK_ICON, TANK);
 		tank = (Unit)setImgView(tank, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		tank.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -384,7 +400,7 @@ public class Tools {
 	public static Unit createScout(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit scout = new Unit(SCOUT_HEALTH, SCOUT_ATT_RANGE, SCOUT_DMG, SCOUT_MOVE_RANGE, SCOUT_COST, createImage("Units/Scout.png"));
+		Unit scout = new Unit(SCOUT_HEALTH, SCOUT_ATT_RANGE, SCOUT_DMG, SCOUT_MOVE_RANGE, SCOUT_COST, SCOUT_ICON, SCOUT);
 		scout = (Unit)setImgView(scout, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		scout.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -407,7 +423,7 @@ public class Tools {
 	public static Unit createSniper(double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit sniper = new Unit(SNIP_HEALTH, SNIP_ATT_RANGE, SNIP_DMG, SNIP_MOVE_RANGE, SNIP_COST, createImage("Units/Sniper.png"));
+		Unit sniper = new Unit(SNIP_HEALTH, SNIP_ATT_RANGE, SNIP_DMG, SNIP_MOVE_RANGE, SNIP_COST, SNIPER_ICON, SNIPER);
 		sniper = (Unit)setImgView(sniper, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		sniper.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		

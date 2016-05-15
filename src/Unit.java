@@ -12,6 +12,7 @@ public class Unit extends UIElement{
 	private int damage;
 	private double moveRange;
 	private int cost;
+	private Image icon;
 	private Image appearance;
 	
 	//Stores whether the unit has attacked or moved this turn. If both are true, then the unit cannot be selected anymore
@@ -24,15 +25,17 @@ public class Unit extends UIElement{
 	 * @param damage damage that a bullet fired by this unit will do to an enemy unit
 	 * @param moveRange the distance that this unit can travel in one turn
 	 * @param cost the amount of money that it takes for a Player to purchase this unit
+	 * @param icon the icon to display on the side of the screen
 	 * @param appearance the image that this unit will display on the UI screen
 	 */
-	public Unit (int health, double attackRange, int damage, double moveRange, int cost, Image appearance)
+	public Unit (int health, double attackRange, int damage, double moveRange, int cost, Image icon, Image appearance)
 	{
 		this.health = health;
 		this.attackRange = attackRange;
 		this.damage = damage;
 		this.moveRange = moveRange;
 		this.cost = cost;
+		this.icon = icon;
 		
 		this.appearance = appearance;
 		this.setImage(appearance);
@@ -80,6 +83,13 @@ public class Unit extends UIElement{
 		return cost;
 	}
 	
+	/**Returns the icon of the unit
+	 * @return the icon of the unit to display on the side of the screen
+	 */
+	public Image getIcon()
+	{
+		return icon;
+	}
 	/**Returns the appearance of this unit in an ImageView
 	 * @return the image that this unit will display on the UI screen
 	 */
@@ -102,6 +112,28 @@ public class Unit extends UIElement{
 	public boolean hasMoved()
 	{
 		return moved;
+	}
+	
+	/**Changes the units attack variable to true
+	 */
+	public void attack()
+	{
+		attacked = true;
+	}
+	
+	/**Changes the unit's move variable to true
+	 */
+	public void move()
+	{
+		moved = true;
+	}
+	
+	/**Changes the unit's attack and move variables to true
+	 */
+	public void skip()
+	{
+		attacked = true;
+		moved = true;
 	}
 	
 	/**Sets the new health of the unit
