@@ -28,7 +28,7 @@ public class IntroUI extends Stage{
 	
 	public static final int NUM_SELECT_WIDTH = 600;
 	public static final int NUM_SELECT_HEIGHT = 220;
-	
+
 	public static final double HELP_WIDTH = 287.25;
 	public static final double HELP_HEIGHT = 153;
 	public static final double HELP_X = 699.75;
@@ -55,12 +55,11 @@ public class IntroUI extends Stage{
 	public static final double OK_X = 472;
 	public static final double OK_Y = 122;
 	
-	private static final double NUM_CLOSE_X = 565;
-	private static final double NUM_CLOSE_Y = 5;
+	public static final double NUM_CLOSE_X = 565;
+	public static final double NUM_CLOSE_Y = 5;
 	
 	public static final double RECT_ARC_SIZE = 22.5;
-	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
-	public static final Color DARK_GREEN = Color.web("#2a5a1e");
+	
 	public static final int OFFSET = 10;
 	
 	
@@ -72,6 +71,7 @@ public class IntroUI extends Stage{
 	public static final Image INTRO_PLAY_HOVER_IMAGE = Tools.createImage("IntroPlayHover.png");
 	public static final Image NUM_PLAY_IMAGE = Tools.createImage("NumPlayers.png");
 	public static final Image NUM_PLAY_CLICKED_IMAGE = Tools.createImage("NumPlayersClicked.png");
+
 	
 	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, false, false));
@@ -90,12 +90,11 @@ public class IntroUI extends Stage{
 	public static final BackgroundImage NUM_PLAY_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
 	
+	
 	private double widthRatio;
 	private double heightRatio;
 	private double smallestRatio;
 	
-	private AnchorPane root;
-	private Scene scene;
 	private Stage border;
 	private Stage numSelect;
 	private ComboBox<String> comboBox;
@@ -167,7 +166,7 @@ public class IntroUI extends Stage{
 	public Rectangle createHelpPanel(AnchorPane root)
 	{
 		Rectangle helpPanel = Tools.createRoundedRectangle(HELP_WIDTH, HELP_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HELP_X, HELP_Y, 
-				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
 		helpPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -200,7 +199,7 @@ public class IntroUI extends Stage{
 	public Rectangle createPlayPanel(AnchorPane root)
 	{
 		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
-				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
 		playPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -268,7 +267,7 @@ public class IntroUI extends Stage{
 		//adds coloring to the list cells, unchangeable otherwise
 		scene.getStylesheets().add(IntroUI.class.getResource("edits.css").toExternalForm());
 		
-		Rectangle ok = createOK(root);
+		Rectangle ok = createNumSelectOK(root);
 		Text close = createNumCloseButton(root);
 		root.setEffect(Tools.LARGE_SHADE);
 		
@@ -279,10 +278,10 @@ public class IntroUI extends Stage{
 		numSelect.show();
 	}
 	
-	public Rectangle createOK(AnchorPane root)
+	public Rectangle createNumSelectOK(AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(OK_WIDTH, OK_HEIGHT, OK_ARC_SIZE, OK_ARC_SIZE, OK_X, OK_Y, 
-				widthRatio, heightRatio, smallestRatio, TRANSPARENT, null);
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
 		okPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -311,8 +310,7 @@ public class IntroUI extends Stage{
 				if(numPlay != 0)
 				{
 					//Edit to add name setting
-					GameUI game = new GameUI(numPlay, widthRatio, heightRatio, smallestRatio);
-					game.show();
+					Stage game = new GameUI(numPlay, widthRatio, heightRatio, smallestRatio);
 					numSelect.close();
 				}	
 			}
@@ -322,7 +320,7 @@ public class IntroUI extends Stage{
 	
 	public Text createNumCloseButton(AnchorPane root)
 	{
-		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", DARK_GREEN , 
+		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN , 
 				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {

@@ -1,4 +1,5 @@
 //JavaFx Imports
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.InnerShadow;
@@ -19,6 +20,9 @@ public class Tools {
 	public static final InnerShadow MEDIUM_SHADE = new InnerShadow(3.0, Color.BLACK);
 	public static final InnerShadow SMALL_SHADE = new InnerShadow(2.0, Color.BLACK);
 	public static final DropShadow LARGE_OUT_SHADE = new DropShadow(5.0, Color.BLACK);
+	
+	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
+	public static final Color DARK_GREEN = Color.web("#2a5a1e");
 	
 	//Constant statistics for units
 	public static final int PRIV_HEALTH = 1;
@@ -126,6 +130,28 @@ public class Tools {
 		return text;
 	}
 	
+	/**Generates a text field on the screen with a given size, starting string, effect, and location.
+	 * @param width width of the text field
+	 * @param height height of the text field
+	 * @param xLoc the x-coordinate of the text field
+	 * @param yLoc the y-coordinate of the text field
+	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
+	 * @param heightRatio the ratio of the user's desired height resolution to the highest possible screen height
+	 * @param content the context field of the text 
+	 * @param eff given visual effect
+	 * @return the text field with the aforementioned settings
+	 */
+	public static TextField createTextField(double width, double height, double xLoc, double yLoc, double widthRatio, double heightRatio, String content, Effect eff)
+	{
+		TextField firstName = new TextField(content);
+		firstName.setLayoutX(xLoc);
+		firstName.setLayoutY(yLoc);
+		firstName.setPrefWidth(width * widthRatio);
+		firstName.setPrefHeight(height * heightRatio);
+		firstName.setStyle("-fx-font: 20px \"Bookman Old Style\";");
+		firstName.setEffect(eff);
+		return firstName;
+	}
 	/**Generates a rounded rectangle on the screen with a given size, arc size, effect, color, and location.
 	 * @param width width of the rectangle
 	 * @param height height of the rectangle
@@ -436,7 +462,7 @@ public class Tools {
 			height = MONEY_BAG_MEDIUM_H;
 			width = MONEY_BAG_MEDIUM_W;
 		}
-		bag.setImage(createImage("Money_Bag_Emote.png"));
+		bag.setImage(createImage("MoneyLarge.png"));
 		bag = (MoneyBag)setImgView(bag, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		bag.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		return bag;

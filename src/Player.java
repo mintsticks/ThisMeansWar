@@ -1,28 +1,35 @@
 import java.util.*;
 
 public class Player {
-	
+	private String name;
 	private List<Unit> units;
 	private int money;
 	
-	public Player() 
+	public Player(String name) 
 	{
+		this.name = name;
 		units = new ArrayList<Unit>();
-		money = 100; //some default value we can change later
-	}
-	
-	public List<Unit> getUnitList()
-	{
-		return units;
+		money = 300;
 	}
 	
 	public boolean isEmpty()
 	{
 		return units.size() == 0;
 	}
+	
+	public List<Unit> getUnitList()
+	{
+		return units;
+	}
+
 	public int getAmountOfMoney()
 	{
 		return money;
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 	
 	public void addUnit(Unit unit)

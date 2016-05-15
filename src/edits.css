@@ -25,3 +25,8 @@
     -fx-background-color: linear-gradient(#ffffff 0%, #2a5a1e 10%, #a6dc97 100%);
     -fx-text-fill: -fx-text-inner-color;
 }
+
+.text-field {
+     -fx-text-box-border: red ;
+ 	 -fx-focus-color: red ;
+}
