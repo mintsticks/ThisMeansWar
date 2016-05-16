@@ -71,7 +71,8 @@ public class IntroUI extends Stage{
 	public static final Image INTRO_PLAY_HOVER_IMAGE = Tools.createImage("IntroPlayHover.png");
 	public static final Image NUM_PLAY_IMAGE = Tools.createImage("NumPlayers.png");
 	public static final Image NUM_PLAY_CLICKED_IMAGE = Tools.createImage("NumPlayersClicked.png");
-	public static final Image SELECTING_UNITS_IMAGE = Tools.createImage("Selecting Units.png");
+	
+	/*public static final Image SELECTING_UNITS_IMAGE = Tools.createImage("Selecting Units.png");
 	public static final Image SELECTING_UNITS_BACK_HOVER_IMAGE = Tools.createImage("Selecting Units (Back Option Hover).png");
 	public static final Image SELECTING_UNITS_BACK_CLICKED_IMAGE = Tools.createImage("Selecting Units (Back Option Clicked).png");
 	public static final Image GAME_ELEMENTS_IMAGE = Tools.createImage("Game Elements.png");
@@ -79,7 +80,7 @@ public class IntroUI extends Stage{
 	public static final Image GAME_ELEMENTS_PREVIOUS_CLICKED_IMAGE = Tools.createImage("Game Elements (Previous Clicked).png");
 	public static final Image GAME_ELEMENTS_NEXT_HOVER_IMAGE = Tools.createImage("Game Elements (Next Hover).png");
 	public static final Image GAME_ELEMENTS_NEXT_CLICKED_IMAGE = Tools.createImage("Game Elements (Next Clicked).png");
-	
+	*/
 	
 	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, false, false));
@@ -97,6 +98,7 @@ public class IntroUI extends Stage{
 			new BackgroundSize(NUM_PLAY_IMAGE.getWidth(), NUM_PLAY_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage NUM_PLAY_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	/*
 	public static final BackgroundImage SELECTING_UNITS = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage SELECTING_UNITS_BACK_HOVER = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
@@ -113,7 +115,7 @@ public class IntroUI extends Stage{
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage GAME_ELEMENTS_NEXT_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	
+	*/
 	
 	
 	private double widthRatio;
