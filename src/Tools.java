@@ -128,8 +128,20 @@ public class Tools {
 	{
 		Obstacle base = new Obstacle(true);
 		base.setImage(createImage("Base.png"));
-		base = (Obstacle)setImgView(base, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+		base.setEffect(eff);
+		
+		base.setFitHeight(height * smallestRatio);
+		base.setFitWidth(width * smallestRatio);
+		
+		//set the quality of the image
+		base.setPreserveRatio(false);
+		base.setSmooth(true);
+		base.setCache(true);
+		
+		AnchorPane.setLeftAnchor(base, xLoc * widthRatio);
+		AnchorPane.setTopAnchor(base, yLoc * heightRatio);
 		base.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
 		return base;
 	}
 	

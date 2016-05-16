@@ -9,7 +9,7 @@ public class Player {
 	{
 		this.name = name;
 		units = new ArrayList<Unit>();
-		money = 300;
+		money = 400;
 	}
 	
 	public void addMoney(int toAdd)

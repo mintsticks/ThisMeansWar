@@ -23,14 +23,23 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
+	public static final int END_Y = 155;
+	public static final int END_X = 301;
+	public static final int END_HEIGHT = 50;
+	public static final int END_WIDTH = 136;
+	
 	public static final int PANE_Y = 42;
 	public static final int PANE_X = 476;
+	
 	public static final Image GRASSY_GROUND_IMAGE = Tools.createImage("GameGrassyBack.png");
+	public static final Image GRASSY_GROUND_CLICKED_IMAGE = Tools.createImage("GameGrassyBackClicked.png");
 	public static final Image NAME_SET_IMAGE = Tools.createImage("NameSelect.png");
 	public static final Image NAME_SET_CLICKED_IMAGE = Tools.createImage("NameSelectClicked.png");
 	
 	public static final BackgroundImage GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth(), GRASSY_GROUND_IMAGE.getHeight(), false, false, false, false));
+	public static final BackgroundImage GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth(), GRASSY_GROUND_CLICKED_IMAGE.getHeight(), false, false, false, false));
 	public static final BackgroundImage NAME_SET = new BackgroundImage(NAME_SET_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NAME_SET_IMAGE.getWidth(), NAME_SET_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
@@ -89,33 +98,50 @@ public class GameUI extends Stage {
 	
 	public static final double UNIT_ICON_SIZE = 55;
 	public static final double[] UNIT_X = {30, 101, 170, 239, 309, 380};
-	public static final double UNIT_LIST_Y = 206;
+	public static final double UNIT_LIST_Y = 226;
 	
-	public static final double[] BASE_X = {5, 1206, 5, 1206};
-
+	public static final double[] BASE_X = {0, 1138.5, 0, 1138.5};
+	public static final double[] BASE_Y = {0, 0, 869.5, 869.5};
+	public static final double[] BASE_UNIT_X = {10, 1148.5, 10, 1148.5};
+	public static final double[] BASE_UNIT_Y = {10, 10, 879.5, 879.5};
+	
+	public static final double SCALE = .75;
+	public static final double CORP_WIDTH = 200 * SCALE;
+	public static final double CORP_HEIGHT = 86 * SCALE;
+	public static final double PRIV_WIDTH = 180 * SCALE;
+	public static final double PRIV_HEIGHT = 78.4 * SCALE;
+	public static final double SCOUT_WIDTH = 211 * SCALE;
+	public static final double SCOUT_HEIGHT = 89 * SCALE;
+	public static final double SERG_WIDTH = 220 * SCALE;
+	public static final double SERG_HEIGHT = 100 * SCALE;
+	public static final double SNIP_WIDTH = 308.7 * SCALE;
+	public static final double SNIP_HEIGHT = 140.4 * SCALE;
+	public static final double TANK_WIDTH = 320 * SCALE;
+	public static final double TANK_HEIGHT = 148 * SCALE;
+	
 	public static final double BUY_SIZE = 75;
-	private static final double RECT_ARC_SIZE = 10;
-	private static final double BUY_PRIV_X = 30;
-	private static final double BUY_PRIV_Y = 860;
-	private static final double BUY_CORP_X = 170;
-	private static final double BUY_CORP_Y = 860;
-	private static final double BUY_SERG_X = 309;
-	private static final double BUY_SERG_Y = 860;
-	private static final double BUY_TANK_X = 30;
-	private static final double BUY_TANK_Y = 960;
-	private static final double BUY_SNIPER_X = 170;
-	private static final double BUY_SNIPER_Y = 960;
-	private static final double BUY_SCOUT_X = 309;
-	private static final double BUY_SCOUT_Y = 960;
+	public static final double RECT_ARC_SIZE = 10;
+	public static final double BUY_PRIV_X = 30;
+	public static final double BUY_PRIV_Y = 860;
+	public static final double BUY_CORP_X = 170;
+	public static final double BUY_CORP_Y = 860;
+	public static final double BUY_SERG_X = 309;
+	public static final double BUY_SERG_Y = 860;
+	public static final double BUY_TANK_X = 30;
+	public static final double BUY_TANK_Y = 960;
+	public static final double BUY_SNIPER_X = 170;
+	public static final double BUY_SNIPER_Y = 960;
+	public static final double BUY_SCOUT_X = 309;
+	public static final double BUY_SCOUT_Y = 960;
 	
-	private static final int PRIV_COST = 100;
-	private static final int CORP_COST = 200;
-	private static final int SERG_COST = 300;
-	private static final int SCOUT_COST = 200;
-	private static final int SNIP_COST = 200;
-	private static final int TANK_COST = 400;
+	public static final int PRIV_COST = 100;
+	public static final int CORP_COST = 200;
+	public static final int SERG_COST = 300;
+	public static final int SCOUT_COST = 200;
+	public static final int SNIP_COST = 200;
+	public static final int TANK_COST = 400;
 	
-	private static final int MAX_UNIT_LIST = 6;
+	public static final int MAX_UNIT_LIST = 6;
 	
 	private double widthRatio;
 	private double heightRatio;
@@ -134,7 +160,7 @@ public class GameUI extends Stage {
 	//Display unit list
 	private ImageView[] pUnit = new ImageView[MAX_UNIT_LIST];
 	
-	
+	//check for if player has no units or if game is over after a bullet is fired
 	
 	private int currentPlayer; // player index who is currently making the moves.
 	private Unit currentUnit;  //- unit that is currently selected.
@@ -163,6 +189,15 @@ public class GameUI extends Stage {
 		createNameSet(numPlayers);
 	}
 	
+	public void addBases(AnchorPane root)
+	{
+		for(int k = 0; k < numPlayers; k++)
+		{
+			Obstacle base = Tools.createBase(127.5, 262.5, BASE_X[k], BASE_Y[k], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[k]);
+			root.getChildren().add(base);
+		}
+	}
+	
 	public void addUnitIcons(final AnchorPane root)
 	{
 		for(int index = 0; index < players.get(currentPlayer).getUnitList().size(); index++)
@@ -172,10 +207,12 @@ public class GameUI extends Stage {
 				pUnit[index] = Tools.createImageView(players.get(currentPlayer).getUnitList().get(index).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[index], UNIT_LIST_Y, 
 						widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
 				
+				final int F_INDEX = index;
 				pUnit[index].setOnMousePressed(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent arg0) {
-						
+						currentUnit = players.get(currentPlayer).getUnitList().get(F_INDEX);
+						selectUnit();
 					}
 		        });
 				
@@ -237,9 +274,10 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(CORP_COST))
 				{	
+					Unit corp = Tools.createCorporal(CORP_HEIGHT, CORP_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(CORP_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createCorporal(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
-					
+					players.get(currentPlayer).getUnitList().add(corp);
+					gamePane.getChildren().add(corp);
 					updateInfo(root);
 				}
 			}
@@ -257,8 +295,10 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(PRIV_COST))
 				{	
+					Unit priv = Tools.createPrivate(PRIV_HEIGHT, PRIV_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(PRIV_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createPrivate(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					players.get(currentPlayer).getUnitList().add(priv);
+					gamePane.getChildren().add(priv);
 					updateInfo(root);
 				}
 			}
@@ -276,8 +316,10 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(SCOUT_COST))
 				{
+					Unit scout = Tools.createScout(SCOUT_HEIGHT, SCOUT_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(SCOUT_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createScout(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					players.get(currentPlayer).getUnitList().add(scout);
+					gamePane.getChildren().add(scout);
 					updateInfo(root);
 				}
 			}
@@ -287,7 +329,7 @@ public class GameUI extends Stage {
 	
 	public void addPlayerUnit(Unit unit)
 	{
-		unit.setLayoutX(value);
+		//unit.setLayoutX(value);
 		gamePane.getChildren().add(unit);
 	}
 	public void createBuySergPanel(final AnchorPane root)
@@ -300,8 +342,10 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(SERG_COST))
 				{
+					Unit serg = Tools.createSergeant(SERG_HEIGHT, SERG_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(SERG_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createSergeant(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					players.get(currentPlayer).getUnitList().add(serg);
+					gamePane.getChildren().add(serg);
 					updateInfo(root);
 				}
 			}
@@ -319,8 +363,10 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(SNIP_COST))
 				{
+					Unit snip = Tools.createSniper(SNIP_HEIGHT, SNIP_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(SNIP_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createSniper(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					players.get(currentPlayer).getUnitList().add(snip);
+					gamePane.getChildren().add(snip);
 					updateInfo(root);
 				}
 			}
@@ -338,10 +384,11 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(TANK_COST))
 				{
+					Unit tank = Tools.createTank(TANK_HEIGHT, TANK_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(TANK_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createTank(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					players.get(currentPlayer).getUnitList().add(tank);
+					gamePane.getChildren().add(tank);
 					updateInfo(root);
-			
 				}
 			}
         });
@@ -376,6 +423,28 @@ public class GameUI extends Stage {
 		return minimize;
 	}
 	
+	public void createEndPanel(final AnchorPane root)
+	{
+		Rectangle endPanel = Tools.createRoundedRectangle(END_WIDTH, END_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, END_X, END_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		endPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GRASSY_GROUND_CLICKED));
+			}
+        });
+		
+		endPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GRASSY_GROUND));
+				currentPlayer = (currentPlayer + 1) % players.size();
+				updateInfo(root);
+			}
+        });
+		root.getChildren().add(endPanel);
+	}
 	public void selectUnit()
 	{
 		
@@ -399,12 +468,15 @@ public class GameUI extends Stage {
 		createBuySniperPanel(root);
 		createBuyTankPanel(root);
 		createBuyScoutPanel(root);
+		createEndPanel(root);
+		
 		gamePane = new AnchorPane();
 		gamePane.setPrefSize(GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
 		
 		AnchorPane.setLeftAnchor(gamePane, PANE_X * widthRatio);
 		AnchorPane.setTopAnchor(gamePane, PANE_Y * heightRatio);
 		
+		addBases(gamePane);
 		root.getChildren().addAll(close, minimize, gamePane);
 		root.setBackground(new Background(GRASSY_GROUND));
 		updateInfo(root);
