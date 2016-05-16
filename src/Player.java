@@ -12,16 +12,21 @@ public class Player {
 		money = 300;
 	}
 	
-	public boolean isEmpty()
+	public void addMoney(int toAdd)
 	{
-		return units.size() == 0;
+		money += toAdd;
 	}
 	
-	public List<Unit> getUnitList()
+	public void addUnit(Unit unit)
 	{
-		return units;
+		units.add(unit);
 	}
 
+	public void deductMoney (int toDeduct)
+	{
+		money -= toDeduct;
+	}
+	
 	public int getAmountOfMoney()
 	{
 		return money;
@@ -32,24 +37,19 @@ public class Player {
 		return name;
 	}
 	
-	public void addUnit(Unit unit)
+	public List<Unit> getUnitList()
 	{
-		units.add(unit);
+		return units;
+	}
+	
+	public boolean isEmpty()
+	{
+		return units.size() == 0;
 	}
 	
 	public void removeUnit (Unit unit)
 	{
 		units.remove(unit);
-	}
-	
-	public void addMoney(int toAdd)
-	{
-		money += toAdd;
-	}
-	
-	public void deductMoney (int toDeduct)
-	{
-		money -= toDeduct;
 	}
 	
 

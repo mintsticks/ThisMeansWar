@@ -23,6 +23,8 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
+	public static final int PANE_Y = 42;
+	public static final int PANE_X = 476;
 	public static final Image GRASSY_GROUND_IMAGE = Tools.createImage("GameGrassyBack.png");
 	public static final Image NAME_SET_IMAGE = Tools.createImage("NameSelect.png");
 	public static final Image NAME_SET_CLICKED_IMAGE = Tools.createImage("NameSelectClicked.png");
@@ -36,6 +38,9 @@ public class GameUI extends Stage {
 	
 	public static final double GAME_WIDTH = 1920;
 	public static final double GAME_HEIGHT = 1080;
+	
+	public static final double GAME_PANE_WIDTH = 1401;
+	public static final double GAME_PANE_HEIGHT = 997;
 	
 	public static final int NAME_SET_WIDTH = 600;
 	public static final int NAME_SET_HEIGHT = 400;
@@ -86,6 +91,8 @@ public class GameUI extends Stage {
 	public static final double[] UNIT_X = {30, 101, 170, 239, 309, 380};
 	public static final double UNIT_LIST_Y = 206;
 	
+	public static final double[] BASE_X = {5, 1206, 5, 1206};
+
 	public static final double BUY_SIZE = 75;
 	private static final double RECT_ARC_SIZE = 10;
 	private static final double BUY_PRIV_X = 30;
@@ -108,6 +115,8 @@ public class GameUI extends Stage {
 	private static final int SNIP_COST = 200;
 	private static final int TANK_COST = 400;
 	
+	private static final int MAX_UNIT_LIST = 6;
+	
 	private double widthRatio;
 	private double heightRatio;
 	private double smallestRatio;
@@ -123,12 +132,7 @@ public class GameUI extends Stage {
 	private Text playerMoney;
 	
 	//Display unit list
-	private ImageView pUnit1;
-	private ImageView pUnit2;
-	private ImageView pUnit3;
-	private ImageView pUnit4;
-	private ImageView pUnit5;
-	private ImageView pUnit6;
+	private ImageView[] pUnit = new ImageView[MAX_UNIT_LIST];
 	
 	
 	
@@ -159,89 +163,91 @@ public class GameUI extends Stage {
 		createNameSet(numPlayers);
 	}
 	
-	public void createGameUI()
+	public void addUnitIcons(final AnchorPane root)
 	{
-		this.initStyle(StageStyle.TRANSPARENT);
-		this.setFullScreen(true);
-		//prevents the user from pressing escape to exit full screen
-		this.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-		
-		AnchorPane root = new AnchorPane();
-		Scene scene = new Scene(root, GAME_WIDTH * widthRatio, GAME_HEIGHT * heightRatio);
-		
-		Text close = createGameCloseButton(root);
-		Text minimize = createGameMinButton(root);
-		
-		createBuyPrivatePanel(root);
-		createBuyCorporalPanel(root);
-		createBuySergPanel(root);
-		createBuySniperPanel(root);
-		createBuyTankPanel(root);
-		createBuyScoutPanel(root);
-		
-		root.getChildren().addAll(close, minimize);
-		root.setBackground(new Background(GRASSY_GROUND));
-		updateInfo(root);
-		this.setScene(scene);
-		this.show();
-	}
-	
-	public void updateInfo(AnchorPane root)
-	{
-		root.getChildren().removeAll(pUnit1, pUnit2, pUnit3, pUnit4, pUnit5, pUnit6, playerName, playerMoney);
-		playerName = Tools.createText(PLAYER_NAME_X, PLAYER_NAME_Y, widthRatio, heightRatio, players.get(currentPlayer).getName(), PLAYER_NAME,
-				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, NAME_SIZE, smallestRatio));
-		
-		playerMoney = Tools.createText(PLAYER_MONEY_X, PLAYER_MONEY_Y, widthRatio, heightRatio, "$" + players.get(currentPlayer).getAmountOfMoney(), 
-				PLAYER_MONEY, Tools.SMALL_SHADE,Tools.createFont("Agency FB", null, MONEY_SIZE, smallestRatio));
-		
-		
-		addUnitIcons(root);
-		
-		root.getChildren().addAll(playerName, playerMoney);
-	}
-	
-	public void addUnitIcons(AnchorPane root)
-	{
-		if(players.get(currentPlayer).getUnitList().size() >= 1)
+		for(int index = 0; index < players.get(currentPlayer).getUnitList().size(); index++)
 		{
-			pUnit1 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(0).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[0], UNIT_LIST_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
-			root.getChildren().add(pUnit1);
-		}
-		if(players.get(currentPlayer).getUnitList().size() >= 2)
-		{
-			pUnit2 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(1).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[1], UNIT_LIST_Y, 
-					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
-			root.getChildren().add(pUnit2);
-		}
-		if(players.get(currentPlayer).getUnitList().size() >= 3)
-		{
-			pUnit3 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(2).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[2], UNIT_LIST_Y, 
-					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
-			root.getChildren().add(pUnit3);
-		}
-		if(players.get(currentPlayer).getUnitList().size() >= 4)
-		{
-			pUnit4 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(3).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[3], UNIT_LIST_Y, 
-					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
-			root.getChildren().add(pUnit4);
-		}
-		if(players.get(currentPlayer).getUnitList().size() >= 5)
-		{
-			pUnit5 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(4).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[4], UNIT_LIST_Y, 
-					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
-			root.getChildren().add(pUnit5);
-		}
-		if(players.get(currentPlayer).getUnitList().size() == 6)
-		{
-			pUnit6 = Tools.createImageView(players.get(currentPlayer).getUnitList().get(5).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[5], UNIT_LIST_Y, 
-					widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
-			root.getChildren().add(pUnit6);
+			if(players.get(currentPlayer).getUnitList().size() > index)
+			{
+				pUnit[index] = Tools.createImageView(players.get(currentPlayer).getUnitList().get(index).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[index], UNIT_LIST_Y, 
+						widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+				
+				pUnit[index].setOnMousePressed(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent arg0) {
+						
+					}
+		        });
+				
+				root.getChildren().add(pUnit[index]);
+			}
 		}
 	}
 	
-	public void createBuyPrivatePanel(AnchorPane root)
+	public boolean checkPurchase(int cost)
+	{
+		boolean checker = true;
+		
+		checker = players.get(currentPlayer).getAmountOfMoney() >= cost;
+		checker = checker & players.get(currentPlayer).getUnitList().size() < 6;
+		
+		return checker;
+	}
+	
+	public boolean checkTextfields()
+	{
+		boolean checker = true;
+		checker = firstName.getText().length() <= MAX_LENGTH && firstName.getText().length() > 0;
+		checker = checker && (secondName.getText().length() <= MAX_LENGTH && secondName.getText().length() > 0);
+		checker = checker && ((thirdName == null ) ? true : thirdName.getText().length() <= MAX_LENGTH && thirdName.getText().length() > 0);
+		checker = checker && ((fourthName == null) ? true : fourthName.getText().length() <= MAX_LENGTH && fourthName.getText().length() > 0);
+		
+		HashSet<String> tempCheck = new HashSet<String>();
+		tempCheck.add(firstName.getText());
+		tempCheck.add(secondName.getText());
+		if(thirdName != null)
+			tempCheck.add(thirdName.getText());
+		if(fourthName != null)
+			tempCheck.add(fourthName.getText());
+		
+		checker = checker && tempCheck.size() == numPlayers;
+		
+		return checker;
+	}
+	
+	public void closeGameScreen()
+	{
+		Stage back = new IntroUI(widthRatio, heightRatio, smallestRatio);
+		back.show();
+		this.close();
+	}
+	
+	public void closeNameSet()
+	{
+		nameSet.close();
+	}
+	
+	public void createBuyCorporalPanel(final AnchorPane root)
+	{
+		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_CORP_X, BUY_CORP_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		corpPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				if(checkPurchase(CORP_COST))
+				{	
+					players.get(currentPlayer).deductMoney(CORP_COST);
+					players.get(currentPlayer).getUnitList().add(Tools.createCorporal(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					
+					updateInfo(root);
+				}
+			}
+        });
+		root.getChildren().add(corpPanel);
+	}
+	
+	public void createBuyPrivatePanel(final AnchorPane root)
 	{
 		Rectangle privatePanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_PRIV_X, BUY_PRIV_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
@@ -260,26 +266,31 @@ public class GameUI extends Stage {
 		root.getChildren().add(privatePanel);
 	}
 	
-	public void createBuyCorporalPanel(AnchorPane root)
+	public void createBuyScoutPanel(final AnchorPane root)
 	{
-		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_CORP_X, BUY_CORP_Y, 
+		Rectangle scoutPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SCOUT_X, BUY_SCOUT_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
-		corpPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		scoutPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				if(checkPurchase(CORP_COST))
-				{	
-					players.get(currentPlayer).deductMoney(CORP_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createCorporal(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+				if(checkPurchase(SCOUT_COST))
+				{
+					players.get(currentPlayer).deductMoney(SCOUT_COST);
+					players.get(currentPlayer).getUnitList().add(Tools.createScout(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
 					updateInfo(root);
 				}
 			}
         });
-		root.getChildren().add(corpPanel);
+		root.getChildren().add(scoutPanel);
 	}
 	
-	public void createBuySergPanel(AnchorPane root)
+	public void addPlayerUnit(Unit unit)
+	{
+		unit.setLayoutX(value);
+		gamePane.getChildren().add(unit);
+	}
+	public void createBuySergPanel(final AnchorPane root)
 	{
 		Rectangle sergPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SERG_X, BUY_SERG_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
@@ -298,7 +309,26 @@ public class GameUI extends Stage {
 		root.getChildren().add(sergPanel);
 	}
 	
-	public void createBuyTankPanel(AnchorPane root)
+	public void createBuySniperPanel(final AnchorPane root)
+	{
+		Rectangle snipPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SNIPER_X, BUY_SNIPER_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		snipPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				if(checkPurchase(SNIP_COST))
+				{
+					players.get(currentPlayer).deductMoney(SNIP_COST);
+					players.get(currentPlayer).getUnitList().add(Tools.createSniper(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
+					updateInfo(root);
+				}
+			}
+        });
+		root.getChildren().add(snipPanel);
+	}
+	
+	public void createBuyTankPanel(final AnchorPane root)
 	{
 		Rectangle tankPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_TANK_X, BUY_TANK_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
@@ -318,53 +348,6 @@ public class GameUI extends Stage {
 		root.getChildren().add(tankPanel);
 	}
 	
-	public void createBuySniperPanel(AnchorPane root)
-	{
-		Rectangle snipPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SNIPER_X, BUY_SNIPER_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
-		
-		snipPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				if(checkPurchase(SNIP_COST))
-				{
-					players.get(currentPlayer).deductMoney(SNIP_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createSniper(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
-					updateInfo(root);
-				}
-			}
-        });
-		root.getChildren().add(snipPanel);
-	}
-	
-	public void createBuyScoutPanel(AnchorPane root)
-	{
-		Rectangle scoutPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SCOUT_X, BUY_SCOUT_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
-		
-		scoutPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				if(checkPurchase(SCOUT_COST))
-				{
-					players.get(currentPlayer).deductMoney(SCOUT_COST);
-					players.get(currentPlayer).getUnitList().add(Tools.createScout(0, 0, 0, 0, 0, widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]));
-					updateInfo(root);
-				}
-			}
-        });
-		root.getChildren().add(scoutPanel);
-	}
-	
-	public boolean checkPurchase(int cost)
-	{
-		boolean checker = true;
-		
-		checker = players.get(currentPlayer).getAmountOfMoney() >= cost;
-		checker = checker & players.get(currentPlayer).getUnitList().size() < 6;
-		
-		return checker;
-	}
 	public Text createGameCloseButton(AnchorPane root)
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "X", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
@@ -393,6 +376,58 @@ public class GameUI extends Stage {
 		return minimize;
 	}
 	
+	public void selectUnit()
+	{
+		
+	}
+	public void createGameUI()
+	{
+		this.initStyle(StageStyle.TRANSPARENT);
+		this.setFullScreen(true);
+		//prevents the user from pressing escape to exit full screen
+		this.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+		
+		AnchorPane root = new AnchorPane();
+		Scene scene = new Scene(root, GAME_WIDTH * widthRatio, GAME_HEIGHT * heightRatio);
+		
+		Text close = createGameCloseButton(root);
+		Text minimize = createGameMinButton(root);
+		
+		createBuyPrivatePanel(root);
+		createBuyCorporalPanel(root);
+		createBuySergPanel(root);
+		createBuySniperPanel(root);
+		createBuyTankPanel(root);
+		createBuyScoutPanel(root);
+		gamePane = new AnchorPane();
+		gamePane.setPrefSize(GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
+		
+		AnchorPane.setLeftAnchor(gamePane, PANE_X * widthRatio);
+		AnchorPane.setTopAnchor(gamePane, PANE_Y * heightRatio);
+		
+		root.getChildren().addAll(close, minimize, gamePane);
+		root.setBackground(new Background(GRASSY_GROUND));
+		updateInfo(root);
+		this.setScene(scene);
+		this.show();
+	}
+	
+	public Text createNameCloseButton()
+	{
+		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN, 
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 25, smallestRatio));
+
+		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				Stage back = new IntroUI(widthRatio, heightRatio, smallestRatio);
+				back.show();
+				closeNameSet();
+			}
+        });
+		return close;
+	}
+	
 	public void createNameSet(int players)
 	{
 		nameSet = new Stage();
@@ -414,43 +449,7 @@ public class GameUI extends Stage {
 		nameSet.show();
 	}
 	
-	public void createNameTextFields(AnchorPane root, int numPlayers)
-	{
-		firstName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, FIRST_Y, widthRatio, heightRatio, FIRST_TEXT, Tools.LARGE_OUT_SHADE);
-		secondName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, SECOND_Y, widthRatio, heightRatio, SECOND_TEXT, Tools.LARGE_OUT_SHADE);
-		
-		//these will always be added
-		root.getChildren().addAll(firstName,secondName);
-		
-		if(numPlayers >= 3)
-		{
-			thirdName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, THIRD_Y, widthRatio, heightRatio, THIRD_TEXT, Tools.LARGE_OUT_SHADE);
-			root.getChildren().add(thirdName);
-		}
-		if(numPlayers == 4)
-		{
-			fourthName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, FOURTH_Y, widthRatio, heightRatio, FOURTH_TEXT, Tools.LARGE_OUT_SHADE);
-			root.getChildren().add(fourthName);
-		}
-	}
-	
-	public Text createNameCloseButton()
-	{
-		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN, 
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 25, smallestRatio));
-
-		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				Stage back = new IntroUI(widthRatio, heightRatio, smallestRatio);
-				back.show();
-				closeNameSet();
-			}
-        });
-		return close;
-	}
-	
-	public Rectangle createNameSetOK(AnchorPane root)
+	public Rectangle createNameSetOK(final AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(NAME_OK_WIDTH, NAME_OK_HEIGHT, NAME_OK_ARC_SIZE, NAME_OK_ARC_SIZE, NAME_OK_X, NAME_OK_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
@@ -476,25 +475,24 @@ public class GameUI extends Stage {
 		return okPanel;
 	}
 	
-	public boolean checkTextfields()
+	public void createNameTextFields(AnchorPane root, int numPlayers)
 	{
-		boolean checker = true;
-		checker = firstName.getText().length() <= MAX_LENGTH && firstName.getText().length() > 0;
-		checker = checker && (secondName.getText().length() <= MAX_LENGTH && secondName.getText().length() > 0);
-		checker = checker && ((thirdName == null ) ? true : thirdName.getText().length() <= MAX_LENGTH && thirdName.getText().length() > 0);
-		checker = checker && ((fourthName == null) ? true : fourthName.getText().length() <= MAX_LENGTH && fourthName.getText().length() > 0);
+		firstName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, FIRST_Y, widthRatio, heightRatio, FIRST_TEXT, Tools.LARGE_OUT_SHADE);
+		secondName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, SECOND_Y, widthRatio, heightRatio, SECOND_TEXT, Tools.LARGE_OUT_SHADE);
 		
-		HashSet<String> tempCheck = new HashSet<String>();
-		tempCheck.add(firstName.getText());
-		tempCheck.add(secondName.getText());
-		if(thirdName != null)
-			tempCheck.add(thirdName.getText());
-		if(fourthName != null)
-			tempCheck.add(fourthName.getText());
+		//these will always be added
+		root.getChildren().addAll(firstName,secondName);
 		
-		checker = checker && tempCheck.size() == numPlayers;
-		
-		return checker;
+		if(numPlayers >= 3)
+		{
+			thirdName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, THIRD_Y, widthRatio, heightRatio, THIRD_TEXT, Tools.LARGE_OUT_SHADE);
+			root.getChildren().add(thirdName);
+		}
+		if(numPlayers == 4)
+		{
+			fourthName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, FOURTH_Y, widthRatio, heightRatio, FOURTH_TEXT, Tools.LARGE_OUT_SHADE);
+			root.getChildren().add(fourthName);
+		}
 	}
 	
 	public void createPlayers()
@@ -511,20 +509,24 @@ public class GameUI extends Stage {
 		currentPlayer = 0;
 	}
 	
-	public void closeGameScreen()
-	{
-		Stage back = new IntroUI(widthRatio, heightRatio, smallestRatio);
-		back.show();
-		this.close();
-	}
-	
 	public void minimizeGameScreen()
 	{
 		this.setIconified(true);
 	}
 	
-	public void closeNameSet()
+	public void updateInfo(AnchorPane root)
 	{
-		nameSet.close();
+		root.getChildren().removeAll(pUnit);
+		root.getChildren().removeAll(playerName, playerMoney);
+		playerName = Tools.createText(PLAYER_NAME_X, PLAYER_NAME_Y, widthRatio, heightRatio, players.get(currentPlayer).getName(), PLAYER_NAME,
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, NAME_SIZE, smallestRatio));
+		
+		playerMoney = Tools.createText(PLAYER_MONEY_X, PLAYER_MONEY_Y, widthRatio, heightRatio, "$" + players.get(currentPlayer).getAmountOfMoney(), 
+				PLAYER_MONEY, Tools.SMALL_SHADE,Tools.createFont("Agency FB", null, MONEY_SIZE, smallestRatio));
+		
+		
+		addUnitIcons(root);
+		
+		root.getChildren().addAll(playerName, playerMoney);
 	}
 }

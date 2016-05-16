@@ -110,60 +110,18 @@ public class IntroUI extends Stage{
 		createIntroUI();
 	}
 	
-	public void createIntroUI()
+	public void closeIntroScreen()
 	{
-		this.initStyle(StageStyle.TRANSPARENT);
-		AnchorPane root = new AnchorPane();
-		Scene scene = new Scene(root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
-		
-		//Connects the intro screen with its border
-		this.initOwner(border);
-		this.setX(border.getX() + OFFSET * widthRatio);
-		this.setY(border.getY() + OFFSET * heightRatio);
-		
-		//Editing the root, which is what elements display on
-		root.setBackground(new Background(INTRO_BACK));
-		
-		Rectangle helpPanel = createHelpPanel(root);
-		Rectangle playPanel = createPlayPanel(root);
-		
-		Text close = createIntroCloseButton(root);
-		Text minimize = createIntroMinButton(root);
-		
-		root.getChildren().addAll(helpPanel, playPanel, close, minimize);
-		root.setEffect(Tools.XLARGE_SHADE);
-		this.setScene(scene);
+		this.close();
+		border.close();
 	}
 	
-	public Text createIntroCloseButton(AnchorPane root)
+	public void closeNumScreen()
 	{
-		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "x", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 50, smallestRatio));
-
-		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				closeIntroScreen();
-			}
-        });
-		
-		return close;
+		numSelect.close();
 	}
 	
-	public Text createIntroMinButton(AnchorPane root)
-	{
-		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 60, smallestRatio));
-		
-		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				minimizeIntroScreen();
-			}
-        });
-		
-		return minimize;
-	}
-	
-	public Rectangle createHelpPanel(AnchorPane root)
+	public Rectangle createHelpPanel(final AnchorPane root)
 	{
 		Rectangle helpPanel = Tools.createRoundedRectangle(HELP_WIDTH, HELP_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HELP_X, HELP_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
@@ -196,40 +154,6 @@ public class IntroUI extends Stage{
 		return helpPanel;
 	}
 	
-	public Rectangle createPlayPanel(AnchorPane root)
-	{
-		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
-		
-		playPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_PLAY_HOVER));
-			}
-        });
-		playPanel.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_BACK));
-			}
-        });
-		playPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_PLAY_CLICK));
-			}
-        });
-		playPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_PLAY_HOVER));
-				createNumSelect();
-				closeIntroScreen();
-			}
-        });
-		
-		return playPanel;
-	}
 	private void createIntroBorder() 
 	{
 		border = new Stage();
@@ -244,7 +168,75 @@ public class IntroUI extends Stage{
 		border.show();
 		border.centerOnScreen();
 	}
+	
+	public Text createIntroCloseButton(AnchorPane root)
+	{
+		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "x", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 50, smallestRatio));
 
+		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				closeIntroScreen();
+			}
+        });
+		
+		return close;
+	}
+	public Text createIntroMinButton(AnchorPane root)
+	{
+		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 60, smallestRatio));
+		
+		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				minimizeIntroScreen();
+			}
+        });
+		
+		return minimize;
+	}
+
+	public void createIntroUI()
+	{
+		this.initStyle(StageStyle.TRANSPARENT);
+		AnchorPane root = new AnchorPane();
+		Scene scene = new Scene(root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
+		
+		//Connects the intro screen with its border
+		this.initOwner(border);
+		this.setX(border.getX() + OFFSET * widthRatio);
+		this.setY(border.getY() + OFFSET * heightRatio);
+		
+		//Editing the root, which is what elements display on
+		root.setBackground(new Background(INTRO_BACK));
+		
+		Rectangle helpPanel = createHelpPanel(root);
+		Rectangle playPanel = createPlayPanel(root);
+		
+		Text close = createIntroCloseButton(root);
+		Text minimize = createIntroMinButton(root);
+		
+		root.getChildren().addAll(helpPanel, playPanel, close, minimize);
+		root.setEffect(Tools.XLARGE_SHADE);
+		this.setScene(scene);
+	}
+	
+	public Text createNumCloseButton(AnchorPane root)
+	{
+		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN , 
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
+
+		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				closeNumScreen();
+				openIntroScreen();
+			}
+        });
+		
+		return close;
+	}
+	
 	private void createNumSelect()
 	{
 		numSelect = new Stage();
@@ -278,7 +270,7 @@ public class IntroUI extends Stage{
 		numSelect.show();
 	}
 	
-	public Rectangle createNumSelectOK(AnchorPane root)
+	public Rectangle createNumSelectOK(final AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(OK_WIDTH, OK_HEIGHT, OK_ARC_SIZE, OK_ARC_SIZE, OK_X, OK_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
@@ -318,26 +310,39 @@ public class IntroUI extends Stage{
 		return okPanel;
 	}
 	
-	public Text createNumCloseButton(AnchorPane root)
+	public Rectangle createPlayPanel(final AnchorPane root)
 	{
-		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN , 
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
-
-		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		playPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				closeNumScreen();
-				openIntroScreen();
+				root.setBackground(new Background(INTRO_PLAY_HOVER));
+			}
+        });
+		playPanel.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_BACK));
+			}
+        });
+		playPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_PLAY_CLICK));
+			}
+        });
+		playPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(INTRO_PLAY_HOVER));
+				createNumSelect();
+				closeIntroScreen();
 			}
         });
 		
-		return close;
-	}
-	
-	public void closeIntroScreen()
-	{
-		this.close();
-		border.close();
+		return playPanel;
 	}
 	
 	public void minimizeIntroScreen()
@@ -345,14 +350,9 @@ public class IntroUI extends Stage{
 		this.setIconified(true);
 		border.setIconified(true);
 	}
-	
 	public void openIntroScreen()
 	{
 		border.show();
 		this.show();
-	}
-	public void closeNumScreen()
-	{
-		numSelect.close();
 	}
 }

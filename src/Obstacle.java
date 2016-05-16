@@ -28,15 +28,15 @@ public class Obstacle extends UIElement{
 	/**
 	 * @return
 	 */
-	public boolean isWalkable() {
-		return isWalkable;
+	public boolean isShootable() {
+		return isShootable;
 	}
 	
 	/**
 	 * @return
 	 */
-	public boolean isShootable() {
-		return isShootable;
+	public boolean isWalkable() {
+		return isWalkable;
 	}
 	
 	

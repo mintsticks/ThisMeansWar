@@ -43,12 +43,19 @@ public class Unit extends UIElement{
 		refreshAction();
 	}
 	
-	/**Returns the health of the unit
-	 * @return the health value that the unit has
+	/**Changes the units attack variable to true
 	 */
-	public int getHealth()
+	public void attack()
 	{
-		return health;
+		attacked = true;
+	}
+	
+	/**Returns the appearance of this unit in an ImageView
+	 * @return the image that this unit will display on the UI screen
+	 */
+	public Image getAppearance()
+	{
+		return appearance;
 	}
 	
 	/**Returns the attack range of the unit
@@ -59,22 +66,6 @@ public class Unit extends UIElement{
 		return attackRange;
 	}
 	
-	/**Returns the damage of the unit
-	 * @return damage that a bullet fired by this unit will do to the health of an enemy unit
-	 */
-	public int getDamage()
-	{
-		return damage;
-	}
-	
-	/**Returns the movement range of the unit
-	 * @return the distance that this unit can travel in one turn
-	 */
-	public double getMovementRange()
-	{
-		return moveRange;
-	}
-	
 	/**Returns the cost of the unit
 	 * @return the amount of money that it takes for a Player to purchase this unit
 	 */
@@ -83,6 +74,21 @@ public class Unit extends UIElement{
 		return cost;
 	}
 	
+	/**Returns the damage of the unit
+	 * @return damage that a bullet fired by this unit will do to the health of an enemy unit
+	 */
+	public int getDamage()
+	{
+		return damage;
+	}
+	
+	/**Returns the health of the unit
+	 * @return the health value that the unit has
+	 */
+	public int getHealth()
+	{
+		return health;
+	}
 	/**Returns the icon of the unit
 	 * @return the icon of the unit to display on the side of the screen
 	 */
@@ -90,12 +96,13 @@ public class Unit extends UIElement{
 	{
 		return icon;
 	}
-	/**Returns the appearance of this unit in an ImageView
-	 * @return the image that this unit will display on the UI screen
+	
+	/**Returns the movement range of the unit
+	 * @return the distance that this unit can travel in one turn
 	 */
-	public Image getAppearance()
+	public double getMovementRange()
 	{
-		return appearance;
+		return moveRange;
 	}
 	
 	/**Returns boolean based on if the unit has attacked this turn
@@ -114,13 +121,6 @@ public class Unit extends UIElement{
 		return moved;
 	}
 	
-	/**Changes the units attack variable to true
-	 */
-	public void attack()
-	{
-		attacked = true;
-	}
-	
 	/**Changes the unit's move variable to true
 	 */
 	public void move()
@@ -128,20 +128,13 @@ public class Unit extends UIElement{
 		moved = true;
 	}
 	
-	/**Changes the unit's attack and move variables to true
+	/**Refreshes the variables for moving and attacking 
+	 * to allow the actions to be done again
 	 */
-	public void skip()
+	public void refreshAction()
 	{
-		attacked = true;
-		moved = true;
-	}
-	
-	/**Sets the new health of the unit
-	 * @param the health value that the unit has
-	 */
-	public void setHealth(int newHealth)
-	{
-		health = newHealth;
+		attacked = false;
+		moved = false;
 	}
 	
 	/**Sets the appearance of this unit
@@ -153,12 +146,19 @@ public class Unit extends UIElement{
 		this.setImage(appearance);
 	}
 	
-	/**Refreshes the variables for moving and attacking 
-	 * to allow the actions to be done again
+	/**Sets the new health of the unit
+	 * @param the health value that the unit has
 	 */
-	public void refreshAction()
+	public void setHealth(int newHealth)
 	{
-		attacked = false;
-		moved = false;
+		health = newHealth;
+	}
+	
+	/**Changes the unit's attack and move variables to true
+	 */
+	public void skip()
+	{
+		attacked = true;
+		moved = true;
 	}
 }
