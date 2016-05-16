@@ -66,7 +66,7 @@ public class GameUI extends Stage {
 	
 	public final BackgroundImage GRASSY_GROUND;
 	public final BackgroundImage GRASSY_GROUND_CLICKED;
-	public final BackgroundImage NAME_SET;
+	public static BackgroundImage NAME_SET;
 	public final BackgroundImage NAME_SET_CLICKED;
 	
 	public static final double GAME_WIDTH = 1920;
@@ -143,7 +143,7 @@ public class GameUI extends Stage {
 	public static final double[] BASE_UNIT_X = {10, 1148.5, 10, 1148.5};
 	public static final double[] BASE_UNIT_Y = {10, 10, 879.5, 879.5};
 	
-	public static final double SCALE = .75;
+	public static final double SCALE = .7;
 	public static final double CORP_WIDTH = 200 * SCALE;
 	public static final double CORP_HEIGHT = 86 * SCALE;
 	public static final double PRIV_WIDTH = 180 * SCALE;
@@ -237,8 +237,6 @@ public class GameUI extends Stage {
 		this.heightRatio = heightRatio;
 		this.smallestRatio = smallestRatio;
 		this.numPlayers = numPlayers;
-		createNameSet(numPlayers);
-		
 		GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 				new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth() * widthRatio, GRASSY_GROUND_IMAGE.getHeight() * heightRatio, false, false, false, false));
 		GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
@@ -247,6 +245,7 @@ public class GameUI extends Stage {
 				new BackgroundSize(NAME_SET_IMAGE.getWidth() * widthRatio, NAME_SET_IMAGE.getHeight() * heightRatio, false, false, true, false));
 		NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 				new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth() * widthRatio, NAME_SET_CLICKED_IMAGE.getHeight() * heightRatio, false, false, true, false));
+		createNameSet(numPlayers);
 	}
 	
 	public void addBases(AnchorPane root)
@@ -642,8 +641,8 @@ public class GameUI extends Stage {
 		createNameTextFields(root, players);
 		
 		root.getChildren().addAll(ok, close);
-		
 		root.setBackground(new Background(NAME_SET));
+
 		nameSet.setScene(scene);
 		nameSet.show();
 	}
