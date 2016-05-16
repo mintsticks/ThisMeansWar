@@ -15,6 +15,9 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -22,6 +25,31 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
+	
+	public static final int ICON_Y = 352;
+	public static final int ICON_X = 29;
+	public static final int ICON_SIZE = 76;
+	public static final int TEXT_SIZE = 40;
+	public static final double TEXT_Y = 660.96;
+	
+	public static final double ATTACK_TEXT_X = 63.52;
+	public static final int ATTACK_BUTTON_X = 44;
+	public static final int ATTACK_BUTTON_WIDTH = 123;
+	
+	public static final int MOVE_BUTTON_X = 182;
+	public static final double MOVE_TEXT_X = 200.18;
+	public static final double MOVE_BUTTON_WIDTH = 110;
+	
+	public static final int SKIP_BUTTON_X = 306;
+	public static final double SKIP_TEXT_X = 336.33;
+	public static final double SKIP_BUTTON_WIDTH = 116;
+	
+	public static final int BUTTON_Y = 661;
+	public static final int BUTTON_HEIGHT = 51;
+	
+	public static final double BASE_WIDTH = 262.5;
+	public static final double BASE_HEIGHT = 127.5;
+	
 	
 	public static final int END_Y = 155;
 	public static final int END_X = 301;
@@ -47,6 +75,7 @@ public class GameUI extends Stage {
 	
 	public static final double GAME_WIDTH = 1920;
 	public static final double GAME_HEIGHT = 1080;
+	public static final int GAME_CONTROL_SIZE = 30;
 	
 	public static final double GAME_PANE_WIDTH = 1401;
 	public static final double GAME_PANE_HEIGHT = 997;
@@ -56,7 +85,8 @@ public class GameUI extends Stage {
 	
 	public static final double CLOSE_X = 1880;
 	public static final double CLOSE_Y = 2;
-
+	public static final int NAME_CLOSE_SIZE = 25;
+	
 	public static final double MIN_X = 1850;
 	public static final double MIN_Y = 0;
 	
@@ -85,6 +115,18 @@ public class GameUI extends Stage {
 	public static final Color PLAYER_NAME = Color.web("#636363");
 	public static final Color PLAYER_MONEY = Color.web("477628");
 	
+	//Gradient for attack button
+	public static final Stop[] SKIP_STOP = {new Stop(0.0, Color.web("#e7f5fd")), new Stop(0.1, Color.web("#4bc7e7")), new Stop(.25, Color.web("#309cbe")),
+			new Stop(.55, Color.web("#4ccaea")), new Stop(.8, Color.web("#1476a3")), new Stop(1.0, Color.web("#a1d7fd"))};
+	public static final LinearGradient GRADIENT_SKIP = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, SKIP_STOP);
+	
+	public static final Stop[] MOVE_STOP = {new Stop(0.0, Color.web("#eefde7")), new Stop(0.1, Color.web("#86e74b")), new Stop(.25, Color.web("#55be30")),
+			new Stop(.55, Color.web("#88ea4c")), new Stop(.8, Color.web("#479211")), new Stop(1.0, Color.web("#95dc87"))};
+	public static final LinearGradient GRADIENT_MOVE = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, MOVE_STOP);
+	
+	public static final Stop[] ATTACK_STOP = {new Stop(0.0, Color.web("#fde0d8")), new Stop(0.1, Color.web("#e65b48")), new Stop(.25, Color.web("#c22905")),
+			new Stop(.55, Color.web("#dc5a4d")), new Stop(.8, Color.web("#ad0707")), new Stop(1.0, Color.web("#e6a89c"))};
+	public static final LinearGradient GRADIENT_ATTACK = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, ATTACK_STOP);
 	
 	public static final DropShadow[] TEAM_EFFECTS = {Tools.RED_OUT_SHADE, Tools.CYAN_OUT_SHADE, Tools.GREEN_OUT_SHADE, Tools.PINK_OUT_SHADE};
 	public static final int MAX_LENGTH = 12;
@@ -160,11 +202,24 @@ public class GameUI extends Stage {
 	//Display unit list
 	private ImageView[] pUnit = new ImageView[MAX_UNIT_LIST];
 	
+	private ImageView selectIcon;
+	private Text selectType;
+	private Rectangle selectHealthBar;
+	private Text selectAttRange;
+	private Text selectMoveRange;
+	private Text selectDamage;
+	
+	private Rectangle attackButton;
+	private Text attackText;
+	private Rectangle moveButton;
+	private Text moveText;
+	private Rectangle skipButton;
+	private Text skipText;
 	//check for if player has no units or if game is over after a bullet is fired
 	
-	private int currentPlayer; // player index who is currently making the moves.
-	private Unit currentUnit;  //- unit that is currently selected.
-	private AnchorPane gamePane; //that contains all the actual units and good stuff.
+	private int currentPlayer;
+	private Unit currentUnit;
+	private AnchorPane gamePane;
 	private AnchorPane selectionPane; //AnchorPane that completely overlaps the game pane. This will
 		//   usually be disabled to mouse clicks by using the Pane.setMouseTransparent(false) clause.
 		//   This has a Mouse.PRESSED event handler that automatically cancels any attack/move when clicked.
@@ -193,7 +248,7 @@ public class GameUI extends Stage {
 	{
 		for(int k = 0; k < numPlayers; k++)
 		{
-			Obstacle base = Tools.createBase(127.5, 262.5, BASE_X[k], BASE_Y[k], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[k]);
+			Obstacle base = Tools.createBase(BASE_HEIGHT, BASE_WIDTH, BASE_X[k], BASE_Y[k], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[k]);
 			root.getChildren().add(base);
 		}
 	}
@@ -212,7 +267,7 @@ public class GameUI extends Stage {
 					@Override
 					public void handle(MouseEvent arg0) {
 						currentUnit = players.get(currentPlayer).getUnitList().get(F_INDEX);
-						selectUnit();
+						selectUnit(root);
 					}
 		        });
 				
@@ -397,7 +452,7 @@ public class GameUI extends Stage {
 	
 	public Text createGameCloseButton(AnchorPane root)
 	{
-		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "X", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
+		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "X", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, GAME_CONTROL_SIZE, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -411,7 +466,7 @@ public class GameUI extends Stage {
 	
 	public Text createGameMinButton(AnchorPane root)
 	{
-		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 30, smallestRatio));
+		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, GAME_CONTROL_SIZE, smallestRatio));
 		
 		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -445,10 +500,76 @@ public class GameUI extends Stage {
         });
 		root.getChildren().add(endPanel);
 	}
-	public void selectUnit()
+	
+	public void selectUnit(AnchorPane root)
 	{
-		
+		refreshSelect(root);
+		createIcon(root);
+		createButtons(root);
 	}
+	
+	public void createIcon(AnchorPane root)
+	{
+		selectIcon = Tools.createImageView(currentUnit.getIcon(), ICON_SIZE, ICON_SIZE, ICON_X, ICON_Y, widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+		root.getChildren().add(selectIcon);
+	}
+	public void createButtons(AnchorPane root)
+	{
+		if(!currentUnit.hasAttacked())
+		{
+			createAttackButton(root);
+		}
+		if(!currentUnit.hasMoved())
+		{
+			createMoveButton(root);
+		}
+		if(!currentUnit.hasMoved() || !currentUnit.hasAttacked())
+		{
+			createSkipButton(root);
+		}
+	}
+	public void createAttackButton(final AnchorPane root)
+	{
+		attackButton = Tools.createRoundedRectangle(ATTACK_BUTTON_WIDTH, BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				ATTACK_BUTTON_X, BUTTON_Y, widthRatio, heightRatio, smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
+		attackButton.setFill(GRADIENT_ATTACK);
+		
+		attackText = Tools.createText(ATTACK_TEXT_X, TEXT_Y, widthRatio, heightRatio, "attack", Color.DARKGRAY.darker(), Tools.SMALL_SHADE, 
+				Tools.createFont("Agency FB", null, TEXT_SIZE, smallestRatio));
+		
+		root.getChildren().addAll(attackButton, attackText);
+	}
+	
+	public void createMoveButton(final AnchorPane root)
+	{
+		moveButton = Tools.createRoundedRectangle(MOVE_BUTTON_WIDTH, BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				MOVE_BUTTON_X , BUTTON_Y, widthRatio, heightRatio, smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
+		moveButton.setFill(GRADIENT_MOVE);
+		
+		moveText = Tools.createText(MOVE_TEXT_X, TEXT_Y, widthRatio, heightRatio, "move", Color.DARKGRAY.darker(), Tools.SMALL_SHADE, 
+				Tools.createFont("Agency FB", null, TEXT_SIZE, smallestRatio));
+		
+		root.getChildren().addAll(moveButton, moveText);
+	}
+	
+	public void createSkipButton(final AnchorPane root)
+	{
+		skipButton = Tools.createRoundedRectangle(SKIP_BUTTON_WIDTH, BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				SKIP_BUTTON_X , BUTTON_Y, widthRatio, heightRatio, smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
+		skipButton.setFill(GRADIENT_SKIP);
+		
+		skipText = Tools.createText(SKIP_TEXT_X, TEXT_Y, widthRatio, heightRatio, "skip", Color.DARKGRAY.darker(), Tools.SMALL_SHADE, 
+				Tools.createFont("Agency FB", null, TEXT_SIZE, smallestRatio));
+		
+		root.getChildren().addAll(skipButton, skipText);
+	}
+	
+	public void refreshSelect(AnchorPane root)
+	{
+		root.getChildren().removeAll(selectIcon, selectType, selectHealthBar, selectAttRange, selectMoveRange, selectDamage, attackButton,
+				attackText, moveButton, moveText, skipButton, skipText);
+	}
+	
 	public void createGameUI()
 	{
 		this.initStyle(StageStyle.TRANSPARENT);
@@ -487,7 +608,7 @@ public class GameUI extends Stage {
 	public Text createNameCloseButton()
 	{
 		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN, 
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 25, smallestRatio));
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, NAME_CLOSE_SIZE, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override

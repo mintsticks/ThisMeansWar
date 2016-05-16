@@ -17,13 +17,14 @@ public class Tools {
 	public static final Color[] TEAM_COLORS = {Color.web("#ff0000"), Color.web("#24fff7"), Color.web("#69ff34"), Color.web("#f334ff")};
 	public static final Color TRANSPARENT =  Color.rgb(100, 100, 100, 0);
 	public static final Color DARK_GREEN = Color.web("#2a5a1e");
-	
+	public static final Color LIGHT_GRAY = Color.web("#8e8e8e");
 	//Constants available for every class
 	public static final InnerShadow XLARGE_SHADE = new InnerShadow(10.0, Color.BLACK);
 	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0, Color.BLACK);
-	public static final InnerShadow MEDIUM_SHADE = new InnerShadow(3.0, Color.BLACK);
 	public static final InnerShadow SMALL_SHADE = new InnerShadow(2.0, Color.BLACK);
 	public static final DropShadow LARGE_OUT_SHADE = new DropShadow(5.0, Color.BLACK);
+	public static final DropShadow MEDIUM_OUT_SHADE = new DropShadow(3.0, Color.BLACK);
+	public static final DropShadow SMALL_OUT_SHADE = new DropShadow(2.0, Color.BLACK);
 	
 	public static final DropShadow RED_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[0]);
 	public static final DropShadow CYAN_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[1]);
