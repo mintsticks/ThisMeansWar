@@ -64,14 +64,10 @@ public class GameUI extends Stage {
 	public static final Image NAME_SET_IMAGE = Tools.createImage("NameSelect.png");
 	public static final Image NAME_SET_CLICKED_IMAGE = Tools.createImage("NameSelectClicked.png");
 	
-	public static final BackgroundImage GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth(), GRASSY_GROUND_IMAGE.getHeight(), false, false, false, false));
-	public static final BackgroundImage GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth(), GRASSY_GROUND_CLICKED_IMAGE.getHeight(), false, false, false, false));
-	public static final BackgroundImage NAME_SET = new BackgroundImage(NAME_SET_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NAME_SET_IMAGE.getWidth(), NAME_SET_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth(), NAME_SET_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public final BackgroundImage GRASSY_GROUND;
+	public final BackgroundImage GRASSY_GROUND_CLICKED;
+	public final BackgroundImage NAME_SET;
+	public final BackgroundImage NAME_SET_CLICKED;
 	
 	public static final double GAME_WIDTH = 1920;
 	public static final double GAME_HEIGHT = 1080;
@@ -242,6 +238,15 @@ public class GameUI extends Stage {
 		this.smallestRatio = smallestRatio;
 		this.numPlayers = numPlayers;
 		createNameSet(numPlayers);
+		
+		GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+				new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth() * widthRatio, GRASSY_GROUND_IMAGE.getHeight() * heightRatio, false, false, false, false));
+		GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+				new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth() * widthRatio, GRASSY_GROUND_CLICKED_IMAGE.getHeight() * heightRatio, false, false, false, false));
+		NAME_SET = new BackgroundImage(NAME_SET_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+				new BackgroundSize(NAME_SET_IMAGE.getWidth() * widthRatio, NAME_SET_IMAGE.getHeight() * heightRatio, false, false, true, false));
+		NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+				new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth() * widthRatio, NAME_SET_CLICKED_IMAGE.getHeight() * heightRatio, false, false, true, false));
 	}
 	
 	public void addBases(AnchorPane root)
@@ -494,6 +499,7 @@ public class GameUI extends Stage {
 			@Override
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(GRASSY_GROUND));
+				refreshSelect(root);
 				currentPlayer = (currentPlayer + 1) % players.size();
 				updateInfo(root);
 			}

@@ -532,8 +532,8 @@ public class Tools {
 	public static TextField createTextField(double width, double height, double xLoc, double yLoc, double widthRatio, double heightRatio, String content, Effect eff)
 	{
 		TextField firstName = new TextField(content);
-		firstName.setLayoutX(xLoc);
-		firstName.setLayoutY(yLoc);
+		firstName.setLayoutX(xLoc * widthRatio);
+		firstName.setLayoutY(yLoc * heightRatio);
 		firstName.setPrefWidth(width * widthRatio);
 		firstName.setPrefHeight(height * heightRatio);
 		firstName.setStyle("-fx-font: 20px \"Bookman Old Style\";");
