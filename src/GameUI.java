@@ -84,10 +84,14 @@ public class GameUI extends Stage {
 	public static final int PANE_Y = 42;
 	public static final int PANE_X = 476;
 	
-	public static final Image GRASSY_GROUND_IMAGE = Tools.createImage("GameGrassyBack.png");
-	public static final Image GRASSY_GROUND_CLICKED_IMAGE = Tools.createImage("GameGrassyBackClicked.png");
-	public static final Image NAME_SET_IMAGE = Tools.createImage("NameSelect.png");
-	public static final Image NAME_SET_CLICKED_IMAGE = Tools.createImage("NameSelectClicked.png");
+	public static final Image GRASSY_GROUND_IMAGE = 
+			Tools.createImage("GameGrassyBack.png");
+	public static final Image GRASSY_GROUND_CLICKED_IMAGE = 
+			Tools.createImage("GameGrassyBackClicked.png");
+	public static final Image NAME_SET_IMAGE = 
+			Tools.createImage("NameSelect.png");
+	public static final Image NAME_SET_CLICKED_IMAGE = 
+			Tools.createImage("NameSelectClicked.png");
 	
 	public static BackgroundImage NAME_SET;
 	public static final double GAME_WIDTH = 1920;
@@ -132,26 +136,50 @@ public class GameUI extends Stage {
 	public static final Color PLAYER_NAME = Color.web("#636363");
 	public static final Color PLAYER_MONEY = Color.web("477628");
 	//Gradient for attack button
-	public static final Stop[] SKIP_STOP = {new Stop(0.0, Color.web("#eeeeee")), new Stop(0.25, Color.web("#999999")), new Stop(.55, Color.web("#cdcdcd")),
-			new Stop(.8, Color.web("#979797")), new Stop(1.0, Color.web("#e5e5e5"))};
+	public static final Stop[] SKIP_STOP = {new Stop(0, Color.web("#eeeeee")),
+			new Stop(0.25, Color.web("#999999")), 
+			new Stop(.55, Color.web("#cdcdcd")),
+			new Stop(.8, Color.web("#979797")), 
+			new Stop(1.0, Color.web("#e5e5e5"))};
 	
-	public static final LinearGradient GRADIENT_SKIP = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, SKIP_STOP);
-	public static final Stop[] MOVE_STOP = {new Stop(0.0, Color.web("#eefde7")), new Stop(0.1, Color.web("#86e74b")), new Stop(.25, Color.web("#55be30")),
-			new Stop(.55, Color.web("#88ea4c")), new Stop(.8, Color.web("#479211")), new Stop(1.0, Color.web("#95dc87"))};
+	public static final LinearGradient GRADIENT_SKIP = new LinearGradient(0,
+			0, 0, 1, true, CycleMethod.NO_CYCLE, SKIP_STOP);
+	public static final Stop[] MOVE_STOP = {new Stop(0.0, 
+			Color.web("#eefde7")), new Stop(0.1, Color.web("#86e74b")), 
+			new Stop(.25, Color.web("#55be30")),
+			new Stop(.55, Color.web("#88ea4c")), 
+			new Stop(.8, Color.web("#479211")), new Stop(1.0, 
+			Color.web("#95dc87"))};
 	
-	public static final LinearGradient GRADIENT_MOVE = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, MOVE_STOP);
-	public static final Stop[] ATTACK_STOP = {new Stop(0.0, Color.web("#fde0d8")), new Stop(0.1, Color.web("#e65b48")), new Stop(.25, Color.web("#c22905")),
-			new Stop(.55, Color.web("#dc5a4d")), new Stop(.8, Color.web("#ad0707")), new Stop(1.0, Color.web("#e6a89c"))};
+	public static final LinearGradient GRADIENT_MOVE = new LinearGradient(0, 
+			0, 0, 1, true, CycleMethod.NO_CYCLE, MOVE_STOP);
+	public static final Stop[] ATTACK_STOP = {new Stop(0.0, 
+			Color.web("#fde0d8")), new Stop(0.1, Color.web("#e65b48")), 
+			new Stop(.25, Color.web("#c22905")),
+			new Stop(.55, Color.web("#dc5a4d")), new Stop(.8, 
+			Color.web("#ad0707")), new Stop(1.0, Color.web("#e6a89c"))};
 	
-	public static final LinearGradient GRADIENT_ATTACK = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, ATTACK_STOP);
-	public static final Stop[] HEALTH_STOP = {new Stop(0.0, Color.web("#dfb5aa")), new Stop(0.1, Color.web("#e65b48")), new Stop(.25, Color.web("#e53030")),
-			new Stop(.55, Color.web("#f0786f")), new Stop(.8, Color.web("#de3434")), new Stop(1.0, Color.web("#f49886"))};
+	public static final LinearGradient GRADIENT_ATTACK = 
+			new LinearGradient(0, 0, 0, 1, true, 
+			CycleMethod.NO_CYCLE, ATTACK_STOP);
+	public static final Stop[] HEALTH_STOP = 
+		{new Stop(0.0, Color.web("#dfb5aa")), new Stop(0.1, 
+		Color.web("#e65b48")), new Stop(.25, Color.web("#e53030")),
+			new Stop(.55, Color.web("#f0786f")), new Stop(.8, 
+			Color.web("#de3434")), new Stop(1.0, Color.web("#f49886"))};
 	
-	public static final LinearGradient GRADIENT_HEALTH = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, HEALTH_STOP);
-	public static final Stop[] ATTACK_CIRCLE_STOP = {new Stop(0.0, Color.web("#ffffff00")), new Stop(1.0, Color.web("#ffffff55"))};
+	public static final LinearGradient GRADIENT_HEALTH = 
+			new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, 
+			HEALTH_STOP);
+	public static final Stop[] ATTACK_CIRCLE_STOP = {new Stop(0.0, 
+			Color.web("#ffffff00")), new Stop(1.0, Color.web("#ffffff55"))};
 	
-	public static final RadialGradient GRADIENT_CIRCLE = new RadialGradient(0, 0, .5, .5, .5, true, CycleMethod.NO_CYCLE, ATTACK_CIRCLE_STOP);
-	public static final DropShadow[] TEAM_EFFECTS = {Tools.RED_OUT_SHADE, Tools.CYAN_OUT_SHADE, Tools.GREEN_OUT_SHADE, Tools.PINK_OUT_SHADE};
+	public static final RadialGradient GRADIENT_CIRCLE = 
+			new RadialGradient(0, 0, .5, .5, .5, true, CycleMethod.NO_CYCLE, 
+			ATTACK_CIRCLE_STOP);
+	public static final DropShadow[] TEAM_EFFECTS = {Tools.RED_OUT_SHADE, 
+			Tools.CYAN_OUT_SHADE, Tools.GREEN_OUT_SHADE, 
+			Tools.PINK_OUT_SHADE};
 	
 	public static final int MAX_LENGTH = 12;
 	public static final double PLAYER_NAME_X = 175;
@@ -243,7 +271,8 @@ public class GameUI extends Stage {
 	private Text moveText;
 	private Rectangle skipButton;
 	private Text skipText;
-	//check for if player has no units or if game is over after a bullet is fired
+	//check for if player has no units or if game is over after 
+	//a bullet is fired
 	
 	private int currentPlayer;
 	private Unit currentUnit;
@@ -264,21 +293,39 @@ public class GameUI extends Stage {
 	
 	
 	private Stage nameSet;
+	private Stage endScreen;
 	
-	public GameUI(int numPlayers, double widthRatio, double heightRatio, double smallestRatio)
+	public GameUI(int numPlayers, double widthRatio, double heightRatio, 
+			double smallestRatio)
 	{
 		this.widthRatio = widthRatio;
 		this.heightRatio = heightRatio;
 		this.smallestRatio = smallestRatio;
 		this.numPlayers = numPlayers;
-		GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-				new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth() * widthRatio, GRASSY_GROUND_IMAGE.getHeight() * heightRatio, false, false, false, false));
-		GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-				new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth() * widthRatio, GRASSY_GROUND_CLICKED_IMAGE.getHeight() * heightRatio, false, false, false, false));
-		NAME_SET = new BackgroundImage(NAME_SET_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-				new BackgroundSize(NAME_SET_IMAGE.getWidth() * widthRatio, NAME_SET_IMAGE.getHeight() * heightRatio, false, false, true, false));
-		NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-				new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth() * widthRatio, NAME_SET_CLICKED_IMAGE.getHeight() * heightRatio, false, false, true, false));
+		GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth() * 
+						widthRatio, GRASSY_GROUND_IMAGE.getHeight() * 
+						heightRatio, false, false, false, false));
+		GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth() * 
+						widthRatio, GRASSY_GROUND_CLICKED_IMAGE.getHeight() * 
+						heightRatio, false, false, false, false));
+		NAME_SET = new BackgroundImage(NAME_SET_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(NAME_SET_IMAGE.getWidth() * widthRatio, 
+						NAME_SET_IMAGE.getHeight() * heightRatio, false, 
+						false, true, false));
+		NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth() * 
+						widthRatio, NAME_SET_CLICKED_IMAGE.getHeight() * 
+						heightRatio, false, false, true, false));
 		createNameSet(numPlayers);
 	}
 	
@@ -286,8 +333,12 @@ public class GameUI extends Stage {
 	{
 		for(int k = 0; k < numPlayers; k++)
 		{
-			Rectangle clipBase = new Rectangle(0, 0, GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
-			Obstacle base = Tools.createBase(BASE_HEIGHT, BASE_WIDTH, BASE_X[k], BASE_Y[k], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[k]);
+			Rectangle clipBase = new Rectangle(0, 0, 
+					GAME_PANE_WIDTH * widthRatio, 
+					GAME_PANE_HEIGHT * heightRatio);
+			Obstacle base = Tools.createBase(BASE_HEIGHT, BASE_WIDTH, 
+					BASE_X[k], BASE_Y[k], widthRatio, heightRatio, 
+					smallestRatio, TEAM_EFFECTS[k]);
 			base.setClip(clipBase);
 			root.getChildren().add(base);
 		}
@@ -295,17 +346,22 @@ public class GameUI extends Stage {
 	
 	public void addPlayerUnit(Unit unit)
 	{
-		//unit.setLayoutX(value);
 		gamePane.getChildren().add(unit);
 	}
 	
 	public void addUnitIcons()
 	{
-		for(int index = 0; index < players.get(currentPlayer).getUnitList().size(); index++)
+		for(int index = 0; 
+				index < players.get(currentPlayer).getUnitList().size(); 
+				index++)
 		{
 			if(players.get(currentPlayer).getUnitList().size() > index)
 			{
-				pUnit[index] = Tools.createImageView(players.get(currentPlayer).getUnitList().get(index).getIcon(), UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[index], UNIT_LIST_Y, 
+				pUnit[index] = 
+						Tools.createImageView(players.get(currentPlayer)
+								.getUnitList().get(index).getIcon(), 
+								UNIT_ICON_SIZE, UNIT_ICON_SIZE, UNIT_X[index], 
+								UNIT_LIST_Y, 
 						widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
 				
 				final int F_INDEX = index;
@@ -313,7 +369,8 @@ public class GameUI extends Stage {
 					@Override
 					public void handle(MouseEvent arg0) {
 						refreshSelect();
-						selectUnit(players.get(currentPlayer).getUnitList().get(F_INDEX));
+						selectUnit(players.get(currentPlayer).getUnitList()
+								.get(F_INDEX));
 					}
 		        });
 				
@@ -325,19 +382,22 @@ public class GameUI extends Stage {
 	public void attackClick(double mouseX, double mouseY)
 	{
 		currentUnit.attack();
+		attackEllipse.setVisible(false);
 		
-		double unitX = currentUnit.getLayoutX() + currentUnit.getFitWidth() / 2;
-		double unitY = currentUnit.getLayoutY()	+ currentUnit.getFitHeight() / 2;
-		double bulletDirection = Math.toDegrees(Math.atan2(mouseY - unitY, mouseY - unitX));
+		double unitX = currentUnit.getLayoutX() + 
+				currentUnit.getFitWidth() / 2;
+		double unitY = currentUnit.getLayoutY()	+ 
+				currentUnit.getFitHeight() / 2;
+		double bulletDirection = 
+				Math.toDegrees(Math.atan2(mouseY - unitY, mouseX - unitX));
 		
-		System.out.println(unitX + " " + unitY + " " + mouseX + " " + mouseY + " " + bulletDirection);
-		Projectile bullet = Tools.createProjectile(currentUnit.getDamage(), BULLET_HEIGHT, BULLET_WIDTH, bulletDirection,
-				unitX, unitY, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		Projectile bullet = Tools.createProjectile(currentUnit.getDamage(), 
+				BULLET_HEIGHT, BULLET_WIDTH, bulletDirection,
+				unitX / widthRatio, unitY / heightRatio, widthRatio, heightRatio, 
+				smallestRatio, Tools.MEDIUM_OUT_SHADE);
 		gamePane.getChildren().add(bullet);
-		fireBullet(bulletDirection, bullet, mouseX, mouseY);
-		//Snap back to 0 degrees after attack
-		currentUnit.getTransforms().remove(direction);
-		refreshSelect();
+		fireBullet(-bulletDirection, bullet, mouseX, mouseY);
+		
 	
 	}
 	
@@ -354,10 +414,16 @@ public class GameUI extends Stage {
 	public boolean checkTextfields()
 	{
 		boolean checker = true;
-		checker = firstName.getText().length() <= MAX_LENGTH && firstName.getText().length() > 0;
-		checker = checker && (secondName.getText().length() <= MAX_LENGTH && secondName.getText().length() > 0);
-		checker = checker && ((thirdName == null ) ? true : thirdName.getText().length() <= MAX_LENGTH && thirdName.getText().length() > 0);
-		checker = checker && ((fourthName == null) ? true : fourthName.getText().length() <= MAX_LENGTH && fourthName.getText().length() > 0);
+		checker = firstName.getText().length() <= 
+				MAX_LENGTH && firstName.getText().length() > 0;
+		checker = checker && (secondName.getText().length() <= 
+				MAX_LENGTH && secondName.getText().length() > 0);
+		checker = checker && ((thirdName == null ) ? true : 
+			thirdName.getText().length() <= MAX_LENGTH && thirdName
+			.getText().length() > 0);
+		checker = checker && ((fourthName == null) ? true : 
+			fourthName.getText().length() <= MAX_LENGTH && fourthName
+			.getText().length() > 0);
 		
 		HashSet<String> tempCheck = new HashSet<String>();
 		tempCheck.add(firstName.getText());
@@ -401,14 +467,18 @@ public class GameUI extends Stage {
 			}
         };
         
-		attackButton = Tools.createRoundedRectangle(ATTACK_BUTTON_WIDTH, BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
-				ATTACK_BUTTON_X, BUTTON_Y, widthRatio, heightRatio, smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
+		attackButton = Tools.createRoundedRectangle(ATTACK_BUTTON_WIDTH, 
+				BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				ATTACK_BUTTON_X, BUTTON_Y, widthRatio, heightRatio, 
+				smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
 		attackButton.setFill(GRADIENT_ATTACK);
 		
 		attackButton.setOnMousePressed(in);
 		attackButton.setOnMouseReleased(out);
 		
-		attackText = Tools.createText(ATTACK_TEXT_X, TEXT_Y, widthRatio, heightRatio, "attack", Color.DARKGRAY.darker(), Tools.SMALL_SHADE, 
+		attackText = Tools.createText(ATTACK_TEXT_X, TEXT_Y, widthRatio, 
+				heightRatio, "attack", Color.DARKGRAY.darker(), 
+				Tools.SMALL_SHADE, 
 				Tools.createFont("Agency FB", null, TEXT_SIZE, smallestRatio));
 		
 		attackText.setOnMousePressed(in);
@@ -434,7 +504,8 @@ public class GameUI extends Stage {
 	}
 	public void createBuyCorporalPanel()
 	{
-		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_CORP_X, BUY_CORP_Y, 
+		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, 
+				BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_CORP_X, BUY_CORP_Y, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
 		corpPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -442,7 +513,12 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(CORP_COST))
 				{	
-					final Unit corp = Tools.createCorporal(currentPlayer, CORP_HEIGHT, CORP_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
+					final Unit corp = Tools.createCorporal(currentPlayer, 
+							CORP_HEIGHT, CORP_WIDTH, 0, 
+							BASE_UNIT_X[currentPlayer], 
+							BASE_UNIT_Y[currentPlayer], widthRatio, 
+							heightRatio, smallestRatio, 
+							TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(CORP_COST);
 					players.get(currentPlayer).getUnitList().add(corp);
 					
@@ -474,15 +550,22 @@ public class GameUI extends Stage {
 	
 	public void createBuyPrivatePanel()
 	{
-		Rectangle privatePanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_PRIV_X, BUY_PRIV_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle privatePanel = Tools.createRoundedRectangle(BUY_SIZE, 
+				BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_PRIV_X, BUY_PRIV_Y, 
+				widthRatio, heightRatio, smallestRatio, 
+				Tools.TRANSPARENT, null);
 		
 		privatePanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(PRIV_COST))
 				{	
-					final Unit priv = Tools.createPrivate(currentPlayer, PRIV_HEIGHT, PRIV_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
+					final Unit priv = Tools.createPrivate(currentPlayer, 
+							PRIV_HEIGHT, PRIV_WIDTH, 0, 
+							BASE_UNIT_X[currentPlayer], 
+							BASE_UNIT_Y[currentPlayer], widthRatio, 
+							heightRatio, smallestRatio, 
+							TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(PRIV_COST);
 					players.get(currentPlayer).getUnitList().add(priv);
 					
@@ -503,15 +586,23 @@ public class GameUI extends Stage {
 	
 	public void createBuyScoutPanel()
 	{
-		Rectangle scoutPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SCOUT_X, BUY_SCOUT_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle scoutPanel = Tools.createRoundedRectangle(BUY_SIZE, 
+				BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SCOUT_X, 
+				BUY_SCOUT_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, 
+				null);
 		
 		scoutPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(SCOUT_COST))
 				{
-					final Unit scout = Tools.createScout(currentPlayer, SCOUT_HEIGHT, SCOUT_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
+					final Unit scout = Tools.createScout(currentPlayer, 
+							SCOUT_HEIGHT, SCOUT_WIDTH, 0, 
+							BASE_UNIT_X[currentPlayer], 
+							BASE_UNIT_Y[currentPlayer], widthRatio, 
+							heightRatio, smallestRatio, 
+							TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(SCOUT_COST);
 					players.get(currentPlayer).getUnitList().add(scout);
 					
@@ -532,15 +623,22 @@ public class GameUI extends Stage {
 	
 	public void createBuySergPanel()
 	{
-		Rectangle sergPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SERG_X, BUY_SERG_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle sergPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SERG_X, BUY_SERG_Y, 
+				widthRatio, heightRatio, smallestRatio, 
+				Tools.TRANSPARENT, null);
 		
 		sergPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(SERG_COST))
 				{
-					final Unit serg = Tools.createSergeant(currentPlayer, SERG_HEIGHT, SERG_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
+					final Unit serg = Tools.createSergeant(currentPlayer, 
+							SERG_HEIGHT, SERG_WIDTH, 0, 
+							BASE_UNIT_X[currentPlayer], 
+							BASE_UNIT_Y[currentPlayer], widthRatio, 
+							heightRatio, smallestRatio, 
+							TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(SERG_COST);
 					players.get(currentPlayer).getUnitList().add(serg);
 					
@@ -561,15 +659,22 @@ public class GameUI extends Stage {
 	
 	public void createBuySniperPanel()
 	{
-		Rectangle snipPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SNIPER_X, BUY_SNIPER_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle snipPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_SNIPER_X, BUY_SNIPER_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, 
+				null);
 		
 		snipPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(SNIP_COST))
 				{
-					final Unit snip = Tools.createSniper(currentPlayer, SNIP_HEIGHT, SNIP_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
+					final Unit snip = Tools.createSniper(currentPlayer, 
+							SNIP_HEIGHT, SNIP_WIDTH, 0, 
+							BASE_UNIT_X[currentPlayer], 
+							BASE_UNIT_Y[currentPlayer], widthRatio, 
+							heightRatio, smallestRatio, 
+							TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(SNIP_COST);
 					players.get(currentPlayer).getUnitList().add(snip);
 					
@@ -590,15 +695,22 @@ public class GameUI extends Stage {
 	
 	public void createBuyTankPanel()
 	{
-		Rectangle tankPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_TANK_X, BUY_TANK_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle tankPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, BUY_TANK_X, BUY_TANK_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, 
+				null);
 		
 		tankPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				if(checkPurchase(TANK_COST))
 				{
-					final Unit tank = Tools.createTank(currentPlayer, TANK_HEIGHT, TANK_WIDTH, 0, BASE_UNIT_X[currentPlayer], BASE_UNIT_Y[currentPlayer], widthRatio, heightRatio, smallestRatio, TEAM_EFFECTS[currentPlayer]);
+					final Unit tank = Tools.createTank(currentPlayer, 
+							TANK_HEIGHT, TANK_WIDTH, 0, 
+							BASE_UNIT_X[currentPlayer], 
+							BASE_UNIT_Y[currentPlayer], widthRatio, 
+							heightRatio, smallestRatio, 
+							TEAM_EFFECTS[currentPlayer]);
 					players.get(currentPlayer).deductMoney(TANK_COST);
 					players.get(currentPlayer).getUnitList().add(tank);
 					
@@ -618,8 +730,10 @@ public class GameUI extends Stage {
 	}
 	public void createEndPanel()
 	{
-		Rectangle endPanel = Tools.createRoundedRectangle(END_WIDTH, END_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, END_X, END_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle endPanel = Tools.createRoundedRectangle(END_WIDTH, 
+				END_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, END_X, END_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, 
+				null);
 		
 		endPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -643,7 +757,10 @@ public class GameUI extends Stage {
 	
 	public Text createGameCloseButton()
 	{
-		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "X", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, GAME_CONTROL_SIZE, smallestRatio));
+		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, 
+				heightRatio, "X", Color.LIGHTGRAY, Tools.SMALL_SHADE, 
+				Tools.createFont("Bookman Old Style", null, 
+						GAME_CONTROL_SIZE, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -656,8 +773,10 @@ public class GameUI extends Stage {
 	}
 	public Text createGameMinButton()
 	{
-		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, 
-				Tools.createFont("Bookman Old Style", null, GAME_CONTROL_SIZE + 10, smallestRatio));
+		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, 
+				heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, 
+				Tools.createFont("Bookman Old Style", null, 
+						GAME_CONTROL_SIZE + 10, smallestRatio));
 		
 		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -676,17 +795,21 @@ public class GameUI extends Stage {
 		this.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		
 		root = new AnchorPane();
-		Scene scene = new Scene(root, GAME_WIDTH * widthRatio, GAME_HEIGHT * heightRatio);
+		Scene scene = new Scene(root, GAME_WIDTH * widthRatio, GAME_HEIGHT * 
+				heightRatio);
 		
 		Text close = createGameCloseButton();
 		Text minimize = createGameMinButton();
 		
 		gamePane = new AnchorPane();
-		gamePane.setPrefSize(GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
+		gamePane.setPrefSize(GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * 
+				heightRatio);
 		AnchorPane.setLeftAnchor(gamePane, PANE_X * widthRatio);
 		AnchorPane.setTopAnchor(gamePane, PANE_Y * heightRatio);
-		clipAttack = new Rectangle(0, 0, GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
-		clipMove = new Rectangle(0, 0, GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
+		clipAttack = new Rectangle(0, 0, GAME_PANE_WIDTH * widthRatio, 
+				GAME_PANE_HEIGHT * heightRatio);
+		clipMove = new Rectangle(0, 0, GAME_PANE_WIDTH * widthRatio, 
+				GAME_PANE_HEIGHT * heightRatio);
 		updateInfo();
 		attackEllipse = new Ellipse();
 		setAttackEllipse();
@@ -698,7 +821,8 @@ public class GameUI extends Stage {
 		createBuyPanels();
 		addBases(gamePane);
 		
-		root.getChildren().addAll(close, minimize, gamePane, coverPane, moveEllipse, attackEllipse);
+		root.getChildren().addAll(close, minimize, gamePane, coverPane, 
+				moveEllipse, attackEllipse);
 		root.setBackground(new Background(GRASSY_GROUND));
 		
 		this.setScene(scene);
@@ -706,7 +830,9 @@ public class GameUI extends Stage {
 	}
 	public void createIcon()
 	{
-		selectIcon = Tools.createImageView(currentUnit.getIcon(), ICON_SIZE, ICON_SIZE, ICON_X, ICON_Y, widthRatio, heightRatio, smallestRatio, Tools.SMALL_SHADE);
+		selectIcon = Tools.createImageView(currentUnit.getIcon(), ICON_SIZE, 
+				ICON_SIZE, ICON_X, ICON_Y, widthRatio, heightRatio, 
+				smallestRatio, Tools.SMALL_SHADE);
 		root.getChildren().add(selectIcon);
 	}
 	
@@ -727,12 +853,16 @@ public class GameUI extends Stage {
 			}
         };
       
-		moveButton = Tools.createRoundedRectangle(MOVE_BUTTON_WIDTH, BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
-				MOVE_BUTTON_X , BUTTON_Y, widthRatio, heightRatio, smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
+		moveButton = Tools.createRoundedRectangle(MOVE_BUTTON_WIDTH, 
+				BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				MOVE_BUTTON_X , BUTTON_Y, widthRatio, heightRatio, 
+				smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
 		moveButton.setFill(GRADIENT_MOVE);
 		moveButton.setOnMousePressed(in);
 		moveButton.setOnMouseReleased(out);
-		moveText = Tools.createText(MOVE_TEXT_X, TEXT_Y, widthRatio, heightRatio, "move", Color.DARKGRAY.darker(), Tools.SMALL_SHADE, 
+		moveText = Tools.createText(MOVE_TEXT_X, TEXT_Y, widthRatio, 
+				heightRatio, "move", Color.DARKGRAY.darker(), 
+				Tools.SMALL_SHADE, 
 				Tools.createFont("Agency FB", null, TEXT_SIZE, smallestRatio));
 		moveText.setOnMousePressed(in);
 		moveText.setOnMouseReleased(out);
@@ -741,13 +871,16 @@ public class GameUI extends Stage {
 	
 	public Text createNameCloseButton()
 	{
-		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN, 
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, NAME_CLOSE_SIZE, smallestRatio));
+		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, 
+				heightRatio, "X", Tools.DARK_GREEN, 
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 
+						NAME_CLOSE_SIZE, smallestRatio));
 
 		close.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				Stage back = new IntroUI(widthRatio, heightRatio, smallestRatio);
+				Stage back = new IntroUI(widthRatio, heightRatio, 
+						smallestRatio);
 				back.show();
 				closeNameSet();
 			}
@@ -761,7 +894,8 @@ public class GameUI extends Stage {
 		nameSet.initStyle(StageStyle.TRANSPARENT);
 		
 		AnchorPane root = new AnchorPane();
-		Scene scene = new Scene(root, NAME_SET_WIDTH * widthRatio, NAME_SET_HEIGHT * heightRatio);
+		Scene scene = new Scene(root, NAME_SET_WIDTH * widthRatio, 
+				NAME_SET_HEIGHT * heightRatio);
 		
 		Rectangle ok = createNameSetOK(root);
 		Text close = createNameCloseButton();
@@ -778,8 +912,11 @@ public class GameUI extends Stage {
 	
 	public Rectangle createNameSetOK(final AnchorPane root)
 	{
-		Rectangle okPanel = Tools.createRoundedRectangle(NAME_OK_WIDTH, NAME_OK_HEIGHT, NAME_OK_ARC_SIZE, NAME_OK_ARC_SIZE, NAME_OK_X, NAME_OK_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle okPanel = Tools.createRoundedRectangle(NAME_OK_WIDTH, 
+				NAME_OK_HEIGHT, NAME_OK_ARC_SIZE, NAME_OK_ARC_SIZE, 
+				NAME_OK_X, NAME_OK_Y, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, 
+				null);
 		
 		okPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -803,20 +940,28 @@ public class GameUI extends Stage {
 	}
 	public void createNameTextFields(AnchorPane root, int numPlayers)
 	{
-		firstName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, FIRST_Y, widthRatio, heightRatio, FIRST_TEXT, Tools.LARGE_OUT_SHADE);
-		secondName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, SECOND_Y, widthRatio, heightRatio, SECOND_TEXT, Tools.LARGE_OUT_SHADE);
+		firstName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, 
+				TEXT_X, FIRST_Y, widthRatio, heightRatio, FIRST_TEXT, 
+				Tools.LARGE_OUT_SHADE);
+		secondName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, 
+				TEXT_X, SECOND_Y, widthRatio, heightRatio, SECOND_TEXT, 
+				Tools.LARGE_OUT_SHADE);
 		
 		//these will always be added
 		root.getChildren().addAll(firstName,secondName);
 		
 		if(numPlayers >= 3)
 		{
-			thirdName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, THIRD_Y, widthRatio, heightRatio, THIRD_TEXT, Tools.LARGE_OUT_SHADE);
+			thirdName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT,
+					TEXT_X, THIRD_Y, widthRatio, heightRatio, THIRD_TEXT, 
+					Tools.LARGE_OUT_SHADE);
 			root.getChildren().add(thirdName);
 		}
 		if(numPlayers == 4)
 		{
-			fourthName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X, FOURTH_Y, widthRatio, heightRatio, FOURTH_TEXT, Tools.LARGE_OUT_SHADE);
+			fourthName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, 
+					TEXT_X, FOURTH_Y, widthRatio, heightRatio, FOURTH_TEXT, 
+					Tools.LARGE_OUT_SHADE);
 			root.getChildren().add(fourthName);
 		}
 	}
@@ -853,13 +998,17 @@ public class GameUI extends Stage {
     		}
         };
       
-		skipButton = Tools.createRoundedRectangle(SKIP_BUTTON_WIDTH, BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
-				SKIP_BUTTON_X , BUTTON_Y, widthRatio, heightRatio, smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
+		skipButton = Tools.createRoundedRectangle(SKIP_BUTTON_WIDTH, 
+				BUTTON_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				SKIP_BUTTON_X , BUTTON_Y, widthRatio, heightRatio, 
+				smallestRatio, Color.WHITE, Tools.MEDIUM_OUT_SHADE);
 		skipButton.setFill(GRADIENT_SKIP);
 		skipButton.setOnMousePressed(in);
 		skipButton.setOnMouseReleased(out);
 		
-		skipText = Tools.createText(SKIP_TEXT_X, TEXT_Y, widthRatio, heightRatio, "skip", Color.DARKGRAY.darker(), Tools.SMALL_SHADE, 
+		skipText = Tools.createText(SKIP_TEXT_X, TEXT_Y, widthRatio, 
+				heightRatio, "skip", Color.DARKGRAY.darker(), 
+				Tools.SMALL_SHADE, 
 				Tools.createFont("Agency FB", null, TEXT_SIZE, smallestRatio));
 		skipText.setOnMousePressed(in);
 		skipText.setOnMouseReleased(out);
@@ -867,30 +1016,51 @@ public class GameUI extends Stage {
 	}
 	public void createUnitStats()
 	{
-		selectType = Tools.createText(TYPE_X, TYPE_Y, widthRatio, heightRatio, currentUnit.getType(), Color.GRAY, 
-				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, TYPE_SIZE, smallestRatio));
-		selectHealthBar = Tools.createRoundedRectangle(HEALTH_MAX_WIDTH * currentUnit.getHealth() / currentUnit.getMaxHealth(),
-				HEALTH_MAX_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HEALTH_X, HEALTH_Y, widthRatio, heightRatio, smallestRatio, Color.RED, Tools.MEDIUM_SHADE);
+		selectType = Tools.createText(TYPE_X, TYPE_Y, widthRatio, heightRatio, 
+				currentUnit.getType(), Color.GRAY, 
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, 
+						TYPE_SIZE, smallestRatio));
+		selectHealthBar = Tools.createRoundedRectangle(HEALTH_MAX_WIDTH * 
+				currentUnit.getHealth() / currentUnit.getMaxHealth(),
+				HEALTH_MAX_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HEALTH_X, 
+				HEALTH_Y, widthRatio, heightRatio, smallestRatio, Color.RED, 
+				Tools.MEDIUM_SHADE);
 		selectHealthBar.setFill(GRADIENT_HEALTH);
-		selectHealthText = Tools.createText(HEALTH_TEXT_X, HEALTH_TEXT_Y, widthRatio, heightRatio, currentUnit.getHealth() + "/" +
-		currentUnit.getMaxHealth(), Color.BLACK, Tools.SMALL_OUT_SHADE, Tools.createFont("Agency FB", null, HEALTH_TEXT_SIZE, smallestRatio));
+		selectHealthText = Tools.createText(HEALTH_TEXT_X, HEALTH_TEXT_Y, 
+				widthRatio, heightRatio, currentUnit.getHealth() + "/" +
+		currentUnit.getMaxHealth(), Color.BLACK, Tools.SMALL_OUT_SHADE, 
+		Tools.createFont("Agency FB", null, HEALTH_TEXT_SIZE, smallestRatio));
 				
-		selectAttRange = Tools.createText(ATTACK_RANGE_X, ATTACK_RANGE_Y, widthRatio, heightRatio, currentUnit.getAttackRange() + " units", Color.GRAY, 
-				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, STAT_SIZE, smallestRatio));
-		selectMoveRange = Tools.createText(MOVE_RANGE_X, MOVE_RANGE_Y, widthRatio, heightRatio, currentUnit.getMovementRange() + " units", Color.GRAY, 
-				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, STAT_SIZE, smallestRatio));
-		selectDamage = Tools.createText(DAMAGE_X, DAMAGE_Y, widthRatio, heightRatio, currentUnit.getDamage() + " damage", Color.RED, 
-				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, STAT_SIZE, smallestRatio));
+		selectAttRange = Tools.createText(ATTACK_RANGE_X, ATTACK_RANGE_Y, 
+				widthRatio, heightRatio, currentUnit.getAttackRange() + 
+				" units", Color.GRAY, 
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, 
+						STAT_SIZE, smallestRatio));
+		selectMoveRange = Tools.createText(MOVE_RANGE_X, MOVE_RANGE_Y, 
+				widthRatio, heightRatio, currentUnit.getMovementRange() + 
+				" units", Color.GRAY, 
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, 
+						STAT_SIZE, smallestRatio));
+		selectDamage = Tools.createText(DAMAGE_X, DAMAGE_Y, widthRatio, 
+				heightRatio, currentUnit.getDamage() + " damage", Color.RED, 
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, 
+						STAT_SIZE, smallestRatio));
 		
-		root.getChildren().addAll(selectType, selectHealthBar, selectHealthText, selectAttRange, selectMoveRange, selectDamage);		
+		root.getChildren().addAll(selectType, selectHealthBar, 
+				selectHealthText, selectAttRange, selectMoveRange, 
+				selectDamage);		
 	}
 	
-	public void fireBullet(final double angle, final Projectile bullet, final double endpointX, final double endpointY)
+	public void fireBullet(final double angle, final Projectile bullet, 
+			final double endpointX, final double endpointY)
 	{
 		prevTime = -1;
 		attacking = true;
+		final double distX = endpointX - bullet.getLayoutX();
+		final double distY = endpointY - bullet.getLayoutY();
+		final double dist = Math.sqrt(distX * distX + distY * distY);
+		
 		AnimationTimer anim = new AnimationTimer(){
-			final Unit currentUn = currentUnit;
 			@Override
 			public void handle(long now)
 			{
@@ -905,12 +1075,13 @@ public class GameUI extends Stage {
 					double distance = (nowSec - prevTime) * BULLET_SPEED;
 					
 					double dx1 = endpointX - bullet.getLayoutX();
-					double dx2 = distance * Math.cos(angle);
+					double dx2 = distance * distX / dist;
 					double dx = (Math.abs(dx1) > Math.abs(dx2)) ? dx2 : dx1;
 					
 					double dy1 = endpointY - bullet.getLayoutY();
-					double dy2 = distance * Math.sin(angle);
+					double dy2 = distance * distY / dist;
 					double dy = (Math.abs(dy1) > Math.abs(dy2)) ? dy2 : dy1;
+					
 					bullet.setLayoutX(bullet.getLayoutX() + dx);
 					bullet.setLayoutY(bullet.getLayoutY() + dy);
 
@@ -919,42 +1090,42 @@ public class GameUI extends Stage {
 					{
 						if (child instanceof Unit)
 						{
-							
 							Unit check = (Unit)child;
-							if (check.checkCollision(bullet) && currentUn != check)
+							if (check.checkCollision(bullet) &&
+									currentUnit != check)
 							{
-								attacking = false;
-								check.setHealth(check.getHealth() - currentUn.getDamage());
+								check.setHealth(check.getHealth() - 
+										currentUnit.getDamage());
 								if (check.getHealth() <= 0)
 								{
 									removeUnit(check);
 								}
-								gamePane.getChildren().remove(bullet);
+								hit(bullet);
 								stop();
-								attackEllipse.setVisible(false);
 								break;
 							}
 						}
 						else if(child instanceof Obstacle)
 						{
 							Obstacle check = (Obstacle) child;
-							if(check.checkCollision(bullet) && !check.isShootable())
+							if(check.checkCollision(bullet) && 
+									!check.isShootable())
 							{
-								attacking = false;
-								gamePane.getChildren().remove(bullet);
+								hit(bullet);
 								stop();
-								attackEllipse.setVisible(false);
 								break;
 							}
 						}
 					}
-					if (bullet.getLayoutX() == endpointX || bullet.getLayoutY() == endpointY || bullet.getLayoutX() < 0 || bullet.getLayoutY() < 0
-							|| bullet.getLayoutX() > GAME_WIDTH * widthRatio || bullet.getLayoutY() > GAME_HEIGHT * heightRatio) 
+					if (bullet.getLayoutX() == endpointX || 
+							bullet.getLayoutY() == endpointY || 
+							bullet.getLayoutX() < 0 || bullet.getLayoutY() < 0
+							|| bullet.getLayoutX() > GAME_WIDTH * 
+							widthRatio || bullet.getLayoutY() > 
+							GAME_HEIGHT * heightRatio) 
 					{
-						attacking = false;
-						gamePane.getChildren().remove(bullet);
+						hit(bullet);
 						stop();
-						attackEllipse.setVisible(false);
 					}
 				}
 				prevTime = nowSec;
@@ -963,14 +1134,102 @@ public class GameUI extends Stage {
 		anim.start();
 	}
 	
+	public void checkPlayer()
+	{
+		for(int k = 0; k < players.size(); k++)
+		{
+			Player person = players.get(k);
+			if(person.getUnitList().size() == 0 && 
+					person.getAmountOfMoney() < 100)
+			{
+				players.remove(k);
+				k--;
+			}
+		}
+	}
+	public void checkEndGame()
+	{
+		if(players.size() == 1)
+		{
+			createEnd();
+		}
+	}
+	
+	public void createEnd()
+	{
+		endScreen = new Stage();
+		endScreen.initStyle(StageStyle.TRANSPARENT);
+		endScreen.initOwner(this);
+		
+		AnchorPane endRoot = new AnchorPane();
+		Scene scene = new Scene(endRoot, 500 * widthRatio, 300 * heightRatio);
+		
+		Text winner = Tools.createText(100, 50, widthRatio, heightRatio,
+				players.get(0).getName() + " is the winner!", Color.GRAY,
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style",
+						null, 50, smallestRatio));
+		endRoot.setEffect(Tools.LARGE_SHADE);
+		
+		Rectangle endExit = createEndExit();
+		
+		endRoot.getChildren().addAll(winner);
+		
+		//create new background for this, with a close button
+		//root.setBackground(new Background(NAME_SET));
+
+		endScreen.setScene(scene);
+		endScreen.show();
+		
+	}
+	
+	public Rectangle createEndExit()
+	{
+		Rectangle exitPanel = Tools.createRoundedRectangle(100, 50, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, 25, 25, 
+				widthRatio, heightRatio, smallestRatio, Color.BLUE, 
+				null);
+		
+		exitPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				//root.setBackground(new Background());
+			}
+        });
+		exitPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				//root.setBackground(new Background(NAME_SET));
+				/*this.close;
+				IntroUI intro = new IntroUI(heightRatio, heightRatio, heightRatio);
+				introUI.show();
+				*/
+			}
+        });
+		return exitPanel;
+	}
+	public void hit(Projectile bullet)
+	{
+		attacking = false;
+		//Snap back to 0 degrees after attack
+		currentUnit.getTransforms().remove(direction);
+		
+		gamePane.getChildren().remove(bullet);
+		//Removes attack ellipse after attack, but prevents action until 
+		//bullet is gone
+		coverPane.setVisible(false);
+		//Deselects the unit after attack
+		refreshSelect();
+	}
 	public void minimizeGameScreen()
 	{
 		this.setIconified(true);
 	}
 	public void refreshPlayers()
 	{
-		for(Player person : players)
+		for(int k = 0; k < players.size(); k++)
 		{
+			Player person = players.get(k);
+				
 			for(Unit unit : person.getUnitList())
 			{
 				unit.refreshAction();
@@ -978,6 +1237,16 @@ public class GameUI extends Stage {
 		}
 	}
 	
+	public void moveElement(UIElement ele, double endpointX, double endpointY, 
+			double angle)
+	{
+		double xOffset = ele.getFitWidth() / 2;
+		double yOffset = ele.getFitHeight() / 2;
+		ele.setLayoutX(endpointX - xOffset);
+		ele.setLayoutY(endpointY - yOffset);
+		ele.updateCollShape(ele.getFitHeight(), ele.getFitWidth(), angle, 
+				ele.getLayoutX(), ele.getLayoutY(), 1, 1, 1);
+	}
 	public void moveClick(double endpointX, double endpointY)
 	{
 		boolean valid = true;
@@ -986,10 +1255,13 @@ public class GameUI extends Stage {
 		for(Node child : gamePane.getChildren())
 		{
 			UIElement check = (UIElement) child;
-			if (check.getCollShape().intersects(endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2,
+			if (check.getCollShape().intersects(endpointX - 
+					currentUnit.getFitWidth() / 2, endpointY - 
+					currentUnit.getFitHeight() / 2,
 					currentUnit.getFitWidth(), currentUnit.getFitWidth()))
 			{
-				if (check instanceof Obstacle && !((Obstacle)check).isWalkable())
+				if (check instanceof Obstacle && 
+						!((Obstacle)check).isWalkable())
 				{
 					valid = false;
 					break;
@@ -1000,8 +1272,10 @@ public class GameUI extends Stage {
 				}
 			}
 		}
-		if(endpointX - currentUnit.getFitWidth() / 2 < 0 || endpointX + currentUnit.getFitWidth() / 2 > GAME_WIDTH * widthRatio ||
-				endpointY - currentUnit.getFitHeight() / 2 < 0 || endpointY + currentUnit.getFitHeight() / 2 > GAME_HEIGHT * heightRatio)
+		if(endpointX - currentUnit.getFitWidth() / 2 < 0 || endpointX + 
+				currentUnit.getFitWidth() / 2 > GAME_WIDTH * widthRatio ||
+				endpointY - currentUnit.getFitHeight() / 2 < 0 || endpointY + 
+				currentUnit.getFitHeight() / 2 > GAME_HEIGHT * heightRatio)
 		{
 			valid = false;
 		}
@@ -1027,16 +1301,20 @@ public class GameUI extends Stage {
 	{
 		if(currentUnit!=null)
 			currentUnit.setEffect(TEAM_EFFECTS[currentUnit.getTeam()]);
-		root.getChildren().removeAll(selectIcon, selectType, selectHealthBar, selectHealthText, selectAttRange, selectMoveRange, selectDamage, attackButton,
+		root.getChildren().removeAll(selectIcon, selectType, selectHealthBar, 
+				selectHealthText, selectAttRange, selectMoveRange, 
+				selectDamage, attackButton,
 				attackText, moveButton, moveText, skipButton, skipText);
 		currentUnit = null;
 	}
+	
 	public void removeUnit(Unit removed)
 	{
 		players.get(removed.getTeam()).getUnitList().remove(removed);
 		gamePane.getChildren().remove(removed);
 		//updateInfo();
-		int randomValue = (int)(Math.random() * (removed.getCost() - MIN_MONEY + 1)) + MIN_MONEY;
+		int randomValue = (int)(Math.random() * (removed.getCost() - 
+				MIN_MONEY + 1)) + MIN_MONEY;
 		MoneyBag loot = new MoneyBag(randomValue);
 	}
 	
@@ -1066,10 +1344,13 @@ public class GameUI extends Stage {
 					double mouseX = arg0.getX();
 					double mouseY = arg0.getY();
 					
-					double unitX = currentUnit.getLayoutX() + currentUnit.getFitWidth() / 2;
-					double unitY = currentUnit.getLayoutY() + currentUnit.getFitHeight() / 2;
+					double unitX = currentUnit.getLayoutX() + 
+							currentUnit.getFitWidth() / 2;
+					double unitY = currentUnit.getLayoutY() + 
+							currentUnit.getFitHeight() / 2;
 					//uses degrees, must convert
-					direction.setAngle(Math.toDegrees(Math.atan2(mouseY - unitY, mouseX - unitX)));
+					direction.setAngle(Math.toDegrees(Math.atan2(mouseY - 
+							unitY, mouseX - unitX)));
 				}
 			}
 		});
@@ -1092,23 +1373,26 @@ public class GameUI extends Stage {
 	
 	public void setCoverPane()
 	{
+		/*
 		coverPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent arg0)
 			{
 				if (currentUnit != null)
 				{
-					double mouseX = arg0.getX();
-					double mouseY = arg0.getY();
+					double mouseX = arg0.getX()- PANE_X;
+					double mouseY = arg0.getY()- PANE_Y;
 					
-					double unitX = currentUnit.getLayoutX() + currentUnit.getFitWidth() / 2;
-					double unitY = currentUnit.getLayoutY() + currentUnit.getFitHeight() / 2;
+					double unitX = currentUnit.getLayoutX() + 
+							currentUnit.getFitWidth() / 2;
+					double unitY = currentUnit.getLayoutY() + 
+							currentUnit.getFitHeight() / 2;
 					//uses degrees, must convert
-					direction.setAngle(Math.toDegrees(Math.atan2(mouseY - unitY, mouseX - unitX)));
+					direction.setAngle(Math.toDegrees(Math.atan2(mouseY - 
+							unitY, mouseX - unitX)));
 				}
 			}
-		});
-		
+		});*/
 		coverPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event)
@@ -1129,7 +1413,8 @@ public class GameUI extends Stage {
 		});
 		
 		coverPane.setVisible(false);
-		coverPane.setPrefSize(GAME_WIDTH * widthRatio, GAME_WIDTH * widthRatio);
+		coverPane.setPrefSize(GAME_WIDTH * widthRatio, GAME_WIDTH * 
+				widthRatio);
 	}
 	
 	public void setMoveEllipse()
@@ -1160,12 +1445,14 @@ public class GameUI extends Stage {
 		double attackRange = currentUnit.getAttackRange() * smallestRatio;
 		attackEllipse.setRadiusX(attackRange);
 		attackEllipse.setRadiusY(attackRange);
-		attackEllipse.setCenterX(currentUnit.getLayoutX() + currentUnit.getFitWidth() / 2);
-		attackEllipse.setCenterY(currentUnit.getLayoutY() + currentUnit.getFitHeight() / 2);
+		attackEllipse.setCenterX(currentUnit.getLayoutX() + 
+				currentUnit.getFitWidth() / 2);
+		attackEllipse.setCenterY(currentUnit.getLayoutY() + 
+				currentUnit.getFitHeight() / 2);
 		
 		
-		direction.setPivotX(attackEllipse.getCenterX());
-		direction.setPivotY(attackEllipse.getCenterY());
+		direction.setPivotX(currentUnit.getFitWidth() / 2);
+		direction.setPivotY(currentUnit.getFitHeight() / 2);
 		currentUnit.getTransforms().add(direction);
 	}
 	
@@ -1179,19 +1466,28 @@ public class GameUI extends Stage {
 		double moveRange = currentUnit.getMovementRange() * smallestRatio;
 		moveEllipse.setRadiusX(moveRange);
 		moveEllipse.setRadiusY(moveRange);
-		moveEllipse.setCenterX(currentUnit.getLayoutX() + currentUnit.getFitWidth() / 2);
-		moveEllipse.setCenterY(currentUnit.getLayoutY() + currentUnit.getFitHeight() / 2);
+		moveEllipse.setCenterX(currentUnit.getLayoutX() + 
+				currentUnit.getFitWidth() / 2);
+		moveEllipse.setCenterY(currentUnit.getLayoutY() + 
+				currentUnit.getFitHeight() / 2);
 	}
 	
 	public void updateInfo()
 	{
 		root.getChildren().removeAll(pUnit);
 		root.getChildren().removeAll(playerName, playerMoney);
-		playerName = Tools.createText(PLAYER_NAME_X, PLAYER_NAME_Y, widthRatio, heightRatio, players.get(currentPlayer).getName(), PLAYER_NAME,
-				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, NAME_SIZE, smallestRatio));
+		playerName = Tools.createText(PLAYER_NAME_X, PLAYER_NAME_Y, 
+				widthRatio, heightRatio, players.get(currentPlayer).getName(), 
+				PLAYER_NAME,
+				Tools.SMALL_SHADE, Tools.createFont("Agency FB", null, 
+						NAME_SIZE, smallestRatio));
 		
-		playerMoney = Tools.createText(PLAYER_MONEY_X, PLAYER_MONEY_Y, widthRatio, heightRatio, "$" + players.get(currentPlayer).getAmountOfMoney(), 
-				PLAYER_MONEY, Tools.SMALL_SHADE,Tools.createFont("Agency FB", null, MONEY_SIZE, smallestRatio));
+		playerMoney = Tools.createText(PLAYER_MONEY_X, PLAYER_MONEY_Y, 
+				widthRatio, heightRatio, "$" + 
+		players.get(currentPlayer).getAmountOfMoney(), 
+				PLAYER_MONEY, Tools.SMALL_SHADE,
+				Tools.createFont("Agency FB", null, MONEY_SIZE, 
+						smallestRatio));
 		
 		addUnitIcons();
 		
