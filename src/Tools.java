@@ -64,27 +64,15 @@ public class Tools {
 	public static final double SCOUT_MOVE_RANGE = 400;
 	public static final int SCOUT_COST = 200;
 	
-	public static final int SNIP_HEALTH = 25;
+	public static final int SNIP_HEALTH = 50;
 	public static final double SNIP_ATT_RANGE = 400;
 	public static final int SNIP_DMG = 75;
 	public static final double SNIP_MOVE_RANGE = 200;
 	public static final int SNIP_COST = 200;
 	
 	//Other element settings
-	public static final int MONEY_BAG_SMALL = 100;
-	public static final int MONEY_BAG_MEDIUM = 200;
-	public static final int MONEY_BAG_LARGE = 500;
-	public static final int MONEY_BAG_XLARGE = 1000;
-	
-	public static final double MONEY_BAG_SMALL_H = 100;
-	public static final double MONEY_BAG_MEDIUM_H = 125;
-	public static final int MONEY_BAG_LARGE_H = 150;
-	public static final int MONEY_BAG_XLARGE_H = 175;
-	
-	public static final double MONEY_BAG_SMALL_W = 100;
-	public static final double MONEY_BAG_MEDIUM_W = 125;
-	public static final int MONEY_BAG_LARGE_W = 150;
-	public static final int MONEY_BAG_XLARGE_W = 175;
+	public static final int MAX_MONEY_BAG = 400;
+	public static final double MONEY_SIZE = 200;
 	
 	public static final double DEFAULT_ANGLE = 0;
 	public static final int DEFAULT_FONT = 10;
@@ -269,45 +257,14 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return MoneyBag with the given settings
 	 */
-	public static MoneyBag createMoneyBag(int setting, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
+	public static MoneyBag createMoneyBag(int value, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		MoneyBag bag;
-		double height;
-		double width;
-		if(setting == 1)
-		{
-			bag = new MoneyBag(MONEY_BAG_SMALL);
-			height = MONEY_BAG_SMALL_H;
-			width = MONEY_BAG_SMALL_W;
-		}
-		else if(setting == 2)
-		{
-			bag = new MoneyBag(MONEY_BAG_MEDIUM);
-			height = MONEY_BAG_MEDIUM_H;
-			width = MONEY_BAG_MEDIUM_W;
-		}
-		else if(setting == 3)
-		{
-			bag = new MoneyBag(MONEY_BAG_LARGE);
-			height = MONEY_BAG_LARGE_H;
-			width = MONEY_BAG_LARGE_W;
-		}
-		else if(setting == 4)
-		{
-			bag = new MoneyBag(MONEY_BAG_XLARGE);
-			height = MONEY_BAG_XLARGE_H;
-			width = MONEY_BAG_XLARGE_W;
-		}
-		//default case
-		else
-		{
-			bag = new MoneyBag(MONEY_BAG_MEDIUM);
-			height = MONEY_BAG_MEDIUM_H;
-			width = MONEY_BAG_MEDIUM_W;
-		}
-		bag.setImage(createImage("MoneyLarge.png"));
-		bag = (MoneyBag)setImgView(bag, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
-		bag.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		MoneyBag bag = new MoneyBag(value);
+		bag = (MoneyBag)setImgView(bag, MONEY_SIZE * value / MAX_MONEY_BAG, MONEY_SIZE * value / MAX_MONEY_BAG,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+
+		bag.updateCollShape( MONEY_SIZE * value / MAX_MONEY_BAG,  MONEY_SIZE * value / MAX_MONEY_BAG, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
 		return bag;
 	}
 	
