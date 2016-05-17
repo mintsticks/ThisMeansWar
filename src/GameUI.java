@@ -949,7 +949,7 @@ public class GameUI extends Stage {
 						}
 					}
 					if (bullet.getLayoutX() == endpointX || bullet.getLayoutY() == endpointY || bullet.getLayoutX() < 0 || bullet.getLayoutY() < 0
-							|| bullet.getLayoutX() > clipAttack.getWidth() || bullet.getLayoutY() > clipAttack.getHeight()) 
+							|| bullet.getLayoutX() > GAME_WIDTH * widthRatio || bullet.getLayoutY() > GAME_HEIGHT * heightRatio) 
 					{
 						attacking = false;
 						gamePane.getChildren().remove(bullet);
@@ -986,7 +986,8 @@ public class GameUI extends Stage {
 		for(Node child : gamePane.getChildren())
 		{
 			UIElement check = (UIElement) child;
-			if (check.getCollShape().intersects(endpointX, endpointY, currentUnit.getFitWidth(), currentUnit.getFitWidth()))
+			if (check.getCollShape().intersects(endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2,
+					currentUnit.getFitWidth(), currentUnit.getFitWidth()))
 			{
 				if (check instanceof Obstacle && !((Obstacle)check).isWalkable())
 				{
@@ -999,6 +1000,12 @@ public class GameUI extends Stage {
 				}
 			}
 		}
+		if(endpointX - currentUnit.getFitWidth() / 2 < 0 || endpointX + currentUnit.getFitWidth() / 2 > GAME_WIDTH * widthRatio ||
+				endpointY - currentUnit.getFitHeight() / 2 < 0 || endpointY + currentUnit.getFitHeight() / 2 > GAME_HEIGHT * heightRatio)
+		{
+			valid = false;
+		}
+		
 		if(valid)
 		{
 			for(MoneyBag money : bags)
