@@ -539,8 +539,8 @@ public class Tools {
 		imgV.setSmooth(true);
 		imgV.setCache(true);
 		
-		AnchorPane.setLeftAnchor(imgV, xLoc * widthRatio);
-		AnchorPane.setTopAnchor(imgV, yLoc * heightRatio);
+		imgV.setLayoutX(xLoc * widthRatio);
+		imgV.setLayoutY(yLoc * heightRatio);
 
 		return imgV;
 	}
