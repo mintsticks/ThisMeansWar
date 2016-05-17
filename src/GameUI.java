@@ -391,12 +391,17 @@ public class GameUI extends Stage {
 		double bulletDirection = 
 				Math.toDegrees(Math.atan2(mouseY - unitY, mouseX - unitX));
 		
+		//Generate offset in x and y direction
+		double xDist = unitX - mouseX;
+		double yDist = unitY - mouseY;
+		double totalDist = Math.sqrt(xDist * xDist + yDist * yDist);
+		
 		Projectile bullet = Tools.createProjectile(currentUnit.getDamage(), 
 				BULLET_HEIGHT, BULLET_WIDTH, bulletDirection,
-				unitX / widthRatio, unitY / heightRatio, widthRatio, heightRatio, 
+				unitX / widthRatio + 75 * , unitY / heightRatio, widthRatio, heightRatio, 
 				smallestRatio, Tools.MEDIUM_OUT_SHADE);
 		gamePane.getChildren().add(bullet);
-		fireBullet(-bulletDirection, bullet, mouseX, mouseY);
+		fireBullet(bullet, mouseX, mouseY);
 		
 	
 	}
@@ -1051,7 +1056,7 @@ public class GameUI extends Stage {
 				selectDamage);		
 	}
 	
-	public void fireBullet(final double angle, final Projectile bullet, 
+	public void fireBullet(final Projectile bullet, 
 			final double endpointX, final double endpointY)
 	{
 		prevTime = -1;
