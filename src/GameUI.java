@@ -32,6 +32,14 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
+	private static final int HOUSE_TWO_Y = 407;
+	private static final int HOUSE_TWO_X = 791;
+	private static final int HOUSE_TWO_HEIGHT = 313;
+	private static final int HOUSE_TWO_WIDTH = 286;
+	private static final int HOUSE_ONE_Y = 368;
+	private static final int HOUSE_ONE_X = 270;
+	private static final int HOUSE_ONE_HEIGHT = 252;
+	private static final int HOUSE_ONE_WIDTH = 415;
 	private static final int WINNER_SIZE = 72;
 	private static final int WINNER_Y = 176;
 	private static final int WINNER_X = 215;
@@ -46,7 +54,7 @@ public class GameUI extends Stage {
 	public static final double ONE_MONEY_CHANCE = .15;
 
 	public static final int MIN_MONEY = 50;
-	public static final int BULLET_SPEED = 200;
+	public static final int BULLET_SPEED = 300;
 	public static final int BULLET_WIDTH = 20;
 	public static final int BULLET_HEIGHT = 10;
 	public static final int DAMAGE_Y = 575;
@@ -972,9 +980,12 @@ public class GameUI extends Stage {
 		createBuyPanels();
 		addBases(gamePane);
 		
+		
 		root.getChildren().addAll(close, minimize, gamePane, coverPane, 
 				moveEllipse, attackEllipse);
 		root.setBackground(new Background(ground));
+		
+		createField();
 		
 		this.setScene(scene);
 		this.show();
@@ -1287,7 +1298,8 @@ public class GameUI extends Stage {
 	
 	public void genMoney()
 	{
-		Rectangle moneySpace = new Rectangle();
+		Rectangle moneySpace = new Rectangle(100, 100, 50, 50);
+		moneySpace.setFill(GRADIENT_ATTACK);
 		gamePane.getChildren().add(moneySpace);
 		int randomValue;
 		double randomX;
@@ -1302,6 +1314,7 @@ public class GameUI extends Stage {
 			
 			moneySpace.setLayoutX(randomX);
 			moneySpace.setLayoutY(randomY);
+			System.out.println(moneySpace.getLayoutX());
 			moneySpace.setWidth(Tools.MONEY_SIZE * randomValue / Tools.MAX_MONEY_BAG);
 		}
 		while(!checkObstacles(moneySpace));
@@ -1318,7 +1331,6 @@ public class GameUI extends Stage {
 	
 	public boolean checkObstacles(Rectangle moneySpace)
 	{
-		boolean valid = true;
 		for (Node child : gamePane.getChildren())
 		{
 			if(child instanceof Obstacle)
@@ -1326,12 +1338,11 @@ public class GameUI extends Stage {
 				Obstacle check = (Obstacle) child;
 				if(((Path)Shape.intersect(check.getCollShape(), moneySpace)).getElements().size() > 0)
 				{
-					valid = false;
-					return valid;
+					return false;
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	public void hit(Projectile bullet)
 	{
@@ -1623,14 +1634,27 @@ public class GameUI extends Stage {
 	
 	public void createField()
 	{
-		
+		//make constants
+		createHouseOne(HOUSE_ONE_WIDTH, HOUSE_ONE_HEIGHT, HOUSE_ONE_X, HOUSE_ONE_Y);
+		createHouseTwo(HOUSE_TWO_WIDTH, HOUSE_TWO_HEIGHT, HOUSE_TWO_X, HOUSE_TWO_Y);
+		createTrees(155, 155, 5, 465, 15);
+		createRock(105, 105, 675, 63);
+		createRock(85, 85, 600, 70);
+		createTrees(120, 120, 1228, 521, 45);
+		createRock(60, 60, 1247, 359);
+		createRock(50, 50, 1287, 365);
+		createRock(45, 45, 1260, 400);
+		createRock(50, 50, 501, 774);
+		createTrees(120, 120, 600, 750, 180);
 	}
 	
 	public void createHouseOne(double height, double width, double xLoc, double yLoc)
 	{
 		Obstacle houseOne = Tools.createSolid(Tools.HOUSE_ONE, height, width,
 				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		moveElement(houseOne, xLoc, yLoc, 0);
+		houseOne.updateCollShape(houseOne.getFitHeight(), houseOne.getFitWidth(), 0, 
+				houseOne.getLayoutX() + houseOne.getFitWidth() / 2, houseOne.getLayoutY() +
+				houseOne.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(houseOne.getCollShape(), houseOne);
 	}
 	
@@ -1638,24 +1662,30 @@ public class GameUI extends Stage {
 	{
 		Obstacle houseTwo = Tools.createSolid(Tools.HOUSE_TWO, height, width,
 				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		moveElement(houseTwo, xLoc, yLoc, 0);
+		houseTwo.updateCollShape(houseTwo.getFitHeight(), houseTwo.getFitWidth(), 0, 
+				houseTwo.getLayoutX() + houseTwo.getFitWidth() / 2, houseTwo.getLayoutY() +
+				houseTwo.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(houseTwo.getCollShape(), houseTwo);
 	}
 	
-	public void createTrees(double height, double width, double xLoc, double yLoc)
+	public void createTrees(double height, double width, double xLoc, double yLoc, double angle)
 	{
-		Obstacle trees = Tools.createSolid(Tools.HOUSE_TWO, height, width,
+		Obstacle trees = Tools.createSolid(Tools.TREE, height, width,
 				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		moveElement(trees, xLoc, yLoc, 0);
+		trees.updateCollShape(trees.getFitHeight(), trees.getFitWidth(), angle, 
+				trees.getLayoutX() + trees.getFitWidth() / 2, trees.getLayoutY() +
+				trees.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(trees.getCollShape(), trees);
 	} 
 	
 	public void createRock(double height, double width, double xLoc, double yLoc)
 	{
-		Obstacle tree = Tools.createSolid(Tools.TREE, height, width,
+		Obstacle rock = Tools.createSolid(Tools.ROCK, height, width,
 				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		moveElement(tree, xLoc, yLoc, 0);
-		gamePane.getChildren().addAll(tree.getCollShape(), tree);
+		rock.updateCollShape(rock.getFitHeight(), rock.getFitWidth(), 0, 
+				rock.getLayoutX() + rock.getFitWidth() / 2, rock.getLayoutY() +
+				rock.getFitHeight() / 2, 1, 1, 1);
+		gamePane.getChildren().addAll(rock.getCollShape(), rock);
 	}
 	
 	
