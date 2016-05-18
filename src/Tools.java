@@ -94,6 +94,10 @@ public class Tools {
 	public static final Image SCOUT = Tools.createImage("Units/Scout.png");
 	
 	public static final Image MONEY = Tools.createImage("MoneyLarge.png");
+	public static final Image HOUSE_ONE = Tools.createImage("House.png");
+	public static final Image HOUSE_TWO = Tools.createImage("House2.png");
+	public static final Image ROCK = Tools.createImage("Rock.png");
+	public static final Image TREE = Tools.createImage("Tree.png");
 	
 	public static final String PRIVATE_TEXT = "Private";
 	public static final String CORP_TEXT = "Corporal";
@@ -423,6 +427,7 @@ public class Tools {
 	
 	/**Creates a solid object, which is a object which players cannot pass through
 	 * It is displayed on the screen in a specified location with a given size and effect
+	 * @param img the visual for the solid
 	 * @param height desired height of solid 
 	 * @param width desired width of solid
 	 * @param xLoc the x-coordinate of the solid
@@ -433,11 +438,11 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return obstacle that is a rock with the given location, size, and effect
 	 */
-	public static Obstacle createSolid(String img, double height, double width, double xLoc, double yLoc,
+	public static Obstacle createSolid(Image img, double height, double width, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
 		Obstacle solid = new Obstacle(false);
-		solid.setImage(createImage(img));
+		solid.setImage(img);
 		solid = (Obstacle)setImgView(solid, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		solid.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		return solid;

@@ -455,8 +455,6 @@ public class GameUI extends Stage {
 	
 	public void checkEndGame()
 	{
-		createEnd();
-		/*
 		int nonNull = 0;
 		for(Player p : players)
 		{
@@ -466,7 +464,7 @@ public class GameUI extends Stage {
 		if(nonNull == 1)
 		{
 			createEnd();
-		}*/
+		}
 	}
 	
 	public void checkPlayer()
@@ -1289,18 +1287,51 @@ public class GameUI extends Stage {
 	
 	public void genMoney()
 	{
-		int randomValue = (int)(Math.random() * (Tools.MAX_MONEY_BAG - 
+		Rectangle moneySpace = new Rectangle();
+		gamePane.getChildren().add(moneySpace);
+		int randomValue;
+		double randomX;
+		double randomY;
+		do
+		{
+			randomValue = (int)(Math.random() * (Tools.MAX_MONEY_BAG - 
 				MIN_MONEY_SPAWN + 1)) + MIN_MONEY_SPAWN;
-		double randomX = Math.random() * (GAME_PANE_WIDTH - Tools.MAX_MONEY_BAG / 2);
-		double randomY = Math.random() * (GAME_PANE_HEIGHT - BASE_HEIGHT * 2 - Tools.MAX_MONEY_BAG / 2)
+			randomX = Math.random() * (GAME_PANE_WIDTH - Tools.MAX_MONEY_BAG / 2);
+			randomY = Math.random() * (GAME_PANE_HEIGHT - BASE_HEIGHT * 2 - Tools.MAX_MONEY_BAG / 2)
 				+ BASE_HEIGHT;
+			
+			moneySpace.setLayoutX(randomX);
+			moneySpace.setLayoutY(randomY);
+			moneySpace.setWidth(Tools.MONEY_SIZE * randomValue / Tools.MAX_MONEY_BAG);
+		}
+		while(!checkObstacles(moneySpace));
+		
 		MoneyBag spawn = Tools.createMoneyBag(randomValue, 0, 0, widthRatio,
 				heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
 		spawn.setLayoutX(randomX * widthRatio);
 		spawn.setLayoutY(randomY * widthRatio);
 		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
 		
+		gamePane.getChildren().remove(moneySpace);
 		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
+	}
+	
+	public boolean checkObstacles(Rectangle moneySpace)
+	{
+		boolean valid = true;
+		for (Node child : gamePane.getChildren())
+		{
+			if(child instanceof Obstacle)
+			{
+				Obstacle check = (Obstacle) child;
+				if(((Path)Shape.intersect(check.getCollShape(), moneySpace)).getElements().size() > 0)
+				{
+					valid = false;
+					return valid;
+				}
+			}
+		}
+		return false;
 	}
 	public void hit(Projectile bullet)
 	{
@@ -1594,4 +1625,38 @@ public class GameUI extends Stage {
 	{
 		
 	}
+	
+	public void createHouseOne(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle houseOne = Tools.createSolid(Tools.HOUSE_ONE, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		moveElement(houseOne, xLoc, yLoc, 0);
+		gamePane.getChildren().addAll(houseOne.getCollShape(), houseOne);
+	}
+	
+	public void createHouseTwo(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle houseTwo = Tools.createSolid(Tools.HOUSE_TWO, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		moveElement(houseTwo, xLoc, yLoc, 0);
+		gamePane.getChildren().addAll(houseTwo.getCollShape(), houseTwo);
+	}
+	
+	public void createTrees(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle trees = Tools.createSolid(Tools.HOUSE_TWO, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		moveElement(trees, xLoc, yLoc, 0);
+		gamePane.getChildren().addAll(trees.getCollShape(), trees);
+	} 
+	
+	public void createRock(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle tree = Tools.createSolid(Tools.TREE, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		moveElement(tree, xLoc, yLoc, 0);
+		gamePane.getChildren().addAll(tree.getCollShape(), tree);
+	}
+	
+	
 }
