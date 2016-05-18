@@ -21,68 +21,58 @@ public class Tools {
 	//Constants available for every class
 	public static final InnerShadow XLARGE_SHADE = new InnerShadow(10.0, Color.BLACK);
 	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0, Color.BLACK);
+	public static final InnerShadow MEDIUM_SHADE = new InnerShadow(3.0, Color.BLACK);
 	public static final InnerShadow SMALL_SHADE = new InnerShadow(2.0, Color.BLACK);
 	public static final DropShadow LARGE_OUT_SHADE = new DropShadow(5.0, Color.BLACK);
 	public static final DropShadow MEDIUM_OUT_SHADE = new DropShadow(3.0, Color.BLACK);
 	public static final DropShadow SMALL_OUT_SHADE = new DropShadow(2.0, Color.BLACK);
 	
+	public static final DropShadow LARGE_WHITE_OUT = new DropShadow(5.0, Color.WHITE);
 	public static final DropShadow RED_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[0]);
 	public static final DropShadow CYAN_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[1]);
 	public static final DropShadow GREEN_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[2]);
 	public static final DropShadow PINK_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[3]);
 
 	//Constant statistics for units
-	public static final int PRIV_HEALTH = 1;
-	public static final double PRIV_ATT_RANGE = 1;
-	public static final int PRIV_DMG = 1;
-	public static final double PRIV_MOVE_RANGE = 1;
-	public static final int PRIV_COST = 1;
+	public static final int PRIV_HEALTH = 50;
+	public static final double PRIV_ATT_RANGE = 100;
+	public static final int PRIV_DMG = 25;
+	public static final double PRIV_MOVE_RANGE = 100;
+	public static final int PRIV_COST = 100;
 	
-	public static final int CORP_HEALTH = 2;
-	public static final double CORP_ATT_RANGE = 2;
-	public static final int CORP_DMG = 2;
-	public static final double CORP_MOVE_RANGE = 2;
-	public static final int CORP_COST = 2;
+	public static final int CORP_HEALTH = 100;
+	public static final double CORP_ATT_RANGE = 200;
+	public static final int CORP_DMG = 50;
+	public static final double CORP_MOVE_RANGE = 200;
+	public static final int CORP_COST = 200;
 	
-	public static final int SERG_HEALTH = 3;
-	public static final double SERG_ATT_RANGE = 3;
-	public static final int SERG_DMG = 3;
-	public static final double SERG_MOVE_RANGE = 3;
-	public static final int SERG_COST = 3;
+	public static final int SERG_HEALTH = 150;
+	public static final double SERG_ATT_RANGE = 300;
+	public static final int SERG_DMG = 75;
+	public static final double SERG_MOVE_RANGE = 300;
+	public static final int SERG_COST = 300;
 
-	public static final int TANK_HEALTH = 4;
-	public static final double TANK_ATT_RANGE = 4;
-	public static final int TANK_DMG = 4;
-	public static final double TANK_MOVE_RANGE = 2;
-	public static final int TANK_COST = 4;
+	public static final int TANK_HEALTH = 200;
+	public static final double TANK_ATT_RANGE = 300;
+	public static final int TANK_DMG = 100;
+	public static final double TANK_MOVE_RANGE = 200;
+	public static final int TANK_COST = 400;
 	
-	public static final int SCOUT_HEALTH = 2;
-	public static final double SCOUT_ATT_RANGE = 2;
-	public static final int SCOUT_DMG = 1;
-	public static final double SCOUT_MOVE_RANGE = 4;
-	public static final int SCOUT_COST = 2;
+	public static final int SCOUT_HEALTH = 100;
+	public static final double SCOUT_ATT_RANGE = 200;
+	public static final int SCOUT_DMG = 25;
+	public static final double SCOUT_MOVE_RANGE = 400;
+	public static final int SCOUT_COST = 200;
 	
-	public static final int SNIP_HEALTH = 1;
-	public static final double SNIP_ATT_RANGE = 4;
-	public static final int SNIP_DMG = 3;
-	public static final double SNIP_MOVE_RANGE = 2;
-	public static final int SNIP_COST = 2;
+	public static final int SNIP_HEALTH = 50;
+	public static final double SNIP_ATT_RANGE = 400;
+	public static final int SNIP_DMG = 75;
+	public static final double SNIP_MOVE_RANGE = 200;
+	public static final int SNIP_COST = 200;
 	
 	//Other element settings
-	public static final int MONEY_BAG_SMALL = 100;
-	public static final int MONEY_BAG_MEDIUM = 200;
-	public static final int MONEY_BAG_LARGE = 500;
-	public static final int MONEY_BAG_XLARGE = 1000;
-	
-	public static final double MONEY_BAG_SMALL_H = 100;
-	public static final double MONEY_BAG_MEDIUM_H = 125;
-	public static final int MONEY_BAG_LARGE_H = 150;
-	public static final int MONEY_BAG_XLARGE_H = 175;
-	
-	public static final double MONEY_BAG_SMALL_W = 100;
-	public static final double MONEY_BAG_MEDIUM_W = 125;
-	public static final int MONEY_BAG_LARGE_W = 150;
-	public static final int MONEY_BAG_XLARGE_W = 175;
+	public static final int MAX_MONEY_BAG = 400;
+	public static final double MONEY_SIZE = 200;
 	
 	public static final double DEFAULT_ANGLE = 0;
 	public static final int DEFAULT_FONT = 10;
@@ -102,6 +92,14 @@ public class Tools {
 	public static final Image TANK = Tools.createImage("Units/Tank.png");
 	public static final Image SNIPER = Tools.createImage("Units/Sniper.png");
 	public static final Image SCOUT = Tools.createImage("Units/Scout.png");
+	
+	public static final String PRIVATE_TEXT = "Private";
+	public static final String CORP_TEXT = "Corporal";
+	public static final String SERG_TEXT = "Sergeant";
+	public static final String TANK_TEXT = "Tank";
+	public static final String SNIPER_TEXT = "Sniper";
+	public static final String SCOUT_TEXT = "Scout";
+
 	
 	//static initializer which runs when the class is initialized, loads different types of fonts for the whole class
 	//Site used to learn initializer : https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -148,6 +146,7 @@ public class Tools {
 	
 	/**Generates a Unit with the statistics of a corporal. 
 	 * It is displayed on the screen in a specified location with a given size and effect	 
+	 * @param team team that this unit belongs to
 	 * @param height desired height of image view 
 	 * @param width desired width of image view
 	 * @param angle desired angle of image view
@@ -159,10 +158,10 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return the Corporal unit with the given settings
 	 */
-	public static Unit createCorporal(double height, double width, double angle, double xLoc, double yLoc,
+	public static Unit createCorporal(int team, double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit corp = new Unit(CORP_HEALTH, CORP_ATT_RANGE, CORP_DMG, CORP_MOVE_RANGE, CORP_COST, CORP_ICON, CORP);
+		Unit corp = new Unit(team, CORP_HEALTH, CORP_ATT_RANGE, CORP_DMG, CORP_MOVE_RANGE, CORP_COST, CORP_ICON, CORP, CORP_TEXT);
 		corp = (Unit)setImgView(corp, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		corp.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -258,50 +257,20 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return MoneyBag with the given settings
 	 */
-	public static MoneyBag createMoneyBag(int setting, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
+	public static MoneyBag createMoneyBag(int value, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		MoneyBag bag;
-		double height;
-		double width;
-		if(setting == 1)
-		{
-			bag = new MoneyBag(MONEY_BAG_SMALL);
-			height = MONEY_BAG_SMALL_H;
-			width = MONEY_BAG_SMALL_W;
-		}
-		else if(setting == 2)
-		{
-			bag = new MoneyBag(MONEY_BAG_MEDIUM);
-			height = MONEY_BAG_MEDIUM_H;
-			width = MONEY_BAG_MEDIUM_W;
-		}
-		else if(setting == 3)
-		{
-			bag = new MoneyBag(MONEY_BAG_LARGE);
-			height = MONEY_BAG_LARGE_H;
-			width = MONEY_BAG_LARGE_W;
-		}
-		else if(setting == 4)
-		{
-			bag = new MoneyBag(MONEY_BAG_XLARGE);
-			height = MONEY_BAG_XLARGE_H;
-			width = MONEY_BAG_XLARGE_W;
-		}
-		//default case
-		else
-		{
-			bag = new MoneyBag(MONEY_BAG_MEDIUM);
-			height = MONEY_BAG_MEDIUM_H;
-			width = MONEY_BAG_MEDIUM_W;
-		}
-		bag.setImage(createImage("MoneyLarge.png"));
-		bag = (MoneyBag)setImgView(bag, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
-		bag.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		MoneyBag bag = new MoneyBag(value);
+		bag = (MoneyBag)setImgView(bag, MONEY_SIZE * value / MAX_MONEY_BAG, MONEY_SIZE * value / MAX_MONEY_BAG,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
+
+		bag.updateCollShape( MONEY_SIZE * value / MAX_MONEY_BAG,  MONEY_SIZE * value / MAX_MONEY_BAG, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
+		
 		return bag;
 	}
 	
 	/**Generates a Unit with the statistics of a private. 
 	 * It is displayed on the screen in a specified location with a given size and effect	 
+	 * @param team team that the unit belongs to
 	 * @param height desired height of image view 
 	 * @param width desired width of image view
 	 * @param angle desired angle of image view
@@ -313,10 +282,10 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return the Private unit with the given settings
 	 */
-	public static Unit createPrivate(double height, double width, double angle, double xLoc, double yLoc,
+	public static Unit createPrivate(int team, double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit priv = new Unit(PRIV_HEALTH, PRIV_ATT_RANGE, PRIV_DMG, PRIV_MOVE_RANGE, PRIV_COST, PRIVATE_ICON, PRIVATE);
+		Unit priv = new Unit(team, PRIV_HEALTH, PRIV_ATT_RANGE, PRIV_DMG, PRIV_MOVE_RANGE, PRIV_COST, PRIVATE_ICON, PRIVATE, PRIVATE_TEXT);
 		priv = (Unit)setImgView(priv, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		priv.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		return priv;
@@ -380,6 +349,7 @@ public class Tools {
 	
 	/**Generates a Unit with the statistics of a scout. 
 	 * It is displayed on the screen in a specified location with a given size and effect
+	 * @param team team that the unit belongs to
 	 * @param height desired height of image view 
 	 * @param width desired width of image view
 	 * @param angle desired angle of image view
@@ -391,10 +361,10 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return the Scout unit with the given settings
 	 */
-	public static Unit createScout(double height, double width, double angle, double xLoc, double yLoc,
+	public static Unit createScout(int team, double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit scout = new Unit(SCOUT_HEALTH, SCOUT_ATT_RANGE, SCOUT_DMG, SCOUT_MOVE_RANGE, SCOUT_COST, SCOUT_ICON, SCOUT);
+		Unit scout = new Unit(team, SCOUT_HEALTH, SCOUT_ATT_RANGE, SCOUT_DMG, SCOUT_MOVE_RANGE, SCOUT_COST, SCOUT_ICON, SCOUT, SCOUT_TEXT);
 		scout = (Unit)setImgView(scout, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		scout.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -403,6 +373,7 @@ public class Tools {
 	
 	/**Generates a Unit with the statistics of a sergeant. 
 	 * It is displayed on the screen in a specified location with a given size and effect	
+	 * @param team team that the unit belongs to
 	 * @param height desired height of image view 
 	 * @param width desired width of image view
 	 * @param angle desired angle of image view
@@ -414,10 +385,10 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return the Sergeant unit with the given settings
 	 */
-	public static Unit createSergeant(double height, double width, double angle, double xLoc, double yLoc,
+	public static Unit createSergeant(int team, double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit serg = new Unit(SERG_HEALTH, SERG_ATT_RANGE, SERG_DMG, SERG_MOVE_RANGE, SERG_COST, SERG_ICON, SERG);
+		Unit serg = new Unit(team, SERG_HEALTH, SERG_ATT_RANGE, SERG_DMG, SERG_MOVE_RANGE, SERG_COST, SERG_ICON, SERG, SERG_TEXT);
 		serg = (Unit)setImgView(serg, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		serg.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -426,6 +397,7 @@ public class Tools {
 	
 	/**Generates a Unit with the statistics of a sniper. 
 	 * It is displayed on the screen in a specified location with a given size and effect	 
+	 * @param team team that the unit belongs to
 	 * @param height desired height of image view 
 	 * @param width desired width of image view
 	 * @param angle desired angle of image view
@@ -437,10 +409,10 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return the Sniper unit with the given settings
 	 */
-	public static Unit createSniper(double height, double width, double angle, double xLoc, double yLoc,
+	public static Unit createSniper(int team, double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit sniper = new Unit(SNIP_HEALTH, SNIP_ATT_RANGE, SNIP_DMG, SNIP_MOVE_RANGE, SNIP_COST, SNIPER_ICON, SNIPER);
+		Unit sniper = new Unit(team, SNIP_HEALTH, SNIP_ATT_RANGE, SNIP_DMG, SNIP_MOVE_RANGE, SNIP_COST, SNIPER_ICON, SNIPER, SNIPER_TEXT);
 		sniper = (Unit)setImgView(sniper, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		sniper.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -471,6 +443,7 @@ public class Tools {
 	
 	/**Generates a Unit with the statistics of a tank. 
      * It is displayed on the screen in a specified location with a given size and effect	 
+	 * @param team team that the unit belongs to
      * @param height desired height of image view 
      * @param angle desired angle of image view
 	 * @param width desired width of image view
@@ -482,10 +455,10 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return the tank unit with the given settings
 	 */
-	public static Unit createTank(double height, double width, double angle, double xLoc, double yLoc,
+	public static Unit createTank(int team, double height, double width, double angle, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
-		Unit tank = new Unit(TANK_HEALTH, TANK_ATT_RANGE, TANK_DMG, TANK_MOVE_RANGE, TANK_COST, TANK_ICON, TANK);
+		Unit tank = new Unit(team, TANK_HEALTH, TANK_ATT_RANGE, TANK_DMG, TANK_MOVE_RANGE, TANK_COST, TANK_ICON, TANK, TANK_TEXT);
 		tank = (Unit)setImgView(tank, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		tank.updateCollShape(height, width, angle, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
@@ -566,8 +539,8 @@ public class Tools {
 		imgV.setSmooth(true);
 		imgV.setCache(true);
 		
-		AnchorPane.setLeftAnchor(imgV, xLoc * widthRatio);
-		AnchorPane.setTopAnchor(imgV, yLoc * heightRatio);
+		imgV.setLayoutX(xLoc * widthRatio);
+		imgV.setLayoutY(yLoc * heightRatio);
 
 		return imgV;
 	}
