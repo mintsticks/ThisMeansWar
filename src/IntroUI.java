@@ -176,6 +176,11 @@ public class IntroUI extends Stage{
 		border.close();
 	}
 	
+	public void closeIntroOnly()
+	{
+		this.close();
+	}
+	
 	public void closeNumScreen()
 	{
 		numSelect.close();
@@ -208,8 +213,8 @@ public class IntroUI extends Stage{
 			@Override
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(INTRO_HELP_HOVER));
-				closeIntroScreen();
 				createHelpStage();
+				closeIntroOnly();
 			}
         });
 		
@@ -744,6 +749,7 @@ public class IntroUI extends Stage{
 		this.setIconified(true);
 		border.setIconified(true);
 	}
+	
 	public void openIntroScreen()
 	{
 		border.show();

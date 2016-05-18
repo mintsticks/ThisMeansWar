@@ -32,12 +32,21 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
-	private static final double TWO_MONEY_CHANCE = .05;
-	private static final double ONE_MONEY_CHANCE = .25;
-	
-	public static final int MIN_MONEY_DIST = 200;
+	private static final int WINNER_SIZE = 72;
+	private static final int WINNER_Y = 176;
+	private static final int WINNER_X = 215;
+	private static final int EXIT_PANEL_Y = 352;
+	private static final int EXIT_PANEL_X = 151;
+	private static final int EXIT_PANEL_HEIGHT = 77;
+	private static final int EXIT_PANEL_WIDTH = 407;
+	public static final int END_SCREEN_HEIGHT = 500;
+	public static final int END_SCREEN_WIDTH = 720;
+	public static final int MIN_MONEY_SPAWN = 100;
+	public static final double TWO_MONEY_CHANCE = .005;
+	public static final double ONE_MONEY_CHANCE = .15;
+
 	public static final int MIN_MONEY = 50;
-	public static final int BULLET_SPEED = 100;
+	public static final int BULLET_SPEED = 200;
 	public static final int BULLET_WIDTH = 20;
 	public static final int BULLET_HEIGHT = 10;
 	public static final int DAMAGE_Y = 575;
@@ -98,8 +107,11 @@ public class GameUI extends Stage {
 			Tools.createImage("NameSelect.png");
 	public static final Image NAME_SET_CLICKED_IMAGE = 
 			Tools.createImage("NameSelectClicked.png");
+	public static final Image END_SCREEN_IMAGE = 
+			Tools.createImage("EndScreen.png");
+	public static final Image END_SCREEN_CLICKED_IMAGE = 
+			Tools.createImage("EndScreenClicked.png");
 	
-	public static BackgroundImage NAME_SET;
 	public static final double GAME_WIDTH = 1920;
 	public static final double GAME_HEIGHT = 1080;
 	public static final int GAME_CONTROL_SIZE = 30;
@@ -241,10 +253,13 @@ public class GameUI extends Stage {
 	public static final int SNIP_COST = 200;
 	public static final int TANK_COST = 400;
 	public static final int MAX_UNIT_LIST = 6;
-	public final BackgroundImage GRASSY_GROUND;
-	public final BackgroundImage GRASSY_GROUND_CLICKED;
 	
-	public final BackgroundImage NAME_SET_CLICKED;
+	public final BackgroundImage ground;
+	public final BackgroundImage groundClicked;
+	public final BackgroundImage nameSetBack;
+	public final BackgroundImage nameSetClicked;
+	public final BackgroundImage endScreenBack;
+	public final BackgroundImage endScreenClicked;
 	
 	private double widthRatio;
 	private double heightRatio;
@@ -284,6 +299,8 @@ public class GameUI extends Stage {
 	private Unit currentUnit;
 	private AnchorPane gamePane;
 	private AnchorPane root;
+	
+	private AnchorPane endRoot;
 	//Used to deselect the unit if the player clicks outside of the unit range
 	private AnchorPane coverPane;
 	private Rectangle clipAttack;
@@ -308,30 +325,42 @@ public class GameUI extends Stage {
 		this.heightRatio = heightRatio;
 		this.smallestRatio = smallestRatio;
 		this.numPlayers = numPlayers;
-		GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, 
+		ground = new BackgroundImage(GRASSY_GROUND_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth() * 
 						widthRatio, GRASSY_GROUND_IMAGE.getHeight() * 
 						heightRatio, false, false, false, false));
-		GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, 
+		groundClicked = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth() * 
 						widthRatio, GRASSY_GROUND_CLICKED_IMAGE.getHeight() * 
 						heightRatio, false, false, false, false));
-		NAME_SET = new BackgroundImage(NAME_SET_IMAGE, 
+		nameSetBack = new BackgroundImage(NAME_SET_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(NAME_SET_IMAGE.getWidth() * widthRatio, 
 						NAME_SET_IMAGE.getHeight() * heightRatio, false, 
-						false, true, false));
-		NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, 
+						false, false, false));
+		nameSetClicked = new BackgroundImage(NAME_SET_CLICKED_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth() * 
 						widthRatio, NAME_SET_CLICKED_IMAGE.getHeight() * 
-						heightRatio, false, false, true, false));
+						heightRatio, false, false, false, false));
+		endScreenBack = new BackgroundImage(END_SCREEN_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(END_SCREEN_IMAGE.getWidth() * 
+						widthRatio, END_SCREEN_IMAGE.getHeight() * 
+						heightRatio, false, false, false, false));
+		endScreenClicked = new BackgroundImage(END_SCREEN_CLICKED_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(END_SCREEN_CLICKED_IMAGE.getWidth() * 
+						widthRatio, END_SCREEN_CLICKED_IMAGE.getHeight() *
+						heightRatio, false, false, false, false));
 		createNameSet(numPlayers);
 	}
 	
@@ -426,6 +455,8 @@ public class GameUI extends Stage {
 	
 	public void checkEndGame()
 	{
+		createEnd();
+		/*
 		int nonNull = 0;
 		for(Player p : players)
 		{
@@ -435,7 +466,7 @@ public class GameUI extends Stage {
 		if(nonNull == 1)
 		{
 			createEnd();
-		}
+		}*/
 	}
 	
 	public void checkPlayer()
@@ -804,21 +835,18 @@ public class GameUI extends Stage {
 		endScreen.initStyle(StageStyle.TRANSPARENT);
 		endScreen.initOwner(this);
 		
-		AnchorPane endRoot = new AnchorPane();
-		Scene scene = new Scene(endRoot, 500 * widthRatio, 300 * heightRatio);
+		endRoot = new AnchorPane();
+		Scene scene = new Scene(endRoot, END_SCREEN_WIDTH * widthRatio, END_SCREEN_HEIGHT * heightRatio);
 		
-		Text winner = Tools.createText(100, 50, widthRatio, heightRatio,
-				players.get(0).getName() + " is the winner!", Color.GRAY,
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style",
-						null, 50, smallestRatio));
-		endRoot.setEffect(Tools.LARGE_SHADE);
+		Text winner = Tools.createText(WINNER_X, WINNER_Y, widthRatio, heightRatio,
+				players.get(0).getName(), Color.DARKRED.darker(),
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, WINNER_SIZE, smallestRatio));
 		
 		Rectangle endExit = createEndExit();
 		
-		endRoot.getChildren().addAll(winner);
+		endRoot.getChildren().addAll(winner, endExit);
 		
-		//create new background for this, with a close button
-		//root.setBackground(new Background(NAME_SET));
+		endRoot.setBackground(new Background(endScreenBack));
 
 		endScreen.setScene(scene);
 		endScreen.show();
@@ -826,25 +854,22 @@ public class GameUI extends Stage {
 	}
 	public Rectangle createEndExit()
 	{
-		Rectangle exitPanel = Tools.createRoundedRectangle(100, 50, 
-				RECT_ARC_SIZE, RECT_ARC_SIZE, 25, 25, 
-				widthRatio, heightRatio, smallestRatio, Color.BLUE, 
+		Rectangle exitPanel = Tools.createRoundedRectangle(EXIT_PANEL_WIDTH, EXIT_PANEL_HEIGHT, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, EXIT_PANEL_X, EXIT_PANEL_Y, 
+				widthRatio, heightRatio, smallestRatio, Color.TRANSPARENT, 
 				null);
 		
 		exitPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				//root.setBackground(new Background());
+				endRoot.setBackground(new Background(endScreenClicked));
 			}
         });
 		exitPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				//root.setBackground(new Background(NAME_SET));
-				/*this.close;
-				IntroUI intro = new IntroUI(heightRatio, heightRatio, heightRatio);
-				introUI.show();
-				*/
+				endRoot.setBackground(new Background(endScreenBack));
+				closeGameScreen();
 			}
         });
 		return exitPanel;
@@ -859,14 +884,14 @@ public class GameUI extends Stage {
 		endPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GRASSY_GROUND_CLICKED));
+				root.setBackground(new Background(groundClicked));
 			}
         });
 		
 		endPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GRASSY_GROUND));
+				root.setBackground(new Background(ground));
 				refreshSelect();
 				//while the next player is one that has been removed, keep adding to the index
 				do
@@ -951,7 +976,7 @@ public class GameUI extends Stage {
 		
 		root.getChildren().addAll(close, minimize, gamePane, coverPane, 
 				moveEllipse, attackEllipse);
-		root.setBackground(new Background(GRASSY_GROUND));
+		root.setBackground(new Background(ground));
 		
 		this.setScene(scene);
 		this.show();
@@ -1032,7 +1057,7 @@ public class GameUI extends Stage {
 		createNameTextFields(root, players);
 		
 		root.getChildren().addAll(ok, close);
-		root.setBackground(new Background(NAME_SET));
+		root.setBackground(new Background(nameSetBack));
 
 		nameSet.setScene(scene);
 		nameSet.show();
@@ -1049,13 +1074,13 @@ public class GameUI extends Stage {
 		okPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(NAME_SET_CLICKED));
+				root.setBackground(new Background(nameSetClicked));
 			}
         });
 		okPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(NAME_SET));
+				root.setBackground(new Background(nameSetBack));
 				if(checkTextfields())
 				{
 					createPlayers();
@@ -1265,15 +1290,14 @@ public class GameUI extends Stage {
 	public void genMoney()
 	{
 		int randomValue = (int)(Math.random() * (Tools.MAX_MONEY_BAG - 
-				MIN_MONEY + 1)) + MIN_MONEY;
-		double randomX = Math.random() * (GAME_PANE_WIDTH - MIN_MONEY_DIST*2)
-				+ MIN_MONEY_DIST;
-		double randomY = Math.random() * (GAME_PANE_HEIGHT - MIN_MONEY_DIST)
-				+ MIN_MONEY_DIST / 2;
+				MIN_MONEY_SPAWN + 1)) + MIN_MONEY_SPAWN;
+		double randomX = Math.random() * (GAME_PANE_WIDTH - Tools.MAX_MONEY_BAG / 2);
+		double randomY = Math.random() * (GAME_PANE_HEIGHT - BASE_HEIGHT * 2 - Tools.MAX_MONEY_BAG / 2)
+				+ BASE_HEIGHT;
 		MoneyBag spawn = Tools.createMoneyBag(randomValue, 0, 0, widthRatio,
 				heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		spawn.setLayoutX(randomX);
-		spawn.setLayoutY(randomY);
+		spawn.setLayoutX(randomX * widthRatio);
+		spawn.setLayoutY(randomY * widthRatio);
 		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
 		
 		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
@@ -1564,5 +1588,10 @@ public class GameUI extends Stage {
 		addUnitIcons();
 		
 		root.getChildren().addAll(playerName, playerMoney);
+	}
+	
+	public void createField()
+	{
+		
 	}
 }
