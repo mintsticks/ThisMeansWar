@@ -72,15 +72,27 @@ public class IntroUI extends Stage{
 	public static final Image NUM_PLAY_IMAGE = Tools.createImage("NumPlayers.png");
 	public static final Image NUM_PLAY_CLICKED_IMAGE = Tools.createImage("NumPlayersClicked.png");
 	
-	/*public static final Image SELECTING_UNITS_IMAGE = Tools.createImage("Selecting Units.png");
+	public static final Image SELECTING_UNITS_IMAGE = Tools.createImage("Selecting Units.png");
 	public static final Image SELECTING_UNITS_BACK_HOVER_IMAGE = Tools.createImage("Selecting Units (Back Option Hover).png");
 	public static final Image SELECTING_UNITS_BACK_CLICKED_IMAGE = Tools.createImage("Selecting Units (Back Option Clicked).png");
+	public static final Image SELECTING_UNITS_NEXT_HOVER_IMAGE = Tools.createImage("Selecting Units (Next Hover).png");
+	public static final Image SELECTING_UNITS_NEXT_CLICKED_IMAGE = Tools.createImage("Selecting Units (Next Clicked).png");
+	
 	public static final Image GAME_ELEMENTS_IMAGE = Tools.createImage("Game Elements.png");
 	public static final Image GAME_ELEMENTS_PREVIOUS_HOVER_IMAGE = Tools.createImage("Game Elements (Previous Hover).png");
 	public static final Image GAME_ELEMENTS_PREVIOUS_CLICKED_IMAGE = Tools.createImage("Game Elements (Previous Clicked).png");
 	public static final Image GAME_ELEMENTS_NEXT_HOVER_IMAGE = Tools.createImage("Game Elements (Next Hover).png");
 	public static final Image GAME_ELEMENTS_NEXT_CLICKED_IMAGE = Tools.createImage("Game Elements (Next Clicked).png");
-	*/
+	
+	public static final Image GAME_SETUP_IMAGE = Tools.createImage("Game Setup.PNG");
+	public static final Image GAME_SETUP_HOMEPAGE_HOVER_IMAGE = Tools.createImage("Game Setup (Homepage Hover).png");
+	public static final Image GAME_SETUP_HOMEPAGE_CLICKED_IMAGE = Tools.createImage("Game Setup (Homepage Clicked).png");
+	public static final Image GAME_SETUP_NEXT_HOVER_IMAGE = Tools.createImage("Game Setup (Next Hover).png");
+	public static final Image GAME_SETUP_NEXT_CLICKED_IMAGE = Tools.createImage("Game Setup (Next Clicked).png");
+	
+	public static final Image GAMEPLAY_IMAGE = Tools.createImage("Gameplay.PNG");
+	public static final Image GAMEPLAY_PREVIOUS_HOVER_IMAGE = Tools.createImage("Gameplay (Previous Hover).PNG");
+	public static final Image GAMEPLAY_PREVIOUS_CLICKED_IMAGE = Tools.createImage("Gameplay (Previous Clicked).PNG");
 	
 	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, false, false));
@@ -98,32 +110,52 @@ public class IntroUI extends Stage{
 			new BackgroundSize(NUM_PLAY_IMAGE.getWidth(), NUM_PLAY_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage NUM_PLAY_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	/*
-	public static final BackgroundImage SELECTING_UNITS = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage SELECTING_UNITS_BACK_HOVER = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage SELECTING_UNITS_BACK_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage GAME_ELEMENTS = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage GAME_ELEMENTS_PREVIOUS_HOVER = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage GAME_ELEMENTS_PREVIOUS_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage GAME_ELEMENTS_NEXT_HOVER = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage GAME_ELEMENTS_NEXT_CLICKED = new BackgroundImage(NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
-	*/
 	
+	public static final BackgroundImage SELECTING_UNITS = new BackgroundImage(SELECTING_UNITS_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage SELECTING_UNITS_BACK_HOVER = new BackgroundImage(SELECTING_UNITS_BACK_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage SELECTING_UNITS_BACK_CLICKED = new BackgroundImage(SELECTING_UNITS_BACK_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage SELECTING_UNITS_NEXT_HOVER = new BackgroundImage(SELECTING_UNITS_NEXT_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage SELECTING_UNITS_NEXT_CLICKED = new BackgroundImage(SELECTING_UNITS_NEXT_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	
+	public static final BackgroundImage GAME_ELEMENTS = new BackgroundImage(GAME_ELEMENTS_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_ELEMENTS_PREVIOUS_HOVER = new BackgroundImage(GAME_ELEMENTS_PREVIOUS_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_ELEMENTS_PREVIOUS_CLICKED = new BackgroundImage(GAME_ELEMENTS_PREVIOUS_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_ELEMENTS_NEXT_HOVER = new BackgroundImage(GAME_ELEMENTS_NEXT_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_ELEMENTS_NEXT_CLICKED = new BackgroundImage(GAME_ELEMENTS_NEXT_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(), NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true, false));
+	
+	public static final BackgroundImage GAME_SETUP = new BackgroundImage(GAME_SETUP_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_SETUP_HOMEPAGE_HOVER = new BackgroundImage(GAME_SETUP_HOMEPAGE_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_SETUP_HOMEPAGE_CLICKED = new BackgroundImage(GAME_SETUP_HOMEPAGE_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_SETUP_NEXT_HOVER = new BackgroundImage(GAME_SETUP_NEXT_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAME_SETUP_NEXT_CLICKED = new BackgroundImage(GAME_SETUP_NEXT_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	
+	public static final BackgroundImage GAMEPLAY = new BackgroundImage(GAMEPLAY_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAMEPLAY_PREVIOUS_HOVER = new BackgroundImage(GAMEPLAY_PREVIOUS_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage GAMEPLAY_PREVIOUS_CLICKED = new BackgroundImage(GAMEPLAY_PREVIOUS_CLICKED_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
 	
 	private double widthRatio;
 	private double heightRatio;
 	private double smallestRatio;
 	
-	private Stage border;
-	private Stage numSelect;
+	private Stage border, numSelect, help, setup, select, elements, gameplay;
 	private ComboBox<String> comboBox;
 	
 	public IntroUI(double widthRatio, double heightRatio, double smallestRatio)
@@ -175,6 +207,8 @@ public class IntroUI extends Stage{
 			@Override
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(INTRO_HELP_HOVER));
+				closeIntroScreen();
+				createHelpStage();
 			}
         });
 		
@@ -297,6 +331,57 @@ public class IntroUI extends Stage{
 		numSelect.show();
 	}
 	
+	private void createHelpStage()
+	{
+		AnchorPane root = new AnchorPane();
+		help = createStandardStage(root);
+		
+		root.setBackground(new Background(GAME_SETUP));
+		Rectangle p = setupHomepage(root);
+		Rectangle next = setupNext(root);
+
+		root.getChildren().addAll(p, next);
+		help.show();
+	}
+	
+	private Stage createStandardStage(AnchorPane root)
+	{
+		Stage standard = new Stage();
+		standard.initStyle(StageStyle.TRANSPARENT);
+		
+		border.show();
+		standard.initOwner(border);
+		standard.setX(border.getX() + OFFSET * widthRatio);
+		standard.setY(border.getY() + OFFSET * heightRatio);
+		
+		Scene scene = new Scene(root, SCENE_WIDTH * widthRatio, SCENE_HEIGHT * heightRatio);
+		standard.setScene(scene);
+		
+		return standard;
+	}
+	
+	private void createSelectingUnits()
+	{
+		AnchorPane root = new AnchorPane();
+		select = createStandardStage(root);
+		
+		root.setBackground(new Background(SELECTING_UNITS));
+		Rectangle back = createBackSelectingUnits(root);
+		Rectangle next = createNextSelectingUnits(root);
+		root.getChildren().addAll(back, next);
+		select.show();
+	}
+	
+	private void createGameSetup()
+	{
+		AnchorPane root = new AnchorPane();
+		setup = createStandardStage(root);
+		Rectangle homepage = setupHomepage(root);
+		Rectangle next = setupNext(root);
+		
+		root.getChildren().addAll(next, homepage);
+		root.setBackground(new Background(SELECTING_UNITS));
+	}
 	public Rectangle createNumSelectOK(final AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(OK_WIDTH, OK_HEIGHT, OK_ARC_SIZE, OK_ARC_SIZE, OK_X, OK_Y, 
@@ -337,6 +422,181 @@ public class IntroUI extends Stage{
 		return okPanel;
 	}
 	
+	public Rectangle createBackSelectingUnits(final AnchorPane root)
+	{
+		Rectangle back = setupHomepage(root);
+		back.setWidth(310);
+		
+		back.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_BACK_HOVER));
+			}
+		 });
+		
+		back.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS));
+			}
+        });
+		
+		back.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_BACK_CLICKED));
+			}
+        });
+		
+		back.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_BACK_HOVER));
+				createHelpStage();
+			}
+        });
+		
+		return back;
+	}
+	
+	public Rectangle createNextSelectingUnits(final AnchorPane root)
+	{
+		Rectangle next = setupNext(root);
+		next.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_NEXT_HOVER));
+			}
+		 });
+		
+		next.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS));
+			}
+        });
+		next.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_NEXT_CLICKED));
+			}
+        });
+		next.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_NEXT_HOVER));
+				createElementsStage();
+			}
+        });
+		
+		return next;
+	}
+	
+	public Rectangle backToIntro (final AnchorPane root)
+	{
+		Rectangle back = Tools.createRoundedRectangle(450, 70, RECT_ARC_SIZE, RECT_ARC_SIZE, 
+				11, 600, widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		back.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_BACK_HOVER));
+			}
+		 });
+		
+		back.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS));
+			}
+        });
+		
+		back.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_BACK_CLICKED));
+			}
+        });
+	
+		back.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(SELECTING_UNITS_BACK_HOVER));
+				//createIntroUI();
+			}
+        });
+		return back;
+	}
+	
+	public Rectangle setupHomepage (final AnchorPane root)
+	{
+		Rectangle home = Tools.createRoundedRectangle(280, 53, RECT_ARC_SIZE, RECT_ARC_SIZE, 10, 610, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		home.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP_HOMEPAGE_HOVER));
+			}
+		 });
+		
+		home.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP));
+			}
+        });
+		home.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP_HOMEPAGE_CLICKED));
+			}
+        });
+		home.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP_HOMEPAGE_HOVER));
+				openIntroScreen();
+			}
+        });
+		
+		return home;
+	}
+	
+	public Rectangle setupNext(final AnchorPane root)
+	{
+		Rectangle next = Tools.createRoundedRectangle(190, 66, RECT_ARC_SIZE, RECT_ARC_SIZE, SCENE_WIDTH - 250, 600, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		next.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP_NEXT_HOVER));
+			}
+		 });
+		
+		next.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP));
+			}
+        });
+		next.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP_NEXT_CLICKED));
+			}
+        });
+		next.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_SETUP_NEXT_HOVER));
+				createSelectingUnits();
+			}
+        });
+		
+		return next;
+	}
+	
 	public Rectangle createPlayPanel(final AnchorPane root)
 	{
 		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
@@ -347,7 +607,8 @@ public class IntroUI extends Stage{
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(INTRO_PLAY_HOVER));
 			}
-        });
+		 });
+		
 		playPanel.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -370,6 +631,111 @@ public class IntroUI extends Stage{
         });
 		
 		return playPanel;
+	}
+	
+	private void createElementsStage()
+	{
+		AnchorPane root = new AnchorPane();
+		elements = createStandardStage(root);
+		root.setBackground(new Background(GAME_ELEMENTS));
+		Rectangle back = createElementsPrevious(root);
+		Rectangle next = createElementsNext(root);
+		root.getChildren().addAll(back, next);
+		elements.show();
+	}
+	
+	public Rectangle createElementsPrevious(final AnchorPane root)
+	{
+		Rectangle back = Tools.createRoundedRectangle(280, 53, RECT_ARC_SIZE, RECT_ARC_SIZE, 10, 610, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		Rectangle result =  createRectangle(root, back, GAME_ELEMENTS_PREVIOUS_HOVER, GAME_ELEMENTS, 
+				GAME_ELEMENTS_PREVIOUS_CLICKED);
+		
+		result.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_ELEMENTS_PREVIOUS_HOVER));
+				createSelectingUnits();
+			}
+        });
+		
+		return result;
+	}
+	
+	public Rectangle createElementsNext(final AnchorPane root)
+	{
+		Rectangle base = Tools.createRoundedRectangle(190, 66, RECT_ARC_SIZE, RECT_ARC_SIZE, SCENE_WIDTH - 250, 600, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle result =  createRectangle(root, base, GAME_ELEMENTS_NEXT_HOVER, GAME_ELEMENTS, 
+				GAME_ELEMENTS_NEXT_CLICKED);
+		
+		result.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAME_ELEMENTS_NEXT_HOVER));
+				createGameplayStage();
+			}
+        });
+		
+		return result;
+	}
+	
+	public void createGameplayStage()
+	{
+		AnchorPane root = new AnchorPane();
+		gameplay = createStandardStage(root);
+		root.setBackground(new Background(GAMEPLAY));
+		Rectangle back = createGameplayPrevious(root);
+		root.getChildren().addAll(back);
+		gameplay.show();
+	}
+	
+	public Rectangle createGameplayPrevious(final AnchorPane root)
+	{
+		Rectangle back = Tools.createRoundedRectangle(265, 53, RECT_ARC_SIZE, RECT_ARC_SIZE, 10, 610, 
+				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		
+		Rectangle result =  createRectangle(root, back, GAMEPLAY_PREVIOUS_HOVER, GAMEPLAY, 
+				GAMEPLAY_PREVIOUS_CLICKED);
+		
+		result.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(GAMEPLAY_PREVIOUS_HOVER));
+				createElementsStage();
+			}
+        });
+		
+		return result;
+	}
+	
+	private Rectangle createRectangle(final AnchorPane root, Rectangle base, final BackgroundImage mouseEnter, final BackgroundImage mouseExit, 
+			final BackgroundImage mousePressed)
+	{	
+		base.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(mouseEnter));
+			}
+		 });
+		
+		base.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(mouseExit));
+			}
+        });
+		
+		base.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				root.setBackground(new Background(mousePressed));
+			}
+        });
+		
+		
+		return base;
 	}
 	
 	public void minimizeIntroScreen()
