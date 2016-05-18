@@ -35,39 +35,39 @@ public class Tools {
 
 	//Constant statistics for units
 	public static final int PRIV_HEALTH = 50;
-	public static final double PRIV_ATT_RANGE = 100;
+	public static final double PRIV_ATT_RANGE = 1000;
 	public static final int PRIV_DMG = 25;
-	public static final double PRIV_MOVE_RANGE = 100;
+	public static final double PRIV_MOVE_RANGE = 1000;
 	public static final int PRIV_COST = 100;
 	
 	public static final int CORP_HEALTH = 100;
-	public static final double CORP_ATT_RANGE = 200;
+	public static final double CORP_ATT_RANGE = 1000;
 	public static final int CORP_DMG = 50;
-	public static final double CORP_MOVE_RANGE = 200;
+	public static final double CORP_MOVE_RANGE = 2000;
 	public static final int CORP_COST = 200;
 	
 	public static final int SERG_HEALTH = 150;
-	public static final double SERG_ATT_RANGE = 300;
+	public static final double SERG_ATT_RANGE = 1000;
 	public static final int SERG_DMG = 75;
-	public static final double SERG_MOVE_RANGE = 300;
+	public static final double SERG_MOVE_RANGE = 3000;
 	public static final int SERG_COST = 300;
 
 	public static final int TANK_HEALTH = 200;
-	public static final double TANK_ATT_RANGE = 300;
+	public static final double TANK_ATT_RANGE = 1000;
 	public static final int TANK_DMG = 100;
-	public static final double TANK_MOVE_RANGE = 200;
+	public static final double TANK_MOVE_RANGE = 2000;
 	public static final int TANK_COST = 400;
 	
 	public static final int SCOUT_HEALTH = 100;
-	public static final double SCOUT_ATT_RANGE = 200;
+	public static final double SCOUT_ATT_RANGE = 1000;
 	public static final int SCOUT_DMG = 25;
-	public static final double SCOUT_MOVE_RANGE = 400;
+	public static final double SCOUT_MOVE_RANGE = 4000;
 	public static final int SCOUT_COST = 200;
 	
 	public static final int SNIP_HEALTH = 50;
-	public static final double SNIP_ATT_RANGE = 400;
+	public static final double SNIP_ATT_RANGE = 1000;
 	public static final int SNIP_DMG = 75;
-	public static final double SNIP_MOVE_RANGE = 200;
+	public static final double SNIP_MOVE_RANGE = 2000;
 	public static final int SNIP_COST = 200;
 	
 	//Other element settings
@@ -137,8 +137,8 @@ public class Tools {
 		base.setSmooth(true);
 		base.setCache(true);
 		
-		AnchorPane.setLeftAnchor(base, xLoc * widthRatio);
-		AnchorPane.setTopAnchor(base, yLoc * heightRatio);
+		base.setLayoutX(xLoc * widthRatio);
+		base.setLayoutY(yLoc * heightRatio);
 		base.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
 		return base;
@@ -338,8 +338,8 @@ public class Tools {
 		rect.setArcHeight(arcH * heightRatio);
 		rect.setArcWidth(arcW * widthRatio);
 		
-		AnchorPane.setTopAnchor(rect, yLoc * heightRatio);
-		AnchorPane.setLeftAnchor(rect, xLoc * widthRatio);
+		rect.setLayoutX(xLoc * widthRatio);
+		rect.setLayoutY(yLoc * heightRatio);
 		
 		rect.setFill(col);
 		rect.setEffect(eff);

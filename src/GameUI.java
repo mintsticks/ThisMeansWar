@@ -31,7 +31,7 @@ import javafx.stage.StageStyle;
 public class GameUI extends Stage {
 	
 	public static final int MIN_MONEY = 50;
-	public static final int BULLET_SPEED = 200;
+	public static final int BULLET_SPEED = 100;
 	public static final int BULLET_WIDTH = 20;
 	public static final int BULLET_HEIGHT = 10;
 	public static final int DAMAGE_Y = 575;
@@ -333,13 +333,11 @@ public class GameUI extends Stage {
 	{
 		for(int k = 0; k < numPlayers; k++)
 		{
-			Rectangle clipBase = new Rectangle(0, 0, 
-					GAME_PANE_WIDTH * widthRatio, 
-					GAME_PANE_HEIGHT * heightRatio);
 			Obstacle base = Tools.createBase(BASE_HEIGHT, BASE_WIDTH, 
 					BASE_X[k], BASE_Y[k], widthRatio, heightRatio, 
 					smallestRatio, TEAM_EFFECTS[k]);
-			base.setClip(clipBase);
+			moveElement(base, base.getLayoutX(), base.getLayoutY(), 0);
+			root.getChildren().add(base.getCollShape());
 			root.getChildren().add(base);
 		}
 	}
@@ -398,10 +396,11 @@ public class GameUI extends Stage {
 		
 		Projectile bullet = Tools.createProjectile(currentUnit.getDamage(), 
 				BULLET_HEIGHT, BULLET_WIDTH, bulletDirection,
-				unitX / widthRatio + 75 * , unitY / heightRatio, widthRatio, heightRatio, 
+				unitX / widthRatio - 75 * xDist / totalDist, unitY / heightRatio - 75 * yDist / totalDist, widthRatio, heightRatio, 
 				smallestRatio, Tools.MEDIUM_OUT_SHADE);
 		gamePane.getChildren().add(bullet);
-		fireBullet(bullet, mouseX, mouseY);
+		gamePane.getChildren().add(bullet.getCollShape());
+		fireBullet(bullet, mouseX, mouseY, bulletDirection);
 		
 	
 	}
@@ -524,6 +523,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(corp, corp.getLayoutX(), corp.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(CORP_COST);
 					players.get(currentPlayer).getUnitList().add(corp);
 					
@@ -534,6 +535,7 @@ public class GameUI extends Stage {
 							selectUnit(corp);
 						}
 			        });
+					gamePane.getChildren().add(corp.getCollShape());
 					gamePane.getChildren().add(corp);
 					updateInfo();
 				}
@@ -571,6 +573,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(priv, priv.getLayoutX(), priv.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(PRIV_COST);
 					players.get(currentPlayer).getUnitList().add(priv);
 					
@@ -581,6 +585,7 @@ public class GameUI extends Stage {
 							selectUnit(priv);
 						}
 			        });
+					gamePane.getChildren().add(priv.getCollShape());
 					gamePane.getChildren().add(priv);
 					updateInfo();
 				}
@@ -608,6 +613,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(scout, scout.getLayoutX(), scout.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(SCOUT_COST);
 					players.get(currentPlayer).getUnitList().add(scout);
 					
@@ -618,7 +625,9 @@ public class GameUI extends Stage {
 							selectUnit(scout);
 						}
 			        });
+					gamePane.getChildren().add(scout.getCollShape());
 					gamePane.getChildren().add(scout);
+					
 					updateInfo();
 				}
 			}
@@ -644,6 +653,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(serg, serg.getLayoutX(), serg.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(SERG_COST);
 					players.get(currentPlayer).getUnitList().add(serg);
 					
@@ -654,6 +665,7 @@ public class GameUI extends Stage {
 							selectUnit(serg);
 						}
 			        });
+					gamePane.getChildren().add(serg.getCollShape());
 					gamePane.getChildren().add(serg);
 					updateInfo();
 				}
@@ -680,6 +692,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(snip, snip.getLayoutX(), snip.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(SNIP_COST);
 					players.get(currentPlayer).getUnitList().add(snip);
 					
@@ -690,6 +704,7 @@ public class GameUI extends Stage {
 							selectUnit(snip);
 						}
 			        });
+					gamePane.getChildren().add(snip.getCollShape());
 					gamePane.getChildren().add(snip);
 					updateInfo();
 				}
@@ -716,6 +731,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(tank, tank.getLayoutX(), tank.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(TANK_COST);
 					players.get(currentPlayer).getUnitList().add(tank);
 					
@@ -726,6 +743,7 @@ public class GameUI extends Stage {
 							selectUnit(tank);
 						}
 			        });
+					gamePane.getChildren().add(tank.getCollShape());
 					gamePane.getChildren().add(tank);
 					updateInfo();
 				}
@@ -752,7 +770,12 @@ public class GameUI extends Stage {
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(GRASSY_GROUND));
 				refreshSelect();
-				currentPlayer = (currentPlayer + 1) % players.size();
+				//while the next player is one that has been removed, keep adding to the index
+				do
+				{
+					currentPlayer = (currentPlayer + 1) % players.size();
+				}
+				while(players.get(currentPlayer) == null);
 				refreshPlayers();
 				updateInfo();
 			}
@@ -1057,7 +1080,7 @@ public class GameUI extends Stage {
 	}
 	
 	public void fireBullet(final Projectile bullet, 
-			final double endpointX, final double endpointY)
+			final double endpointX, final double endpointY, final double angle)
 	{
 		prevTime = -1;
 		attacking = true;
@@ -1087,8 +1110,7 @@ public class GameUI extends Stage {
 					double dy2 = distance * distY / dist;
 					double dy = (Math.abs(dy1) > Math.abs(dy2)) ? dy2 : dy1;
 					
-					bullet.setLayoutX(bullet.getLayoutX() + dx);
-					bullet.setLayoutY(bullet.getLayoutY() + dy);
+					moveElement(bullet, bullet.getLayoutX() + dx, bullet.getLayoutY() + dy, angle);
 
 					// Check each unit for collision
 					for (Node child : gamePane.getChildren())
@@ -1107,7 +1129,7 @@ public class GameUI extends Stage {
 								}
 								hit(bullet);
 								stop();
-								break;
+								return;
 							}
 						}
 						else if(child instanceof Obstacle)
@@ -1118,7 +1140,7 @@ public class GameUI extends Stage {
 							{
 								hit(bullet);
 								stop();
-								break;
+								return;
 							}
 						}
 					}
@@ -1131,6 +1153,7 @@ public class GameUI extends Stage {
 					{
 						hit(bullet);
 						stop();
+						return;
 					}
 				}
 				prevTime = nowSec;
@@ -1144,17 +1167,25 @@ public class GameUI extends Stage {
 		for(int k = 0; k < players.size(); k++)
 		{
 			Player person = players.get(k);
-			if(person.getUnitList().size() == 0 && 
-					person.getAmountOfMoney() < 100)
+			if(person != null)
 			{
-				players.remove(k);
-				k--;
+				if(person.getUnitList().size() == 0 && 
+					person.getAmountOfMoney() < 100)
+				{
+					players.set(k, null);
+				}
 			}
 		}
 	}
 	public void checkEndGame()
 	{
-		if(players.size() == 1)
+		int nonNull = 0;
+		for(Player p : players)
+		{
+			nonNull += (p == null) ? 0 : 1;
+		}
+		
+		if(nonNull == 1)
 		{
 			createEnd();
 		}
@@ -1216,6 +1247,7 @@ public class GameUI extends Stage {
 	{
 		attacking = false;
 		//Snap back to 0 degrees after attack
+		if(currentUnit != null)
 		currentUnit.getTransforms().remove(direction);
 		
 		gamePane.getChildren().remove(bullet);
@@ -1224,20 +1256,27 @@ public class GameUI extends Stage {
 		coverPane.setVisible(false);
 		//Deselects the unit after attack
 		refreshSelect();
+		
+		checkPlayer();
+		checkEndGame();
 	}
+	
 	public void minimizeGameScreen()
 	{
 		this.setIconified(true);
 	}
+	
 	public void refreshPlayers()
 	{
 		for(int k = 0; k < players.size(); k++)
 		{
 			Player person = players.get(k);
-				
-			for(Unit unit : person.getUnitList())
+			if(person != null)	
 			{
-				unit.refreshAction();
+				for(Unit unit : person.getUnitList())
+				{
+					unit.refreshAction();
+				}
 			}
 		}
 	}
@@ -1245,13 +1284,14 @@ public class GameUI extends Stage {
 	public void moveElement(UIElement ele, double endpointX, double endpointY, 
 			double angle)
 	{
-		double xOffset = ele.getFitWidth() / 2;
-		double yOffset = ele.getFitHeight() / 2;
-		ele.setLayoutX(endpointX - xOffset);
-		ele.setLayoutY(endpointY - yOffset);
+		ele.setLayoutX(endpointX);
+		ele.setLayoutY(endpointY);
+		
 		ele.updateCollShape(ele.getFitHeight(), ele.getFitWidth(), angle, 
-				ele.getLayoutX(), ele.getLayoutY(), 1, 1, 1);
+				ele.getLayoutX() + ele.getFitWidth() / 2, ele.getLayoutY() +
+				ele.getFitHeight() / 2, 1, 1, 1);
 	}
+	
 	public void moveClick(double endpointX, double endpointY)
 	{
 		boolean valid = true;
@@ -1259,21 +1299,24 @@ public class GameUI extends Stage {
 		ArrayList<MoneyBag> bags = new ArrayList<MoneyBag>();
 		for(Node child : gamePane.getChildren())
 		{
-			UIElement check = (UIElement) child;
-			if (check.getCollShape().intersects(endpointX - 
-					currentUnit.getFitWidth() / 2, endpointY - 
-					currentUnit.getFitHeight() / 2,
-					currentUnit.getFitWidth(), currentUnit.getFitWidth()))
+			if(child instanceof UIElement)
 			{
-				if (check instanceof Obstacle && 
-						!((Obstacle)check).isWalkable())
+				UIElement check = (UIElement) child;
+				if (check.getCollShape().intersects(endpointX - 
+						currentUnit.getFitWidth() / 2, endpointY - 
+						currentUnit.getFitHeight() / 2,
+						currentUnit.getFitWidth(), currentUnit.getFitWidth()))
 				{
-					valid = false;
-					break;
-				}
-				else if (check instanceof MoneyBag)
-				{
-					bags.add((MoneyBag)check);
+					if (check instanceof Obstacle && 
+							!((Obstacle)check).isWalkable())
+					{
+						valid = false;
+						break;
+					}
+					else if (check instanceof MoneyBag)
+					{
+						bags.add((MoneyBag)check);
+					}
 				}
 			}
 		}
@@ -1293,8 +1336,7 @@ public class GameUI extends Stage {
 				gamePane.getChildren().remove(money);
 			}
 			
-			currentUnit.setLayoutX(endpointX - currentUnit.getFitWidth() / 2);
-			currentUnit.setLayoutY(endpointY - currentUnit.getFitHeight() / 2);
+			moveElement(currentUnit, endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2, 0);
 			currentUnit.move();
 		}
 		moveEllipse.setVisible(false);
@@ -1378,26 +1420,6 @@ public class GameUI extends Stage {
 	
 	public void setCoverPane()
 	{
-		/*
-		coverPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
-			@Override
-			public void handle(MouseEvent arg0)
-			{
-				if (currentUnit != null)
-				{
-					double mouseX = arg0.getX()- PANE_X;
-					double mouseY = arg0.getY()- PANE_Y;
-					
-					double unitX = currentUnit.getLayoutX() + 
-							currentUnit.getFitWidth() / 2;
-					double unitY = currentUnit.getLayoutY() + 
-							currentUnit.getFitHeight() / 2;
-					//uses degrees, must convert
-					direction.setAngle(Math.toDegrees(Math.atan2(mouseY - 
-							unitY, mouseX - unitX)));
-				}
-			}
-		});*/
 		coverPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event)
@@ -1412,7 +1434,6 @@ public class GameUI extends Stage {
 					{
 						currentUnit.getTransforms().remove(direction);
 					}
-					refreshSelect();
 				}
 			}
 		});
