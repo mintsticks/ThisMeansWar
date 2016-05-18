@@ -93,6 +93,8 @@ public class Tools {
 	public static final Image SNIPER = Tools.createImage("Units/Sniper.png");
 	public static final Image SCOUT = Tools.createImage("Units/Scout.png");
 	
+	public static final Image MONEY = Tools.createImage("MoneyLarge.png");
+	
 	public static final String PRIVATE_TEXT = "Private";
 	public static final String CORP_TEXT = "Corporal";
 	public static final String SERG_TEXT = "Sergeant";
@@ -245,10 +247,9 @@ public class Tools {
 		return imgV;
 	}
 	
-	/**Creates a money bag with values based on a given setting number. 
+	/**Creates a money bag with size baased on money value 
 	 * It is displayed on the screen in a specified location with a given size and effect
-	 * @param setting a number to indicate what type of money bag desired
-	 * 1: Smallest money bag, 2: medium money bag, 3: large money bag, 4: extra large money bag
+	 * @param value amount of money this bag contains
 	 * @param xLoc the x-coordinate of the image view
 	 * @param yLoc the y-coordinate of the image view
 	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
@@ -260,6 +261,7 @@ public class Tools {
 	public static MoneyBag createMoneyBag(int value, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
 		MoneyBag bag = new MoneyBag(value);
+		bag.setImage(MONEY);
 		bag = (MoneyBag)setImgView(bag, MONEY_SIZE * value / MAX_MONEY_BAG, MONEY_SIZE * value / MAX_MONEY_BAG,
 				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 

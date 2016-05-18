@@ -22,7 +22,9 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -30,6 +32,10 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
+	private static final double TWO_MONEY_CHANCE = .05;
+	private static final double ONE_MONEY_CHANCE = .25;
+	
+	public static final int MIN_MONEY_DIST = 200;
 	public static final int MIN_MONEY = 50;
 	public static final int BULLET_SPEED = 100;
 	public static final int BULLET_WIDTH = 20;
@@ -405,6 +411,49 @@ public class GameUI extends Stage {
 	
 	}
 	
+	public void chanceAddMoney()
+	{
+		double chance = Math.random();
+		if(chance <= ONE_MONEY_CHANCE)
+		{
+			genMoney();
+		}
+		if(chance <= TWO_MONEY_CHANCE)
+		{
+			genMoney();
+		}
+	}
+	
+	public void checkEndGame()
+	{
+		int nonNull = 0;
+		for(Player p : players)
+		{
+			nonNull += (p == null) ? 0 : 1;
+		}
+		
+		if(nonNull == 1)
+		{
+			createEnd();
+		}
+	}
+	
+	public void checkPlayer()
+	{
+		for(int k = 0; k < players.size(); k++)
+		{
+			Player person = players.get(k);
+			if(person != null)
+			{
+				if(person.getUnitList().size() == 0 && 
+					person.getAmountOfMoney() < 100)
+				{
+					players.set(k, null);
+				}
+			}
+		}
+	}
+	
 	public boolean checkPurchase(int cost)
 	{
 		boolean checker = true;
@@ -448,7 +497,6 @@ public class GameUI extends Stage {
 		back.show();
 		this.close();
 	}
-	
 	public void closeNameSet()
 	{
 		nameSet.close();
@@ -506,6 +554,7 @@ public class GameUI extends Stage {
 			createSkipButton();
 		}
 	}
+	
 	public void createBuyCorporalPanel()
 	{
 		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, 
@@ -634,7 +683,6 @@ public class GameUI extends Stage {
         });
 		root.getChildren().add(scoutPanel);
 	}
-	
 	public void createBuySergPanel()
 	{
 		Rectangle sergPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
@@ -712,7 +760,6 @@ public class GameUI extends Stage {
         });
 		root.getChildren().add(snipPanel);
 	}
-	
 	public void createBuyTankPanel()
 	{
 		Rectangle tankPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
@@ -751,6 +798,57 @@ public class GameUI extends Stage {
         });
 		root.getChildren().add(tankPanel);
 	}
+	public void createEnd()
+	{
+		endScreen = new Stage();
+		endScreen.initStyle(StageStyle.TRANSPARENT);
+		endScreen.initOwner(this);
+		
+		AnchorPane endRoot = new AnchorPane();
+		Scene scene = new Scene(endRoot, 500 * widthRatio, 300 * heightRatio);
+		
+		Text winner = Tools.createText(100, 50, widthRatio, heightRatio,
+				players.get(0).getName() + " is the winner!", Color.GRAY,
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style",
+						null, 50, smallestRatio));
+		endRoot.setEffect(Tools.LARGE_SHADE);
+		
+		Rectangle endExit = createEndExit();
+		
+		endRoot.getChildren().addAll(winner);
+		
+		//create new background for this, with a close button
+		//root.setBackground(new Background(NAME_SET));
+
+		endScreen.setScene(scene);
+		endScreen.show();
+		
+	}
+	public Rectangle createEndExit()
+	{
+		Rectangle exitPanel = Tools.createRoundedRectangle(100, 50, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, 25, 25, 
+				widthRatio, heightRatio, smallestRatio, Color.BLUE, 
+				null);
+		
+		exitPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				//root.setBackground(new Background());
+			}
+        });
+		exitPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				//root.setBackground(new Background(NAME_SET));
+				/*this.close;
+				IntroUI intro = new IntroUI(heightRatio, heightRatio, heightRatio);
+				introUI.show();
+				*/
+			}
+        });
+		return exitPanel;
+	}
 	public void createEndPanel()
 	{
 		Rectangle endPanel = Tools.createRoundedRectangle(END_WIDTH, 
@@ -776,13 +874,13 @@ public class GameUI extends Stage {
 					currentPlayer = (currentPlayer + 1) % players.size();
 				}
 				while(players.get(currentPlayer) == null);
+				chanceAddMoney();
 				refreshPlayers();
 				updateInfo();
 			}
         });
 		root.getChildren().add(endPanel);
 	}
-	
 	public Text createGameCloseButton()
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, 
@@ -799,6 +897,7 @@ public class GameUI extends Stage {
 		
 		return close;
 	}
+	
 	public Text createGameMinButton()
 	{
 		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, 
@@ -815,6 +914,7 @@ public class GameUI extends Stage {
 		
 		return minimize;
 	}
+	
 	public void createGameUI()
 	{
 		this.initStyle(StageStyle.TRANSPARENT);
@@ -856,6 +956,7 @@ public class GameUI extends Stage {
 		this.setScene(scene);
 		this.show();
 	}
+	
 	public void createIcon()
 	{
 		selectIcon = Tools.createImageView(currentUnit.getIcon(), ICON_SIZE, 
@@ -896,7 +997,6 @@ public class GameUI extends Stage {
 		moveText.setOnMouseReleased(out);
 		root.getChildren().addAll(moveButton, moveText);
 	}
-	
 	public Text createNameCloseButton()
 	{
 		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, 
@@ -1162,86 +1262,21 @@ public class GameUI extends Stage {
 		anim.start();
 	}
 	
-	public void checkPlayer()
+	public void genMoney()
 	{
-		for(int k = 0; k < players.size(); k++)
-		{
-			Player person = players.get(k);
-			if(person != null)
-			{
-				if(person.getUnitList().size() == 0 && 
-					person.getAmountOfMoney() < 100)
-				{
-					players.set(k, null);
-				}
-			}
-		}
-	}
-	public void checkEndGame()
-	{
-		int nonNull = 0;
-		for(Player p : players)
-		{
-			nonNull += (p == null) ? 0 : 1;
-		}
+		int randomValue = (int)(Math.random() * (Tools.MAX_MONEY_BAG - 
+				MIN_MONEY + 1)) + MIN_MONEY;
+		double randomX = Math.random() * (GAME_PANE_WIDTH - MIN_MONEY_DIST*2)
+				+ MIN_MONEY_DIST;
+		double randomY = Math.random() * (GAME_PANE_HEIGHT - MIN_MONEY_DIST)
+				+ MIN_MONEY_DIST / 2;
+		MoneyBag spawn = Tools.createMoneyBag(randomValue, 0, 0, widthRatio,
+				heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		spawn.setLayoutX(randomX);
+		spawn.setLayoutY(randomY);
+		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
 		
-		if(nonNull == 1)
-		{
-			createEnd();
-		}
-	}
-	
-	public void createEnd()
-	{
-		endScreen = new Stage();
-		endScreen.initStyle(StageStyle.TRANSPARENT);
-		endScreen.initOwner(this);
-		
-		AnchorPane endRoot = new AnchorPane();
-		Scene scene = new Scene(endRoot, 500 * widthRatio, 300 * heightRatio);
-		
-		Text winner = Tools.createText(100, 50, widthRatio, heightRatio,
-				players.get(0).getName() + " is the winner!", Color.GRAY,
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style",
-						null, 50, smallestRatio));
-		endRoot.setEffect(Tools.LARGE_SHADE);
-		
-		Rectangle endExit = createEndExit();
-		
-		endRoot.getChildren().addAll(winner);
-		
-		//create new background for this, with a close button
-		//root.setBackground(new Background(NAME_SET));
-
-		endScreen.setScene(scene);
-		endScreen.show();
-		
-	}
-	
-	public Rectangle createEndExit()
-	{
-		Rectangle exitPanel = Tools.createRoundedRectangle(100, 50, 
-				RECT_ARC_SIZE, RECT_ARC_SIZE, 25, 25, 
-				widthRatio, heightRatio, smallestRatio, Color.BLUE, 
-				null);
-		
-		exitPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				//root.setBackground(new Background());
-			}
-        });
-		exitPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				//root.setBackground(new Background(NAME_SET));
-				/*this.close;
-				IntroUI intro = new IntroUI(heightRatio, heightRatio, heightRatio);
-				introUI.show();
-				*/
-			}
-        });
-		return exitPanel;
+		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
 	}
 	public void hit(Projectile bullet)
 	{
@@ -1250,7 +1285,8 @@ public class GameUI extends Stage {
 		if(currentUnit != null)
 		currentUnit.getTransforms().remove(direction);
 		
-		gamePane.getChildren().remove(bullet);
+		gamePane.getChildren().removeAll(bullet.getCollShape(), bullet);
+		
 		//Removes attack ellipse after attack, but prevents action until 
 		//bullet is gone
 		coverPane.setVisible(false);
@@ -1266,46 +1302,21 @@ public class GameUI extends Stage {
 		this.setIconified(true);
 	}
 	
-	public void refreshPlayers()
-	{
-		for(int k = 0; k < players.size(); k++)
-		{
-			Player person = players.get(k);
-			if(person != null)	
-			{
-				for(Unit unit : person.getUnitList())
-				{
-					unit.refreshAction();
-				}
-			}
-		}
-	}
-	
-	public void moveElement(UIElement ele, double endpointX, double endpointY, 
-			double angle)
-	{
-		ele.setLayoutX(endpointX);
-		ele.setLayoutY(endpointY);
-		
-		ele.updateCollShape(ele.getFitHeight(), ele.getFitWidth(), angle, 
-				ele.getLayoutX() + ele.getFitWidth() / 2, ele.getLayoutY() +
-				ele.getFitHeight() / 2, 1, 1, 1);
-	}
-	
 	public void moveClick(double endpointX, double endpointY)
 	{
 		boolean valid = true;
 		//Holds all money at that location
 		ArrayList<MoneyBag> bags = new ArrayList<MoneyBag>();
+		final Rectangle destination = new Rectangle(endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2,
+				currentUnit.getFitWidth(), currentUnit.getFitHeight());
+		gamePane.getChildren().add(destination);
+		
 		for(Node child : gamePane.getChildren())
 		{
 			if(child instanceof UIElement)
 			{
 				UIElement check = (UIElement) child;
-				if (check.getCollShape().intersects(endpointX - 
-						currentUnit.getFitWidth() / 2, endpointY - 
-						currentUnit.getFitHeight() / 2,
-						currentUnit.getFitWidth(), currentUnit.getFitWidth()))
+				if (((Path)Shape.intersect(check.getCollShape(), destination)).getElements().size() > 0)
 				{
 					if (check instanceof Obstacle && 
 							!((Obstacle)check).isWalkable())
@@ -1333,15 +1344,42 @@ public class GameUI extends Stage {
 			for(MoneyBag money : bags)
 			{
 				players.get(currentPlayer).addMoney(money.getMoneyValue());
-				gamePane.getChildren().remove(money);
+				gamePane.getChildren().removeAll(money.getCollShape(), money);
 			}
-			
+			updateInfo();
 			moveElement(currentUnit, endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2, 0);
 			currentUnit.move();
 		}
+		gamePane.getChildren().remove(destination);
 		moveEllipse.setVisible(false);
 		coverPane.setVisible(false);
 		refreshSelect();
+	}
+	
+	public void moveElement(UIElement ele, double endpointX, double endpointY, 
+			double angle)
+	{
+		ele.setLayoutX(endpointX);
+		ele.setLayoutY(endpointY);
+		
+		ele.updateCollShape(ele.getFitHeight(), ele.getFitWidth(), angle, 
+				ele.getLayoutX() + ele.getFitWidth() / 2, ele.getLayoutY() +
+				ele.getFitHeight() / 2, 1, 1, 1);
+	}
+	
+	public void refreshPlayers()
+	{
+		for(int k = 0; k < players.size(); k++)
+		{
+			Player person = players.get(k);
+			if(person != null)	
+			{
+				for(Unit unit : person.getUnitList())
+				{
+					unit.refreshAction();
+				}
+			}
+		}
 	}
 	
 	public void refreshSelect()
@@ -1357,12 +1395,20 @@ public class GameUI extends Stage {
 	
 	public void removeUnit(Unit removed)
 	{
+		double deathX = removed.getLayoutX() + removed.getFitWidth() / 2;
+		double deathY = removed.getLayoutY() + removed.getFitHeight() / 2;
 		players.get(removed.getTeam()).getUnitList().remove(removed);
-		gamePane.getChildren().remove(removed);
-		//updateInfo();
+		gamePane.getChildren().removeAll(removed.getCollShape(), removed);
+		
 		int randomValue = (int)(Math.random() * (removed.getCost() - 
 				MIN_MONEY + 1)) + MIN_MONEY;
-		MoneyBag loot = new MoneyBag(randomValue);
+		MoneyBag loot = Tools.createMoneyBag(randomValue, 0, 0, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		loot.setLayoutX(deathX - loot.getFitWidth() / 2);
+		loot.setLayoutY(deathY - loot.getFitHeight() / 2);
+		moveElement(loot, loot.getLayoutX(), loot.getLayoutY(), 0);
+		
+		gamePane.getChildren().addAll(loot.getCollShape(), loot);
+		
 	}
 	
 	public void selectUnit(Unit unit)
