@@ -1384,6 +1384,9 @@ public class GameUI extends Stage
 		currentPlayer = 0;
 	}
 
+	/**
+	 * Creates a skip button that can be clicked to skip a turn
+	 */
 	public void createSkipButton()
 	{
 		EventHandler<MouseEvent> in = new EventHandler<MouseEvent>()
@@ -1421,7 +1424,10 @@ public class GameUI extends Stage
 		skipText.setOnMouseReleased(out);
 		root.getChildren().addAll(skipButton, skipText);
 	}
-
+	
+	/**
+	 * Creates an area in the user interface to view the statistics of each unit
+	 */
 	public void createUnitStats()
 	{
 		selectType = Tools.createText(TYPE_X, TYPE_Y, widthRatio, heightRatio,
