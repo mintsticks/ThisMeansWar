@@ -34,45 +34,45 @@ public class Tools {
 	public static final DropShadow PINK_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[3]);
 
 	//Constant statistics for units
-	public static final int PRIV_HEALTH = 50;
-	public static final double PRIV_ATT_RANGE = 1000;
-	public static final int PRIV_DMG = 25;
-	public static final double PRIV_MOVE_RANGE = 1000;
+	public static final int PRIV_HEALTH = 100;
+	public static final double PRIV_ATT_RANGE = 300;
+	public static final int PRIV_DMG = 50;
+	public static final double PRIV_MOVE_RANGE = 300;
 	public static final int PRIV_COST = 100;
 	
-	public static final int CORP_HEALTH = 100;
-	public static final double CORP_ATT_RANGE = 1000;
-	public static final int CORP_DMG = 50;
-	public static final double CORP_MOVE_RANGE = 2000;
+	public static final int CORP_HEALTH = 200;
+	public static final double CORP_ATT_RANGE = 350;
+	public static final int CORP_DMG = 100;
+	public static final double CORP_MOVE_RANGE = 350;
 	public static final int CORP_COST = 200;
 	
-	public static final int SERG_HEALTH = 150;
-	public static final double SERG_ATT_RANGE = 1000;
-	public static final int SERG_DMG = 75;
-	public static final double SERG_MOVE_RANGE = 3000;
+	public static final int SERG_HEALTH = 300;
+	public static final double SERG_ATT_RANGE = 400;
+	public static final int SERG_DMG = 150;
+	public static final double SERG_MOVE_RANGE = 400;
 	public static final int SERG_COST = 300;
 
-	public static final int TANK_HEALTH = 200;
-	public static final double TANK_ATT_RANGE = 1000;
-	public static final int TANK_DMG = 100;
-	public static final double TANK_MOVE_RANGE = 2000;
+	public static final int TANK_HEALTH = 450;
+	public static final double TANK_ATT_RANGE = 500;
+	public static final int TANK_DMG = 200;
+	public static final double TANK_MOVE_RANGE = 250;
 	public static final int TANK_COST = 400;
 	
-	public static final int SCOUT_HEALTH = 100;
-	public static final double SCOUT_ATT_RANGE = 1000;
-	public static final int SCOUT_DMG = 25;
-	public static final double SCOUT_MOVE_RANGE = 4000;
+	public static final int SCOUT_HEALTH = 150;
+	public static final double SCOUT_ATT_RANGE = 300;
+	public static final int SCOUT_DMG = 50;
+	public static final double SCOUT_MOVE_RANGE = 700;
 	public static final int SCOUT_COST = 200;
 	
-	public static final int SNIP_HEALTH = 50;
+	public static final int SNIP_HEALTH = 75;
 	public static final double SNIP_ATT_RANGE = 1000;
-	public static final int SNIP_DMG = 75;
-	public static final double SNIP_MOVE_RANGE = 2000;
+	public static final int SNIP_DMG = 150;
+	public static final double SNIP_MOVE_RANGE = 150;
 	public static final int SNIP_COST = 200;
 	
 	//Other element settings
-	public static final int MAX_MONEY_BAG = 400;
-	public static final double MONEY_SIZE = 200;
+	public static final int MAX_MONEY_BAG = 300;
+	public static final double MONEY_SIZE = 150;
 	
 	public static final double DEFAULT_ANGLE = 0;
 	public static final int DEFAULT_FONT = 10;

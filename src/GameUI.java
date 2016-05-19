@@ -32,29 +32,46 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
-	private static final int HOUSE_TWO_Y = 407;
-	private static final int HOUSE_TWO_X = 791;
-	private static final int HOUSE_TWO_HEIGHT = 313;
-	private static final int HOUSE_TWO_WIDTH = 286;
-	private static final int HOUSE_ONE_Y = 368;
-	private static final int HOUSE_ONE_X = 270;
-	private static final int HOUSE_ONE_HEIGHT = 252;
-	private static final int HOUSE_ONE_WIDTH = 415;
-	private static final int WINNER_SIZE = 72;
-	private static final int WINNER_Y = 176;
-	private static final int WINNER_X = 215;
-	private static final int EXIT_PANEL_Y = 352;
-	private static final int EXIT_PANEL_X = 151;
-	private static final int EXIT_PANEL_HEIGHT = 77;
-	private static final int EXIT_PANEL_WIDTH = 407;
-	public static final int END_SCREEN_HEIGHT = 500;
-	public static final int END_SCREEN_WIDTH = 720;
+	//Constants for the map elements setup
+	public static final int[] TREE_X = {5, 1228, 580};
+	public static final int[] TREE_Y = {465, 450, 850};
+	
+	public static final int[] ROCK_X = {675, 600, 1247, 1287, 1260, 501};
+	public static final int[] ROCK_Y = {63, 70, 359, 365, 400, 844};
+	
+	public static double FIELD_SCALE = .8;
+	public static final double SMALL_ROCK_SIZE = 40 * FIELD_SCALE;
+	public static final double MEDIUM_ROCK_SIZE = 50 * FIELD_SCALE;
+	public static final double LARGE_ROCK_SIZE = 60 * FIELD_SCALE;
+	public static final double SUPER_LARGE_ROCK_SIZE = 85 * FIELD_SCALE;
+	public static final double MEDIUM_TREE_SIZE = 120 * FIELD_SCALE;
+	public static final double LARGE_TREE_SIZE = 155 * FIELD_SCALE;
+	public static final double HOUSE_TWO_Y = 350;
+	public static final double HOUSE_TWO_X = 791;
+	public static final double HOUSE_TWO_HEIGHT = 313 * FIELD_SCALE;
+	public static final double HOUSE_TWO_WIDTH = 286 * FIELD_SCALE;
+	
+	public static final double HOUSE_ONE_Y = 368;
+	public static final double HOUSE_ONE_X = 270;
+	public static final double HOUSE_ONE_HEIGHT = 261 * FIELD_SCALE;
+	public static final double HOUSE_ONE_WIDTH = 400 * FIELD_SCALE;
+	
+	public static final double WINNER_SIZE = 72 * FIELD_SCALE;
+	public static final double WINNER_Y = 176;
+	public static final double WINNER_X = 215;
+	public static final double EXIT_PANEL_Y = 352;
+	public static final double EXIT_PANEL_X = 151;
+	public static final double EXIT_PANEL_HEIGHT = 77 * FIELD_SCALE;
+	public static final double EXIT_PANEL_WIDTH = 407 * FIELD_SCALE;
+	public static final double END_SCREEN_HEIGHT = 500 * FIELD_SCALE;
+	public static final double END_SCREEN_WIDTH = 720 * FIELD_SCALE;
+	
 	public static final int MIN_MONEY_SPAWN = 100;
-	public static final double TWO_MONEY_CHANCE = .005;
+	public static final int MIN_MONEY = 50;
+	public static final double TWO_MONEY_CHANCE = .05;
 	public static final double ONE_MONEY_CHANCE = .15;
 
-	public static final int MIN_MONEY = 50;
-	public static final int BULLET_SPEED = 300;
+	public static final int BULLET_SPEED = 400;
 	public static final int BULLET_WIDTH = 20;
 	public static final int BULLET_HEIGHT = 10;
 	public static final int DAMAGE_Y = 575;
@@ -224,7 +241,7 @@ public class GameUI extends Stage {
 	public static final double[] BASE_UNIT_X = {10, 1148.5, 10, 1148.5};
 	
 	public static final double[] BASE_UNIT_Y = {10, 10, 879.5, 879.5};
-	public static final double SCALE = .7;
+	public static final double SCALE = .6;
 	public static final double CORP_WIDTH = 200 * SCALE;
 	public static final double CORP_HEIGHT = 86 * SCALE;
 	
@@ -320,8 +337,6 @@ public class GameUI extends Stage {
 	private double prevTime;
 	
 	private Ellipse moveEllipse;
-	private List<Obstacle> playerBases;	
-	
 	
 	private Stage nameSet;
 	private Stage endScreen;
@@ -440,7 +455,7 @@ public class GameUI extends Stage {
 		Projectile bullet = Tools.createProjectile(currentUnit.getDamage(), 
 				BULLET_HEIGHT, BULLET_WIDTH, bulletDirection,
 				unitX / widthRatio - 75 * xDist / totalDist, unitY / heightRatio - 75 * yDist / totalDist, widthRatio, heightRatio, 
-				smallestRatio, Tools.MEDIUM_OUT_SHADE);
+				smallestRatio, TEAM_EFFECTS[currentPlayer]);
 		gamePane.getChildren().add(bullet);
 		gamePane.getChildren().add(bullet.getCollShape());
 		fireBullet(bullet, mouseX, mouseY, bulletDirection);
@@ -1176,6 +1191,7 @@ public class GameUI extends Stage {
 		skipText.setOnMouseReleased(out);
 		root.getChildren().addAll(skipButton, skipText);
 	}
+	
 	public void createUnitStats()
 	{
 		selectType = Tools.createText(TYPE_X, TYPE_Y, widthRatio, heightRatio, 
@@ -1298,8 +1314,7 @@ public class GameUI extends Stage {
 	
 	public void genMoney()
 	{
-		Rectangle moneySpace = new Rectangle(100, 100, 50, 50);
-		moneySpace.setFill(GRADIENT_ATTACK);
+		Rectangle moneySpace = new Rectangle();
 		gamePane.getChildren().add(moneySpace);
 		int randomValue;
 		double randomX;
@@ -1312,17 +1327,18 @@ public class GameUI extends Stage {
 			randomY = Math.random() * (GAME_PANE_HEIGHT - BASE_HEIGHT * 2 - Tools.MAX_MONEY_BAG / 2)
 				+ BASE_HEIGHT;
 			
-			moneySpace.setLayoutX(randomX);
-			moneySpace.setLayoutY(randomY);
-			System.out.println(moneySpace.getLayoutX());
+			moneySpace.setLayoutX(randomX * widthRatio);
+			moneySpace.setLayoutY(randomY * heightRatio);
 			moneySpace.setWidth(Tools.MONEY_SIZE * randomValue / Tools.MAX_MONEY_BAG);
+			moneySpace.setHeight(Tools.MONEY_SIZE * randomValue / Tools.MAX_MONEY_BAG);
 		}
 		while(!checkObstacles(moneySpace));
+		
 		
 		MoneyBag spawn = Tools.createMoneyBag(randomValue, 0, 0, widthRatio,
 				heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
 		spawn.setLayoutX(randomX * widthRatio);
-		spawn.setLayoutY(randomY * widthRatio);
+		spawn.setLayoutY(randomY * heightRatio);
 		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
 		
 		gamePane.getChildren().remove(moneySpace);
@@ -1415,11 +1431,11 @@ public class GameUI extends Stage {
 			updateInfo();
 			moveElement(currentUnit, endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2, 0);
 			currentUnit.move();
+			refreshSelect();
 		}
 		gamePane.getChildren().remove(destination);
 		moveEllipse.setVisible(false);
 		coverPane.setVisible(false);
-		refreshSelect();
 	}
 	
 	public void moveElement(UIElement ele, double endpointX, double endpointY, 
@@ -1634,45 +1650,46 @@ public class GameUI extends Stage {
 	
 	public void createField()
 	{
-		//make constants
-		createHouseOne(HOUSE_ONE_WIDTH, HOUSE_ONE_HEIGHT, HOUSE_ONE_X, HOUSE_ONE_Y);
-		createHouseTwo(HOUSE_TWO_WIDTH, HOUSE_TWO_HEIGHT, HOUSE_TWO_X, HOUSE_TWO_Y);
-		createTrees(155, 155, 5, 465, 15);
-		createRock(105, 105, 675, 63);
-		createRock(85, 85, 600, 70);
-		createTrees(120, 120, 1228, 521, 45);
-		createRock(60, 60, 1247, 359);
-		createRock(50, 50, 1287, 365);
-		createRock(45, 45, 1260, 400);
-		createRock(50, 50, 501, 774);
-		createTrees(120, 120, 600, 750, 180);
+		createHouseOne(HOUSE_ONE_HEIGHT, HOUSE_ONE_WIDTH, HOUSE_ONE_X, HOUSE_ONE_Y);
+		createHouseTwo(HOUSE_TWO_HEIGHT, HOUSE_TWO_WIDTH, HOUSE_TWO_X, HOUSE_TWO_Y);
+		createTrees(LARGE_TREE_SIZE, LARGE_TREE_SIZE, TREE_X[0], TREE_Y[0]);
+		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[1], TREE_Y[1]);
+		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[2], TREE_Y[2]);
+		
+		createRock(LARGE_ROCK_SIZE, LARGE_ROCK_SIZE, ROCK_X[0], ROCK_Y[0]);
+		createRock(SUPER_LARGE_ROCK_SIZE, SUPER_LARGE_ROCK_SIZE, ROCK_X[1], ROCK_Y[1]);
+		
+		createRock(LARGE_ROCK_SIZE, LARGE_ROCK_SIZE, ROCK_X[2], ROCK_Y[2]);
+		createRock(MEDIUM_ROCK_SIZE, MEDIUM_ROCK_SIZE, ROCK_X[3], ROCK_Y[3]);
+		createRock(SMALL_ROCK_SIZE, SMALL_ROCK_SIZE, ROCK_X[4], ROCK_Y[4]);
+		createRock(MEDIUM_ROCK_SIZE, MEDIUM_ROCK_SIZE, ROCK_X[5], ROCK_Y[5]);
+	
 	}
 	
 	public void createHouseOne(double height, double width, double xLoc, double yLoc)
 	{
 		Obstacle houseOne = Tools.createSolid(Tools.HOUSE_ONE, height, width,
-				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		houseOne.updateCollShape(houseOne.getFitHeight(), houseOne.getFitWidth(), 0, 
-				houseOne.getLayoutX() + houseOne.getFitWidth() / 2, houseOne.getLayoutY() +
-				houseOne.getFitHeight() / 2, 1, 1, 1);
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
+		houseOne.updateCollShape(houseOne.getFitHeight(), houseOne.getFitWidth(), 0,
+				houseOne.getLayoutX() + houseOne.getFitWidth() / 2, houseOne.getLayoutY() + houseOne.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(houseOne.getCollShape(), houseOne);
 	}
 	
 	public void createHouseTwo(double height, double width, double xLoc, double yLoc)
 	{
 		Obstacle houseTwo = Tools.createSolid(Tools.HOUSE_TWO, height, width,
-				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
 		houseTwo.updateCollShape(houseTwo.getFitHeight(), houseTwo.getFitWidth(), 0, 
 				houseTwo.getLayoutX() + houseTwo.getFitWidth() / 2, houseTwo.getLayoutY() +
 				houseTwo.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(houseTwo.getCollShape(), houseTwo);
 	}
 	
-	public void createTrees(double height, double width, double xLoc, double yLoc, double angle)
+	public void createTrees(double height, double width, double xLoc, double yLoc)
 	{
 		Obstacle trees = Tools.createSolid(Tools.TREE, height, width,
-				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
-		trees.updateCollShape(trees.getFitHeight(), trees.getFitWidth(), angle, 
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
+		trees.updateCollShape(trees.getFitHeight(), trees.getFitWidth(), 0, 
 				trees.getLayoutX() + trees.getFitWidth() / 2, trees.getLayoutY() +
 				trees.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(trees.getCollShape(), trees);
@@ -1681,12 +1698,11 @@ public class GameUI extends Stage {
 	public void createRock(double height, double width, double xLoc, double yLoc)
 	{
 		Obstacle rock = Tools.createSolid(Tools.ROCK, height, width,
-				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
 		rock.updateCollShape(rock.getFitHeight(), rock.getFitWidth(), 0, 
 				rock.getLayoutX() + rock.getFitWidth() / 2, rock.getLayoutY() +
 				rock.getFitHeight() / 2, 1, 1, 1);
 		gamePane.getChildren().addAll(rock.getCollShape(), rock);
 	}
-	
 	
 }
