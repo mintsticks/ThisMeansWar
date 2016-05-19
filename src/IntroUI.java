@@ -196,18 +196,18 @@ public class IntroUI extends Stage{
 		this.close();
 		border.close();
 	}
-<<<<<<< HEAD
-	/**
-	 * Closes the numSelect screen
-	 */
-=======
 	
+	/**
+	 * Closes the Intro screen only
+	 */
 	public void closeIntroOnly()
 	{
 		this.close();
 	}
 	
->>>>>>> branch 'master' of https://github.com/crystalfire7/ThisMeansWar.git
+	/**
+	 * Closes the numSelect screen and its border
+	 */
 	public void closeNumScreen()
 	{
 		numSelect.close();
@@ -818,14 +818,10 @@ public class IntroUI extends Stage{
 		this.setIconified(true);
 		border.setIconified(true);
 	}
-<<<<<<< HEAD
 
 	/**
 	 * Opens the intro screen
 	 */
-=======
-	
->>>>>>> branch 'master' of https://github.com/crystalfire7/ThisMeansWar.git
 	public void openIntroScreen()
 	{
 		border.show();
