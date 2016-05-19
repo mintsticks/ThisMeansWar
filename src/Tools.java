@@ -53,7 +53,7 @@ public class Tools {
 	public static final int SERG_COST = 300;
 
 	public static final int TANK_HEALTH = 450;
-	public static final double TANK_ATT_RANGE = 500;
+	public static final double TANK_ATT_RANGE = 55000;
 	public static final int TANK_DMG = 200;
 	public static final double TANK_MOVE_RANGE = 250;
 	public static final int TANK_COST = 400;

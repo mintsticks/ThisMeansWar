@@ -37,7 +37,7 @@ public class Main extends Application{
 	 */
 	public Main()
 	{
-		setRes(dispWidth, dispHeight);
+		setRes(dispWidth-500, dispHeight-300);
 		updateRatio();
 	}
 	/**Sets the new x and y resolutions based on given values and updates the ratios.

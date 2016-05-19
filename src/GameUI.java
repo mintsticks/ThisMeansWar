@@ -478,15 +478,21 @@ public class GameUI extends Stage {
 	
 	public void checkEndGame()
 	{
+		createEnd(1);
+		int winnerIndex = -1;
 		int nonNull = 0;
-		for(Player p : players)
+		for(int k = 0; k < players.size(); k++)
 		{
-			nonNull += (p == null) ? 0 : 1;
+			if(players.get(k) != null)
+			{
+				nonNull++;
+				winnerIndex = k;
+			}
 		}
 		
 		if(nonNull == 1)
 		{
-			createEnd();
+			createEnd(winnerIndex);
 		}
 	}
 	
@@ -850,7 +856,7 @@ public class GameUI extends Stage {
         });
 		root.getChildren().add(tankPanel);
 	}
-	public void createEnd()
+	public void createEnd(int winnerIndex)
 	{
 		endScreen = new Stage();
 		endScreen.initStyle(StageStyle.TRANSPARENT);
@@ -860,7 +866,7 @@ public class GameUI extends Stage {
 		Scene scene = new Scene(endRoot, END_SCREEN_WIDTH * widthRatio, END_SCREEN_HEIGHT * heightRatio);
 		
 		Text winner = Tools.createText(WINNER_X, WINNER_Y, widthRatio, heightRatio,
-				players.get(0).getName(), Color.DARKRED.darker(),
+				players.get(winnerIndex).getName(), Color.DARKRED.darker(),
 				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, WINNER_SIZE, smallestRatio));
 		
 		Rectangle endExit = createEndExit();
