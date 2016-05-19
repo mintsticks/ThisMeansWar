@@ -45,7 +45,6 @@ public class GameUI extends Stage {
 	public static final double LARGE_ROCK_SIZE = 60 * FIELD_SCALE;
 	public static final double SUPER_LARGE_ROCK_SIZE = 85 * FIELD_SCALE;
 	public static final double MEDIUM_TREE_SIZE = 120 * FIELD_SCALE;
-	public static final double LARGE_TREE_SIZE = 155 * FIELD_SCALE;
 	public static final double HOUSE_TWO_Y = 350;
 	public static final double HOUSE_TWO_X = 791;
 	public static final double HOUSE_TWO_HEIGHT = 313 * FIELD_SCALE;
@@ -56,15 +55,15 @@ public class GameUI extends Stage {
 	public static final double HOUSE_ONE_HEIGHT = 261 * FIELD_SCALE;
 	public static final double HOUSE_ONE_WIDTH = 400 * FIELD_SCALE;
 	
-	public static final double WINNER_SIZE = 72 * FIELD_SCALE;
+	public static final double WINNER_SIZE = 72;
 	public static final double WINNER_Y = 176;
 	public static final double WINNER_X = 215;
 	public static final double EXIT_PANEL_Y = 352;
 	public static final double EXIT_PANEL_X = 151;
-	public static final double EXIT_PANEL_HEIGHT = 77 * FIELD_SCALE;
-	public static final double EXIT_PANEL_WIDTH = 407 * FIELD_SCALE;
-	public static final double END_SCREEN_HEIGHT = 500 * FIELD_SCALE;
-	public static final double END_SCREEN_WIDTH = 720 * FIELD_SCALE;
+	public static final double EXIT_PANEL_HEIGHT = 77;
+	public static final double EXIT_PANEL_WIDTH = 407;
+	public static final double END_SCREEN_HEIGHT = 500;
+	public static final double END_SCREEN_WIDTH = 720;
 	
 	public static final int MIN_MONEY_SPAWN = 100;
 	public static final int MIN_MONEY = 50;
@@ -1658,7 +1657,7 @@ public class GameUI extends Stage {
 	{
 		createHouseOne(HOUSE_ONE_HEIGHT, HOUSE_ONE_WIDTH, HOUSE_ONE_X, HOUSE_ONE_Y);
 		createHouseTwo(HOUSE_TWO_HEIGHT, HOUSE_TWO_WIDTH, HOUSE_TWO_X, HOUSE_TWO_Y);
-		createTrees(LARGE_TREE_SIZE, LARGE_TREE_SIZE, TREE_X[0], TREE_Y[0]);
+		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[0], TREE_Y[0]);
 		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[1], TREE_Y[1]);
 		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[2], TREE_Y[2]);
 		

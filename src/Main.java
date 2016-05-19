@@ -38,7 +38,6 @@ public class Main extends Application{
 	public Main()
 	{
 		setRes(dispWidth, dispHeight);
-		System.out.println(widthRatio + " " + heightRatio);
 		updateRatio();
 	}
 	/**Sets the new x and y resolutions based on given values and updates the ratios.
