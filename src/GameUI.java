@@ -1040,7 +1040,8 @@ public class GameUI extends Stage
 
 	/**
 	 * Creates the button to exit from the game
-	 * @return
+	 * @return an invisible rectangle which can be clicked on to create the 
+	 * effects of a button
 	 */
 	public Rectangle createEndExit()
 	{
@@ -1255,7 +1256,7 @@ public class GameUI extends Stage
 
 	/**
 	 * Creates a close button on the "naming players" slide
-	 * @return
+	 * @return the Text for the close button
 	 */
 	public Text createNameCloseButton()
 	{
@@ -1280,7 +1281,7 @@ public class GameUI extends Stage
 
 	/**
 	 * Creates a new Stage displaying the player's names
-	 * @param players
+	 * @param players the number of players selected
 	 */
 	public void createNameSet(int players)
 	{
@@ -1342,6 +1343,11 @@ public class GameUI extends Stage
 		return okPanel;
 	}
 
+	/**
+	 * Creates text fields for the names of players and places them on the layout
+	 * @param root the layout on which the text fields are placed
+	 * @param numPlayers the number of players in the game
+	 */
 	public void createNameTextFields(AnchorPane root, int numPlayers)
 	{
 		firstName = Tools.createTextField(FIELD_WIDTH, FIELD_HEIGHT, TEXT_X,
@@ -1370,6 +1376,9 @@ public class GameUI extends Stage
 		}
 	}
 
+	/**
+	 * Creates the main list of players and adds all the players to the list
+	 */
 	public void createPlayers()
 	{
 		players = new ArrayList<Player>();
@@ -1465,6 +1474,13 @@ public class GameUI extends Stage
 				selectAttRange, selectMoveRange, selectDamage);
 	}
 
+	/**
+	 * Allows a unit to fire a bullet (Projectile) at another unit
+	 * @param bullet the Projectile being fired
+	 * @param endpointX the X-coordinate where the projectile is supposed to land
+	 * @param endpointY the Y-coordinate where the projectile is supposed to land
+	 * @param angle the angle at which the projectile is fired
+	 */
 	public void fireBullet(final Projectile bullet, final double endpointX,
 			final double endpointY, final double angle)
 	{
@@ -1548,6 +1564,9 @@ public class GameUI extends Stage
 		anim.start();
 	}
 
+	/**
+	 * Randomly generates money packs and places them around the field
+	 */
 	public void genMoney()
 	{
 		Rectangle moneySpace = new Rectangle();
@@ -1583,6 +1602,12 @@ public class GameUI extends Stage
 		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
 	}
 
+	/**
+	 * Checks whether there is an obstacle at a space where money will be generated
+	 * @param moneySpace the space where the money will be randomly generated
+	 * @return true if there is no obstacle where the money is about to be placed; false
+	 *  otherwise
+	 */
 	public boolean checkObstacles(Rectangle moneySpace)
 	{
 		for (Node child : gamePane.getChildren())
@@ -1599,7 +1624,12 @@ public class GameUI extends Stage
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Ensures that, when a unit is hit, its health is deducted and the projectile
+	 * disappears
+	 * @param bullet the bullet being fired
+	 */
 	public void hit(Projectile bullet)
 	{
 		attacking = false;
@@ -1619,11 +1649,20 @@ public class GameUI extends Stage
 		checkEndGame();
 	}
 
+	/**
+	 * Minimizes the screen of the game
+	 */
 	public void minimizeGameScreen()
 	{
 		this.setIconified(true);
 	}
 
+	/**
+	 * Checks if there is an obstacle or money bag wherever a unit is about to move, and
+	 * rejects the movement if there is an obstacle
+	 * @param endpointX the X-coordinate that a unit wants to move to
+	 * @param endpointY the Y-coordinate that a unit wants to move to
+	 */
 	public void moveClick(double endpointX, double endpointY)
 	{
 		boolean valid = true;
@@ -1683,6 +1722,13 @@ public class GameUI extends Stage
 		coverPane.setVisible(false);
 	}
 
+	/**
+	 * Allows a unit or element to be moved from one end of the field to another
+	 * @param ele the element
+	 * @param endpointX the X-coordinate that an element wants to move to
+	 * @param endpointY the Y-coordinate that an element wants to move to
+	 * @param angle the angle at which the elements are moving
+	 */
 	public void moveElement(UIElement ele, double endpointX, double endpointY,
 			double angle)
 	{
@@ -1694,6 +1740,10 @@ public class GameUI extends Stage
 				ele.getLayoutY() + ele.getFitHeight() / 2, 1, 1, 1);
 	}
 
+	/**
+	 * After each turn, this refreshes the list of units to allow them to attack and move
+	 * again
+	 */
 	public void refreshPlayers()
 	{
 		for (int k = 0; k < players.size(); k++)
@@ -1709,6 +1759,10 @@ public class GameUI extends Stage
 		}
 	}
 
+	/**
+	 * Refreshes the "select" tab after each turn to allow players to select units that
+	 * were selected in previous turns
+	 */
 	public void refreshSelect()
 	{
 		if (currentUnit != null)
@@ -1720,6 +1774,10 @@ public class GameUI extends Stage
 		currentUnit = null;
 	}
 
+	/**
+	 * Removes a unit from the field and from its Player when the unit dies
+	 * @param removed the Unit to be removed
+	 */
 	public void removeUnit(Unit removed)
 	{
 		double deathX = removed.getLayoutX() + removed.getFitWidth() / 2;
@@ -1739,6 +1797,10 @@ public class GameUI extends Stage
 
 	}
 
+	/**
+	 * Allows a player to select a given unit to attack or move with
+	 * @param unit the Unit that was selected
+	 */
 	public void selectUnit(Unit unit)
 	{
 		currentUnit = unit;
@@ -1753,6 +1815,9 @@ public class GameUI extends Stage
 
 	}
 
+	/**
+	 * Creates a radius around a unit representing that unit's attack range
+	 */
 	public void setAttackEllipse()
 	{
 		attackEllipse.setVisible(false);
@@ -1794,6 +1859,10 @@ public class GameUI extends Stage
 		attackEllipse.setClip(clipAttack);
 	}
 
+	/**
+	 * Ensures that when a player clicks outside of their move or attack range, 
+	 * the move is cancelled
+	 */
 	public void setCoverPane()
 	{
 		coverPane.setOnMousePressed(new EventHandler<MouseEvent>()
@@ -1819,6 +1888,9 @@ public class GameUI extends Stage
 		coverPane.setPrefSize(GAME_WIDTH * widthRatio, GAME_WIDTH * widthRatio);
 	}
 
+	/**
+	 * Creates a radius around a unit representing that unit's movement range
+	 */
 	public void setMoveEllipse()
 	{
 		moveEllipse.setVisible(false);
@@ -1837,6 +1909,9 @@ public class GameUI extends Stage
 		moveEllipse.setClip(clipMove);
 	}
 
+	/**
+	 * Allows a unit to start an attack by making the attack ellipse visible
+	 */
 	public void startAttack()
 	{
 		coverPane.setVisible(true);
@@ -1856,7 +1931,10 @@ public class GameUI extends Stage
 		direction.setPivotY(currentUnit.getFitHeight() / 2);
 		currentUnit.getTransforms().add(direction);
 	}
-
+	
+	/**
+	 * Allows a unit to start a move by making the move ellipse visible
+	 */
 	public void startMove()
 	{
 		coverPane.setVisible(true);
@@ -1873,6 +1951,9 @@ public class GameUI extends Stage
 				currentUnit.getLayoutY() + currentUnit.getFitHeight() / 2);
 	}
 
+	/**
+	 * Updates the info of each player after each turn
+	 */
 	public void updateInfo()
 	{
 		root.getChildren().removeAll(pUnit);
@@ -1893,6 +1974,9 @@ public class GameUI extends Stage
 		root.getChildren().addAll(playerName, playerMoney);
 	}
 
+	/**
+	 * Creates the gameplay field
+	 */
 	public void createField()
 	{
 		createHouseOne(HOUSE_ONE_HEIGHT, HOUSE_ONE_WIDTH, HOUSE_ONE_X,
@@ -1914,6 +1998,13 @@ public class GameUI extends Stage
 
 	}
 
+	/**
+	 * Creates the wide house on the game field
+	 * @param height the vertical length of the house
+	 * @param width the horizontal length of the house
+	 * @param xLoc the x-coordinate of the house's top left corner
+	 * @param yLoc the y-coordinate of the house's top left corner
+	 */
 	public void createHouseOne(double height, double width, double xLoc,
 			double yLoc)
 	{
@@ -1927,6 +2018,13 @@ public class GameUI extends Stage
 		gamePane.getChildren().addAll(houseOne.getCollShape(), houseOne);
 	}
 
+	/**
+	 * Creates the tall house on the game field
+	 * @param height the vertical length of the house
+	 * @param width the horizontal length of the house
+	 * @param xLoc the x-coordinate of the house's top left corner
+	 * @param yLoc the y-coordinate of the house's top left corner
+	 */
 	public void createHouseTwo(double height, double width, double xLoc,
 			double yLoc)
 	{
@@ -1940,6 +2038,13 @@ public class GameUI extends Stage
 		gamePane.getChildren().addAll(houseTwo.getCollShape(), houseTwo);
 	}
 
+	/**
+	 * Creates the trees on the game field
+	 * @param height the vertical length of the trees
+	 * @param width the horizontal length of the trees
+	 * @param xLoc the x-coordinate of each tree's top left corner
+	 * @param yLoc the y-coordinate of each tree's top left corner
+	 */
 	public void createTrees(double height, double width, double xLoc,
 			double yLoc)
 	{
@@ -1952,6 +2057,13 @@ public class GameUI extends Stage
 		gamePane.getChildren().addAll(trees.getCollShape(), trees);
 	}
 
+	/**
+	 * Creates the rocks on the game field
+	 * @param height the vertical length of the rocks
+	 * @param width the horizontal length of the rocks
+	 * @param xLoc the x-coordinate of each rock's top left corner
+	 * @param yLoc the y-coordinate of each rock's top left corner
+	 */
 	public void createRock(double height, double width, double xLoc,
 			double yLoc)
 	{
