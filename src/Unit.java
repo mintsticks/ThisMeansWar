@@ -4,7 +4,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public class Unit extends UIElement {
+public class Unit extends UIElement
+{
 
 	// Instance variables for the unit to store its statistics
 	private int health;
@@ -40,7 +41,8 @@ public class Unit extends UIElement {
 	 */
 	public Unit(int team, int health, double attackRange, int damage,
 			double moveRange, int cost, Image icon, Image appearance,
-			String type) {
+			String type)
+	{
 		this.team = team;
 		this.health = health;
 		maxHealth = health;
@@ -61,7 +63,8 @@ public class Unit extends UIElement {
 	/**
 	 * Changes the units attack variable to true
 	 */
-	public void attack() {
+	public void attack()
+	{
 		attacked = true;
 	}
 
@@ -69,7 +72,8 @@ public class Unit extends UIElement {
 	 * Returns the appearance of this unit in an ImageView
 	 * @return the image that this unit will display on the UI screen
 	 */
-	public Image getAppearance() {
+	public Image getAppearance()
+	{
 		return appearance;
 	}
 
@@ -77,7 +81,8 @@ public class Unit extends UIElement {
 	 * Returns the team of this unit
 	 * @return the team of this unit
 	 */
-	public int getTeam() {
+	public int getTeam()
+	{
 		return team;
 	}
 
@@ -85,7 +90,8 @@ public class Unit extends UIElement {
 	 * Returns the attack range of the unit
 	 * @return the distance that a bullet fired by this unit can travel
 	 */
-	public double getAttackRange() {
+	public double getAttackRange()
+	{
 		return attackRange;
 	}
 
@@ -94,7 +100,8 @@ public class Unit extends UIElement {
 	 * @return the amount of money that it takes for a Player to purchase this
 	 * unit
 	 */
-	public int getCost() {
+	public int getCost()
+	{
 		return cost;
 	}
 
@@ -103,7 +110,8 @@ public class Unit extends UIElement {
 	 * @return damage that a bullet fired by this unit will do to the health of
 	 * an enemy unit
 	 */
-	public int getDamage() {
+	public int getDamage()
+	{
 		return damage;
 	}
 
@@ -111,7 +119,8 @@ public class Unit extends UIElement {
 	 * Returns the health of the unit
 	 * @return the health value that the unit has
 	 */
-	public int getHealth() {
+	public int getHealth()
+	{
 		return health;
 	}
 
@@ -119,7 +128,8 @@ public class Unit extends UIElement {
 	 * Return the max health of the unit
 	 * @return the max health of the unit
 	 */
-	public int getMaxHealth() {
+	public int getMaxHealth()
+	{
 		return maxHealth;
 	}
 
@@ -127,7 +137,8 @@ public class Unit extends UIElement {
 	 * Returns the icon of the unit
 	 * @return the icon of the unit to display on the side of the screen
 	 */
-	public Image getIcon() {
+	public Image getIcon()
+	{
 		return icon;
 	}
 
@@ -135,7 +146,8 @@ public class Unit extends UIElement {
 	 * Return the type of the unit
 	 * @return type of the unit
 	 */
-	public String getType() {
+	public String getType()
+	{
 		return type;
 	}
 
@@ -143,7 +155,8 @@ public class Unit extends UIElement {
 	 * Returns the movement range of the unit
 	 * @return the distance that this unit can travel in one turn
 	 */
-	public double getMovementRange() {
+	public double getMovementRange()
+	{
 		return moveRange;
 	}
 
@@ -151,7 +164,8 @@ public class Unit extends UIElement {
 	 * Returns boolean based on if the unit has attacked this turn
 	 * @return whether the unit has attacked this turn
 	 */
-	public boolean hasAttacked() {
+	public boolean hasAttacked()
+	{
 		return attacked;
 	}
 
@@ -159,14 +173,16 @@ public class Unit extends UIElement {
 	 * Returns boolean based on if the unit has moved this turn
 	 * @return whether the unit has moved this turn
 	 */
-	public boolean hasMoved() {
+	public boolean hasMoved()
+	{
 		return moved;
 	}
 
 	/**
 	 * Changes the unit's move variable to true
 	 */
-	public void move() {
+	public void move()
+	{
 		moved = true;
 	}
 
@@ -174,7 +190,8 @@ public class Unit extends UIElement {
 	 * Refreshes the variables for moving and attacking to allow the actions to
 	 * be done again
 	 */
-	public void refreshAction() {
+	public void refreshAction()
+	{
 		attacked = false;
 		moved = false;
 	}
@@ -183,7 +200,8 @@ public class Unit extends UIElement {
 	 * Sets the appearance of this unit
 	 * @param Image that the unit will be changed to
 	 */
-	public void setAppearance(Image picture) {
+	public void setAppearance(Image picture)
+	{
 		appearance = picture;
 		this.setImage(appearance);
 	}
@@ -192,14 +210,16 @@ public class Unit extends UIElement {
 	 * Sets the new health of the unit
 	 * @param the health value that the unit has
 	 */
-	public void setHealth(int newHealth) {
+	public void setHealth(int newHealth)
+	{
 		health = newHealth;
 	}
 
 	/**
 	 * Changes the unit's attack and move variables to true
 	 */
-	public void skip() {
+	public void skip()
+	{
 		attacked = true;
 		moved = true;
 	}

@@ -1,5 +1,5 @@
-import java.util.*;
 
+import java.util.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -39,11 +39,12 @@ public class GameUI extends Stage
 	public static final int[] ROCK_X = { 675, 600, 1247, 1287, 1260, 501 };
 	public static final int[] ROCK_Y = { 63, 70, 359, 365, 400, 844 };
 
-	public static double FIELD_SCALE = .8;
+	public static final double FIELD_SCALE = .8;
 	public static final double SMALL_ROCK_SIZE = 40 * FIELD_SCALE;
 	public static final double MEDIUM_ROCK_SIZE = 50 * FIELD_SCALE;
 	public static final double LARGE_ROCK_SIZE = 60 * FIELD_SCALE;
 	public static final double SUPER_LARGE_ROCK_SIZE = 85 * FIELD_SCALE;
+	public static final double LARGE_TREE_SIZE = 150 * FIELD_SCALE;
 	public static final double MEDIUM_TREE_SIZE = 120 * FIELD_SCALE;
 	public static final double HOUSE_TWO_Y = 350;
 	public static final double HOUSE_TWO_X = 791;
@@ -278,6 +279,7 @@ public class GameUI extends Stage
 	public static final int SNIP_COST = 200;
 	public static final int TANK_COST = 400;
 	public static final int MAX_UNIT_LIST = 6;
+	
 
 	public final BackgroundImage ground;
 	public final BackgroundImage groundClicked;
@@ -481,7 +483,6 @@ public class GameUI extends Stage
 
 	public void checkEndGame()
 	{
-		createEnd(1);
 		int winnerIndex = -1;
 		int nonNull = 0;
 		for (int k = 0; k < players.size(); k++)
@@ -1728,7 +1729,7 @@ public class GameUI extends Stage
 		createHouseTwo(HOUSE_TWO_HEIGHT, HOUSE_TWO_WIDTH, HOUSE_TWO_X,
 				HOUSE_TWO_Y);
 		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[0], TREE_Y[0]);
-		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[1], TREE_Y[1]);
+		createTrees(LARGE_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[1], TREE_Y[1]);
 		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[2], TREE_Y[2]);
 
 		createRock(LARGE_ROCK_SIZE, LARGE_ROCK_SIZE, ROCK_X[0], ROCK_Y[0]);

@@ -131,152 +131,152 @@ public class IntroUI extends Stage
 	public static final Image GAMEPLAY_PREVIOUS_CLICKED_IMAGE = Tools
 			.createImage("Gameplay (Previous Clicked).PNG");
 
-	private BackgroundImage introBorder = new BackgroundImage(
+	public static final BackgroundImage introBorder = new BackgroundImage(
 			INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, false,
 					false));
-	private BackgroundImage introBack = new BackgroundImage(INTRO_BACK_IMAGE,
-			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+	public static final BackgroundImage introBack = new BackgroundImage(
+			INTRO_BACK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
 			BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BACK_IMAGE.getWidth(),
 					INTRO_BACK_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage intoHelpClick = new BackgroundImage(
+	public static final BackgroundImage intoHelpClick = new BackgroundImage(
 			INTRO_HELP_CLICK_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_HELP_CLICK_IMAGE.getWidth(),
 					INTRO_HELP_CLICK_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage introHelpHover = new BackgroundImage(
+	public static final BackgroundImage introHelpHover = new BackgroundImage(
 			INTRO_HELP_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_HELP_HOVER_IMAGE.getWidth(),
 					INTRO_HELP_HOVER_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage introPlayClick = new BackgroundImage(
+	public static final BackgroundImage introPlayClick = new BackgroundImage(
 			INTRO_PLAY_CLICK_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_PLAY_CLICK_IMAGE.getWidth(),
 					INTRO_PLAY_CLICK_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage introPlayHover = new BackgroundImage(
+	public static final BackgroundImage introPlayHover = new BackgroundImage(
 			INTRO_PLAY_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_PLAY_HOVER_IMAGE.getWidth(),
 					INTRO_PLAY_HOVER_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage numPlay = new BackgroundImage(NUM_PLAY_IMAGE,
-			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+	public static final BackgroundImage numPlay = new BackgroundImage(
+			NUM_PLAY_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
 			BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_IMAGE.getWidth(),
 					NUM_PLAY_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage numPlayClicked = new BackgroundImage(
+	public static final BackgroundImage numPlayClicked = new BackgroundImage(
 			NUM_PLAY_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
 
-	private BackgroundImage selectingUnits = new BackgroundImage(
+	public static final BackgroundImage selectingUnits = new BackgroundImage(
 			SELECTING_UNITS_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage selectingUnitsBackHover = new BackgroundImage(
+	public static final BackgroundImage selectingUnitsBackHover = new BackgroundImage(
 			SELECTING_UNITS_BACK_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage selectingUnitsBackClicked = new BackgroundImage(
+	public static final BackgroundImage selectingUnitsBackClicked = new BackgroundImage(
 			SELECTING_UNITS_BACK_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage selectingUnitsNextHover = new BackgroundImage(
+	public static final BackgroundImage selectingUnitsNextHover = new BackgroundImage(
 			SELECTING_UNITS_NEXT_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage selectingUnitsNextClicked = new BackgroundImage(
+	public static final BackgroundImage selectingUnitsNextClicked = new BackgroundImage(
 			SELECTING_UNITS_NEXT_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
 
-	private BackgroundImage gameElements = new BackgroundImage(
+	public static final BackgroundImage gameElements = new BackgroundImage(
 			GAME_ELEMENTS_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage gameElementsPreviousHover = new BackgroundImage(
+	public static final BackgroundImage gameElementsPreviousHover = new BackgroundImage(
 			GAME_ELEMENTS_PREVIOUS_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage gameElementsPreviousClicked = new BackgroundImage(
+	public static final BackgroundImage gameElementsPreviousClicked = new BackgroundImage(
 			GAME_ELEMENTS_PREVIOUS_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage gameElementsNextHover = new BackgroundImage(
+	public static final BackgroundImage gameElementsNextHover = new BackgroundImage(
 			GAME_ELEMENTS_NEXT_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
-	private BackgroundImage gameElementsNextClicked = new BackgroundImage(
+	public static final BackgroundImage gameElementsNextClicked = new BackgroundImage(
 			GAME_ELEMENTS_NEXT_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(NUM_PLAY_CLICKED_IMAGE.getWidth(),
 					NUM_PLAY_CLICKED_IMAGE.getHeight(), false, false, true,
 					false));
 
-	private BackgroundImage gameSetup = new BackgroundImage(GAME_SETUP_IMAGE,
-			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+	public static final BackgroundImage gameSetup = new BackgroundImage(
+			GAME_SETUP_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
 			BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage GAME_SETUP_HOMEPAGE_HOVER = new BackgroundImage(
+	public static final BackgroundImage GAME_SETUP_HOMEPAGE_HOVER = new BackgroundImage(
 			GAME_SETUP_HOMEPAGE_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage GAME_SETUP_HOMEPAGE_CLICKED = new BackgroundImage(
+	public static final BackgroundImage GAME_SETUP_HOMEPAGE_CLICKED = new BackgroundImage(
 			GAME_SETUP_HOMEPAGE_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage GAME_SETUP_NEXT_HOVER = new BackgroundImage(
+	public static final BackgroundImage GAME_SETUP_NEXT_HOVER = new BackgroundImage(
 			GAME_SETUP_NEXT_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage GAME_SETUP_NEXT_CLICKED = new BackgroundImage(
+	public static final BackgroundImage GAME_SETUP_NEXT_CLICKED = new BackgroundImage(
 			GAME_SETUP_NEXT_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
 
-	private BackgroundImage GAMEPLAY = new BackgroundImage(GAMEPLAY_IMAGE,
-			BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+	public static final BackgroundImage GAMEPLAY = new BackgroundImage(
+			GAMEPLAY_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
 			BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage GAMEPLAY_PREVIOUS_HOVER = new BackgroundImage(
+	public static final BackgroundImage GAMEPLAY_PREVIOUS_HOVER = new BackgroundImage(
 			GAMEPLAY_PREVIOUS_HOVER_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
 					INTRO_BORDER_IMAGE.getHeight(), false, false, true, false));
-	private BackgroundImage GAMEPLAY_PREVIOUS_CLICKED = new BackgroundImage(
+	public static final BackgroundImage GAMEPLAY_PREVIOUS_CLICKED = new BackgroundImage(
 			GAMEPLAY_PREVIOUS_CLICKED_IMAGE, BackgroundRepeat.REPEAT,
 			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(),
