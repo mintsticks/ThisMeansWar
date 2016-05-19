@@ -1,4 +1,9 @@
-
+/** The Game UI class is a Stage class, which is a JavaFX class that is used to
+ * 	display graphics to the player. This class generates a screen to select the
+ * 	names of the teams, the launches the game screen, where players buy and
+ * 	command units. The last player with units alive is displayed as the winner
+ * 	and the quite button is displayed.
+ */
 import java.util.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -44,8 +49,10 @@ public class GameUI extends Stage
 	public static final double MEDIUM_ROCK_SIZE = 50 * FIELD_SCALE;
 	public static final double LARGE_ROCK_SIZE = 60 * FIELD_SCALE;
 	public static final double SUPER_LARGE_ROCK_SIZE = 85 * FIELD_SCALE;
+	
 	public static final double LARGE_TREE_SIZE = 150 * FIELD_SCALE;
 	public static final double MEDIUM_TREE_SIZE = 120 * FIELD_SCALE;
+	
 	public static final double HOUSE_TWO_Y = 350;
 	public static final double HOUSE_TWO_X = 791;
 	public static final double HOUSE_TWO_HEIGHT = 313 * FIELD_SCALE;
@@ -55,7 +62,8 @@ public class GameUI extends Stage
 	public static final double HOUSE_ONE_X = 270;
 	public static final double HOUSE_ONE_HEIGHT = 261 * FIELD_SCALE;
 	public static final double HOUSE_ONE_WIDTH = 400 * FIELD_SCALE;
-
+	
+	//Variables for the winner screen
 	public static final double WINNER_SIZE = 72;
 	public static final double WINNER_Y = 176;
 	public static final double WINNER_X = 215;
@@ -65,15 +73,19 @@ public class GameUI extends Stage
 	public static final double EXIT_PANEL_WIDTH = 407;
 	public static final double END_SCREEN_HEIGHT = 500;
 	public static final double END_SCREEN_WIDTH = 720;
-
+	
+	//Money drops and spawns variables
 	public static final int MIN_MONEY_SPAWN = 100;
 	public static final int MIN_MONEY = 50;
 	public static final double TWO_MONEY_CHANCE = .05;
 	public static final double ONE_MONEY_CHANCE = .15;
-
+	
+	//Bullet settings
 	public static final int BULLET_SPEED = 400;
 	public static final int BULLET_WIDTH = 20;
 	public static final int BULLET_HEIGHT = 10;
+	
+	//Unit information locations and sizes
 	public static final int DAMAGE_Y = 575;
 	public static final int DAMAGE_X = 180;
 	public static final int MOVE_RANGE_Y = 530;
@@ -97,32 +109,70 @@ public class GameUI extends Stage
 	public static final int TEXT_SIZE = 40;
 	public static final double TEXT_Y = 660.96;
 
+	//Attack button settings
 	public static final double ATTACK_TEXT_X = 63.52;
 	public static final int ATTACK_BUTTON_X = 44;
 	public static final int ATTACK_BUTTON_WIDTH = 123;
+	public static final Stop[] ATTACK_STOP = {
+			new Stop(0.0, Color.web("#fde0d8")),
+			new Stop(0.1, Color.web("#e65b48")),
+			new Stop(.25, Color.web("#c22905")),
+			new Stop(.55, Color.web("#dc5a4d")),
+			new Stop(.8, Color.web("#ad0707")),
+			new Stop(1.0, Color.web("#e6a89c")) };
 
+	public static final LinearGradient GRADIENT_ATTACK = new LinearGradient(0,
+			0, 0, 1, true, CycleMethod.NO_CYCLE, ATTACK_STOP);
+	
+	//move button settings
 	public static final int MOVE_BUTTON_X = 182;
 	public static final double MOVE_TEXT_X = 200.18;
 	public static final double MOVE_BUTTON_WIDTH = 110;
+	public static final Stop[] MOVE_STOP = {
+			new Stop(0.0, Color.web("#eefde7")),
+			new Stop(0.1, Color.web("#86e74b")),
+			new Stop(.25, Color.web("#55be30")),
+			new Stop(.55, Color.web("#88ea4c")),
+			new Stop(.8, Color.web("#479211")),
+			new Stop(1.0, Color.web("#95dc87")) };
 
+	public static final LinearGradient GRADIENT_MOVE = new LinearGradient(0, 0,
+			0, 1, true, CycleMethod.NO_CYCLE, MOVE_STOP);
+
+	//skip button settings
 	public static final int SKIP_BUTTON_X = 306;
 	public static final double SKIP_TEXT_X = 336.33;
 	public static final double SKIP_BUTTON_WIDTH = 116;
+	public static final Stop[] SKIP_STOP = { new Stop(0, Color.web("#eeeeee")),
+			new Stop(0.25, Color.web("#999999")),
+			new Stop(.55, Color.web("#cdcdcd")),
+			new Stop(.8, Color.web("#979797")),
+			new Stop(1.0, Color.web("#e5e5e5")) };
 
+	public static final LinearGradient GRADIENT_SKIP = new LinearGradient(0, 0,
+			0, 1, true, CycleMethod.NO_CYCLE, SKIP_STOP);
+	
+	//settings for all the action buttons in the y axis
 	public static final int BUTTON_Y = 661;
 	public static final int BUTTON_HEIGHT = 51;
 
+	//Base settings
 	public static final double BASE_WIDTH = 262.5;
 	public static final double BASE_HEIGHT = 127.5;
 
+	//End button settings
 	public static final int END_Y = 155;
 	public static final int END_X = 301;
 	public static final int END_HEIGHT = 50;
 	public static final int END_WIDTH = 136;
 
+	//settings for the game field
 	public static final int PANE_Y = 42;
 	public static final int PANE_X = 476;
-
+	public static final double GAME_PANE_WIDTH = 1401;
+	public static final double GAME_PANE_HEIGHT = 997;
+	
+	//Images for the backgrounds
 	public static final Image GRASSY_GROUND_IMAGE = Tools
 			.createImage("GameGrassyBack.png");
 	public static final Image GRASSY_GROUND_CLICKED_IMAGE = Tools
@@ -135,77 +185,51 @@ public class GameUI extends Stage
 			.createImage("EndScreen.png");
 	public static final Image END_SCREEN_CLICKED_IMAGE = Tools
 			.createImage("EndScreenClicked.png");
-
+	
+	//size of the whole screen
 	public static final double GAME_WIDTH = 1920;
 	public static final double GAME_HEIGHT = 1080;
-	public static final int GAME_CONTROL_SIZE = 30;
-
-	public static final double GAME_PANE_WIDTH = 1401;
-	public static final double GAME_PANE_HEIGHT = 997;
+	
+	//name setting screen settings
 	public static final int NAME_SET_WIDTH = 600;
-
 	public static final int NAME_SET_HEIGHT = 400;
+	
+	//Minimize and close buttons for the game and the name setting screen
 	public static final double CLOSE_X = 1880;
-
 	public static final double CLOSE_Y = 2;
-	public static final int NAME_CLOSE_SIZE = 25;
-
 	public static final double MIN_X = 1850;
 	public static final double MIN_Y = 0;
 	public static final double NAME_CLOSE_X = 570;
-
 	public static final double NAME_CLOSE_Y = 2;
+	public static final int NAME_CLOSE_SIZE = 25;
+	public static final int GAME_CONTROL_SIZE = 30;
+	
+	//Settings for OK button on name setting screen
 	public static final double NAME_OK_WIDTH = 90;
-
 	public static final double NAME_OK_HEIGHT = 55;
 	public static final double NAME_OK_ARC_SIZE = 15;
-
 	public static final double NAME_OK_X = 490;
 	public static final double NAME_OK_Y = 197;
+	
+	//Settings for the text fields 
 	public static final double TEXT_X = 50;
 	public static final double FIRST_Y = 140;
 	public static final double SECOND_Y = 200;
-
 	public static final double THIRD_Y = 260;
-	public static final double FOURTH_Y = 320;
+	public static final double FOURTH_Y = 320;	
+	public static final double FIELD_WIDTH = 390;
+	public static final double FIELD_HEIGHT = 40;
+	
+	//Default text within the text fields upon startup
 	public static final String FIRST_TEXT = "Player 1";
 	public static final String SECOND_TEXT = "Player 2";
 	public static final String THIRD_TEXT = "Player 3";
-
 	public static final String FOURTH_TEXT = "Player 4";
-	public static final double FIELD_WIDTH = 390;
-	public static final double FIELD_HEIGHT = 40;
-	public static final Color PLAYER_NAME = Color.web("#636363");
-	public static final Color PLAYER_MONEY = Color.web("477628");
-	// Gradient for attack button
-	public static final Stop[] SKIP_STOP = { new Stop(0, Color.web("#eeeeee")),
-			new Stop(0.25, Color.web("#999999")),
-			new Stop(.55, Color.web("#cdcdcd")),
-			new Stop(.8, Color.web("#979797")),
-			new Stop(1.0, Color.web("#e5e5e5")) };
 
-	public static final LinearGradient GRADIENT_SKIP = new LinearGradient(0, 0,
-			0, 1, true, CycleMethod.NO_CYCLE, SKIP_STOP);
-	public static final Stop[] MOVE_STOP = {
-			new Stop(0.0, Color.web("#eefde7")),
-			new Stop(0.1, Color.web("#86e74b")),
-			new Stop(.25, Color.web("#55be30")),
-			new Stop(.55, Color.web("#88ea4c")),
-			new Stop(.8, Color.web("#479211")),
-			new Stop(1.0, Color.web("#95dc87")) };
-
-	public static final LinearGradient GRADIENT_MOVE = new LinearGradient(0, 0,
-			0, 1, true, CycleMethod.NO_CYCLE, MOVE_STOP);
-	public static final Stop[] ATTACK_STOP = {
-			new Stop(0.0, Color.web("#fde0d8")),
-			new Stop(0.1, Color.web("#e65b48")),
-			new Stop(.25, Color.web("#c22905")),
-			new Stop(.55, Color.web("#dc5a4d")),
-			new Stop(.8, Color.web("#ad0707")),
-			new Stop(1.0, Color.web("#e6a89c")) };
-
-	public static final LinearGradient GRADIENT_ATTACK = new LinearGradient(0,
-			0, 0, 1, true, CycleMethod.NO_CYCLE, ATTACK_STOP);
+	//Max length of the names in text field
+	public static final int MAX_LENGTH = 12;
+	
+	//Health bar settings	
 	public static final Stop[] HEALTH_STOP = {
 			new Stop(0.0, Color.web("#dfb5aa")),
 			new Stop(0.1, Color.web("#e65b48")),
@@ -216,36 +240,44 @@ public class GameUI extends Stage
 
 	public static final LinearGradient GRADIENT_HEALTH = new LinearGradient(0,
 			0, 0, 1, true, CycleMethod.NO_CYCLE, HEALTH_STOP);
-	public static final Stop[] ATTACK_CIRCLE_STOP = {
+	
+	//Attack and move circle gradient
+	public static final Stop[] ACTION_CIRCLE_STOP = {
 			new Stop(0.0, Color.web("#ffffff00")),
 			new Stop(1.0, Color.web("#ffffff55")) };
 
 	public static final RadialGradient GRADIENT_CIRCLE = new RadialGradient(0,
-			0, .5, .5, .5, true, CycleMethod.NO_CYCLE, ATTACK_CIRCLE_STOP);
+			0, .5, .5, .5, true, CycleMethod.NO_CYCLE, ACTION_CIRCLE_STOP);
+	
+	//Effects for each team, appied to each object of the team
 	public static final DropShadow[] TEAM_EFFECTS = { Tools.RED_OUT_SHADE,
 			Tools.CYAN_OUT_SHADE, Tools.GREEN_OUT_SHADE, Tools.PINK_OUT_SHADE };
 
-	public static final int MAX_LENGTH = 12;
+	//Player info display settings
+	public static final Color PLAYER_NAME = Color.web("#636363");
+	public static final Color PLAYER_MONEY = Color.web("477628");
 	public static final double PLAYER_NAME_X = 175;
 	public static final double PLAYER_NAME_Y = 23;
 	public static final double PLAYER_MONEY_X = 125;
-
 	public static final double PLAYER_MONEY_Y = 95;
 	public static final int NAME_SIZE = 50;
 	public static final int MONEY_SIZE = 35;
+	
+	//Unit icon list settings
 	public static final double UNIT_ICON_SIZE = 55;
 	public static final double[] UNIT_X = { 30, 101, 170, 239, 309, 380 };
 	public static final double UNIT_LIST_Y = 226;
 
+	//Base locations for each player
 	public static final double[] BASE_X = { 0, 1138.5, 0, 1138.5 };
 	public static final double[] BASE_Y = { 0, 0, 869.5, 869.5 };
 	public static final double[] BASE_UNIT_X = { 10, 1148.5, 10, 1148.5 };
-
 	public static final double[] BASE_UNIT_Y = { 10, 10, 879.5, 879.5 };
+	
+	//Settings for sizes of the units
 	public static final double SCALE = .6;
 	public static final double CORP_WIDTH = 200 * SCALE;
 	public static final double CORP_HEIGHT = 86 * SCALE;
-
 	public static final double PRIV_WIDTH = 180 * SCALE;
 	public static final double PRIV_HEIGHT = 78.4 * SCALE;
 	public static final double SCOUT_WIDTH = 211 * SCALE;
@@ -256,10 +288,11 @@ public class GameUI extends Stage
 	public static final double SNIP_HEIGHT = 140.4 * SCALE;
 	public static final double TANK_WIDTH = 320 * SCALE;
 	public static final double TANK_HEIGHT = 148 * SCALE;
+	
+	//Settings for the shop buttons
 	public static final double BUY_SIZE = 75;
 	public static final double RECT_ARC_SIZE = 10;
 	public static final double BUY_PRIV_X = 30;
-
 	public static final double BUY_PRIV_Y = 860;
 	public static final double BUY_CORP_X = 170;
 	public static final double BUY_CORP_Y = 860;
@@ -271,16 +304,19 @@ public class GameUI extends Stage
 	public static final double BUY_SNIPER_Y = 960;
 	public static final double BUY_SCOUT_X = 309;
 	public static final double BUY_SCOUT_Y = 960;
+	
+	//Costs of units
 	public static final int PRIV_COST = 100;
 	public static final int CORP_COST = 200;
 	public static final int SERG_COST = 300;
-
 	public static final int SCOUT_COST = 200;
 	public static final int SNIP_COST = 200;
 	public static final int TANK_COST = 400;
+	
+	//Maximum number of units a player can have
 	public static final int MAX_UNIT_LIST = 6;
 	
-
+	//Background images for the game
 	public final BackgroundImage ground;
 	public final BackgroundImage groundClicked;
 	public final BackgroundImage nameSetBack;
@@ -288,23 +324,26 @@ public class GameUI extends Stage
 	public final BackgroundImage endScreenBack;
 	public final BackgroundImage endScreenClicked;
 
+	//ratios of size to the screen size
 	private double widthRatio;
 	private double heightRatio;
 	private double smallestRatio;
-
+	
+	//Player information
 	private int numPlayers;
 	private List<Player> players;
+	
 	private TextField firstName;
 	private TextField secondName;
 	private TextField thirdName;
 	private TextField fourthName;
-
+	
+	//Player info displays
 	private Text playerName;
 	private Text playerMoney;
-
-	// Display unit list
 	private ImageView[] pUnit = new ImageView[MAX_UNIT_LIST];
-
+	
+	//Selected unit info displays
 	private ImageView selectIcon;
 	private Text selectType;
 	private Rectangle selectHealthBar;
@@ -313,27 +352,32 @@ public class GameUI extends Stage
 	private Text selectMoveRange;
 	private Text selectDamage;
 
+	//Action buttons of each unit
 	private Rectangle attackButton;
 	private Text attackText;
 	private Rectangle moveButton;
 	private Text moveText;
 	private Rectangle skipButton;
 	private Text skipText;
-	// check for if player has no units or if game is over after
-	// a bullet is fired
-
+	
+	//Current player or selected unit
 	private int currentPlayer;
 	private Unit currentUnit;
+	
+	//Panes to add all the elements
 	private AnchorPane gamePane;
 	private AnchorPane root;
-
 	private AnchorPane endRoot;
+	
 	// Used to deselect the unit if the player clicks outside of the unit range
 	private AnchorPane coverPane;
+	
+	//Clips for the action circles
 	private Rectangle clipAttack;
 	private Rectangle clipMove;
 	private Ellipse attackEllipse;
 	private boolean attacking;
+	
 	// Rotates around the z- axis (birds eye view)
 	private final Rotate direction = new Rotate(0, Rotate.Z_AXIS);
 	private double prevTime;
@@ -524,7 +568,7 @@ public class GameUI extends Stage
 			}
 		}
 
-		if (nonNull == 1)
+		if (true)
 		{
 			createEnd(winnerIndex);
 		}
