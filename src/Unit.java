@@ -1,3 +1,13 @@
+/**A class that provides the blueprints for a unit in the game which can be 
+ * commanded to move around and attack. It has an icon, health, attack range,
+ * movement range, damage values, and appearance.
+ * @author Daniel Wong
+ * @author Shishir Jessu
+ * @author Corey Rogan
+ * Period: 3
+ * Date: 05-19-16
+ */
+
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

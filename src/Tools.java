@@ -1,3 +1,11 @@
+/**A class that contains many helpful static methods and values used in the UI
+ * classes repeatedly, such as creating Text objects.
+ * @author Daniel Wong
+ * @author Shishir Jessu
+ * @author Corey Rogan
+ * Period: 3
+ * Date: 05-19-16
+ */
 
 //JavaFx Imports
 import javafx.scene.control.TextField;
@@ -15,12 +23,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Tools {
+	//Colors used in various classes
 	public static final Color[] TEAM_COLORS = { Color.web("#ff0000"),
 			Color.web("#24fff7"), Color.web("#69ff34"), Color.web("#f334ff") };
 	public static final Color TRANSPARENT = Color.rgb(100, 100, 100, 0);
 	public static final Color DARK_GREEN = Color.web("#2a5a1e");
 	public static final Color LIGHT_GRAY = Color.web("#8e8e8e");
-	// Constants available for every class
+	
+	// Constant effects available for every class
 	public static final InnerShadow XLARGE_SHADE = new InnerShadow(10.0,
 			Color.BLACK);
 	public static final InnerShadow LARGE_SHADE = new InnerShadow(5.0,
@@ -84,10 +94,11 @@ public class Tools {
 	public static final double SNIP_MOVE_RANGE = 150;
 	public static final int SNIP_COST = 200;
 
-	// Other element settings
+	// Money bag settings
 	public static final int MAX_MONEY_BAG = 300;
 	public static final double MONEY_SIZE = 150;
 
+	//Default angles and font size
 	public static final double DEFAULT_ANGLE = 0;
 	public static final int DEFAULT_FONT = 10;
 
@@ -113,6 +124,7 @@ public class Tools {
 	public static final Image SNIPER = Tools.createImage("Units/Sniper.png");
 	public static final Image SCOUT = Tools.createImage("Units/Scout.png");
 
+	//Images for the elements of the field
 	public static final Image MONEY = Tools.createImage("MoneyLarge.png");
 	public static final Image HOUSE_ONE = Tools.createImage("House.png");
 	public static final Image HOUSE_TWO = Tools.createImage("House2.png");
@@ -128,15 +140,12 @@ public class Tools {
 
 	// static initializer which runs when the class is initialized, loads
 	// different types of fonts for the whole class
-	// Site used to learn initializer :
-	// https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
 	static {
 		Font.loadFont(ClassLoader.getSystemResourceAsStream("res/BOOKOSB.TTF"),
 				DEFAULT_FONT);
 		Font.loadFont(
 				ClassLoader.getSystemResourceAsStream("res/Agency_FB.ttf"),
 				DEFAULT_FONT);
-
 	}
 
 	/**

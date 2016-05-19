@@ -1,8 +1,15 @@
+/**A superclass for any object on the game field that can be interacted with.
+ * subclasses of this object have a collision shape field used to check for 
+ * intersections.
+ * @author Daniel Wong
+ * @author Shishir Jessu
+ * @author Corey Rogan
+ * Period: 3
+ * Date: 05-19-16
+ */
 
 //JavaFx Imports
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;

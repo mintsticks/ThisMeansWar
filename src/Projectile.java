@@ -1,4 +1,10 @@
-
+/**A class that represents a bullet in the game field, with an amount of damage
+ * @author Daniel Wong
+ * @author Shishir Jessu
+ * @author Corey Rogan
+ * Period: 3
+ * Date: 05-19-16
+ */
 public class Projectile extends UIElement {
 	private double damage;
 
