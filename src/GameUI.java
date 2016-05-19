@@ -342,7 +342,14 @@ public class GameUI extends Stage
 
 	private Stage nameSet;
 	private Stage endScreen;
-
+	
+	/**
+	 * Creates the main GameUI Stage, in which the game window is placed
+	 * @param numPlayers the number of players
+	 * @param widthRatio the ratio of the UI's width to the user's screen
+	 * @param heightRatio the ratio of the UI's height to the user's screen
+	 * @param smallestRatio the smallest of the two ratios
+	 */
 	public GameUI(int numPlayers, double widthRatio, double heightRatio,
 			double smallestRatio)
 	{
@@ -391,7 +398,11 @@ public class GameUI extends Stage
 						false, false, false, false));
 		createNameSet(numPlayers);
 	}
-
+	
+	/**
+	 * Adds the bases to the layout on screen
+	 * @param root the layout on which the bases are added
+	 */
 	public void addBases(AnchorPane root)
 	{
 		for (int k = 0; k < numPlayers; k++)
@@ -404,12 +415,19 @@ public class GameUI extends Stage
 			root.getChildren().add(base);
 		}
 	}
-
+	
+	/**
+	 * Adds a unit to a given Player
+	 * @param unit the Unit to be added
+	 */
 	public void addPlayerUnit(Unit unit)
 	{
 		gamePane.getChildren().add(unit);
 	}
 
+	/**
+	 * Places the unit Icons on the screen
+	 */
 	public void addUnitIcons()
 	{
 		for (int index = 0; index < players.get(currentPlayer).getUnitList()
@@ -440,7 +458,12 @@ public class GameUI extends Stage
 			}
 		}
 	}
-
+	
+	/**
+	 * Allows the unit to select the area in which it will attack
+	 * @param mouseX the X coordinate of where they select
+	 * @param mouseY the Y coordinate of where they select
+	 */
 	public void attackClick(double mouseX, double mouseY)
 	{
 		currentUnit.attack();
@@ -467,7 +490,10 @@ public class GameUI extends Stage
 		fireBullet(bullet, mouseX, mouseY, bulletDirection);
 
 	}
-
+	
+	/**
+	 * Randomly adds money bags onto the floor
+	 */
 	public void chanceAddMoney()
 	{
 		double chance = Math.random();
@@ -481,6 +507,10 @@ public class GameUI extends Stage
 		}
 	}
 
+	/**
+	 * Check to see whether the game has ended (whether there is more
+	 * than one player)
+	 */
 	public void checkEndGame()
 	{
 		int winnerIndex = -1;
@@ -500,6 +530,9 @@ public class GameUI extends Stage
 		}
 	}
 
+	/**
+	 * Check to see whether a player still has units
+	 */
 	public void checkPlayer()
 	{
 		for (int k = 0; k < players.size(); k++)
@@ -516,6 +549,12 @@ public class GameUI extends Stage
 		}
 	}
 
+	/**
+	 * Checks to see whether a unit purchase is valid (must be 6 or fewer
+	 * units per player, and the player must have money to buy the unit)
+	 * @param cost the cost of the unit the Player wants to purchase
+	 * @return true if the purchase can take place; false otherwise
+	 */
 	public boolean checkPurchase(int cost)
 	{
 		boolean checker = true;
@@ -526,6 +565,10 @@ public class GameUI extends Stage
 		return checker;
 	}
 
+	/**
+	 * Makes sure that the text fields do not overflow
+	 * @return
+	 */
 	public boolean checkTextfields()
 	{
 		boolean checker = true;
@@ -553,18 +596,27 @@ public class GameUI extends Stage
 		return checker;
 	}
 
+	/**
+	 * Closes the game screen
+	 */
 	public void closeGameScreen()
 	{
 		Stage back = new IntroUI(widthRatio, heightRatio, smallestRatio);
 		back.show();
 		this.close();
 	}
-
+	
+	/**
+	 * Closes the name selection panel
+	 */
 	public void closeNameSet()
 	{
 		nameSet.close();
 	}
 
+	/**
+	 * Creates the attack button
+	 */
 	public void createAttackButton()
 	{
 		EventHandler<MouseEvent> in = new EventHandler<MouseEvent>()
@@ -606,6 +658,9 @@ public class GameUI extends Stage
 		root.getChildren().addAll(attackButton, attackText);
 	}
 
+	/**
+	 * Creates buttons using the two methods above based on given circumstances
+	 */
 	public void createButtons()
 	{
 		if (!currentUnit.hasAttacked())
@@ -621,7 +676,10 @@ public class GameUI extends Stage
 			createSkipButton();
 		}
 	}
-
+	
+	/**
+	 * Creates the panel to purchase corporals
+	 */
 	public void createBuyCorporalPanel()
 	{
 		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE,
@@ -664,6 +722,9 @@ public class GameUI extends Stage
 		root.getChildren().add(corpPanel);
 	}
 
+	/**
+	 * creates the panels to purchase all the types of units
+	 */
 	public void createBuyPanels()
 	{
 		createBuyPrivatePanel();
@@ -674,7 +735,10 @@ public class GameUI extends Stage
 		createBuyScoutPanel();
 		createEndPanel();
 	}
-
+	
+	/**
+	 * Creates the panel to purchase privates
+	 */
 	public void createBuyPrivatePanel()
 	{
 		Rectangle privatePanel = Tools.createRoundedRectangle(BUY_SIZE,
@@ -717,6 +781,9 @@ public class GameUI extends Stage
 		root.getChildren().add(privatePanel);
 	}
 
+	/**
+	 * Creates the panel to purchase scouts
+	 */
 	public void createBuyScoutPanel()
 	{
 		Rectangle scoutPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE,
@@ -761,6 +828,9 @@ public class GameUI extends Stage
 		root.getChildren().add(scoutPanel);
 	}
 
+	/**
+	 * Creates the panel to purchase sergeants
+	 */
 	public void createBuySergPanel()
 	{
 		Rectangle sergPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE,
@@ -803,6 +873,9 @@ public class GameUI extends Stage
 		root.getChildren().add(sergPanel);
 	}
 
+	/**
+	 * Creates the panel to purchase snipers
+	 */
 	public void createBuySniperPanel()
 	{
 		Rectangle snipPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE,
@@ -845,6 +918,9 @@ public class GameUI extends Stage
 		root.getChildren().add(snipPanel);
 	}
 
+	/**
+	 * Creates the panel to purchase tanks
+	 */
 	public void createBuyTankPanel()
 	{
 		Rectangle tankPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE,
@@ -887,6 +963,11 @@ public class GameUI extends Stage
 		root.getChildren().add(tankPanel);
 	}
 
+	/**
+	 * Creates the "end game" screen identifying the game's winner
+	 * @param winnerIndex the index in the list of players of the winning
+	 * player
+	 */
 	public void createEnd(int winnerIndex)
 	{
 		endScreen = new Stage();
@@ -913,6 +994,10 @@ public class GameUI extends Stage
 
 	}
 
+	/**
+	 * Creates the button to exit from the game
+	 * @return
+	 */
 	public Rectangle createEndExit()
 	{
 		Rectangle exitPanel = Tools.createRoundedRectangle(EXIT_PANEL_WIDTH,
@@ -940,6 +1025,9 @@ public class GameUI extends Stage
 		return exitPanel;
 	}
 
+	/**
+	 * Creates the end turn panel, which allows a turn to be ended
+	 */
 	public void createEndPanel()
 	{
 		Rectangle endPanel = Tools.createRoundedRectangle(END_WIDTH, END_HEIGHT,
@@ -976,6 +1064,11 @@ public class GameUI extends Stage
 		root.getChildren().add(endPanel);
 	}
 
+	/**
+	 * Creates a button which allows the game to be closed and takes the player
+	 * back to the main page
+	 * @return the Text for the close button
+	 */
 	public Text createGameCloseButton()
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio,
@@ -994,7 +1087,12 @@ public class GameUI extends Stage
 
 		return close;
 	}
-
+	
+	/**
+	 * Creates a button which allows the game to be minimized and takes the player
+	 * back to the main page
+	 * @return the Text for the minimize button
+	 */
 	public Text createGameMinButton()
 	{
 		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio,
@@ -1014,6 +1112,9 @@ public class GameUI extends Stage
 		return minimize;
 	}
 
+	/**
+	 * Creates the main stage of the Game UI, with all the applicable buttons
+	 */
 	public void createGameUI()
 	{
 		this.initStyle(StageStyle.TRANSPARENT);
@@ -1058,6 +1159,9 @@ public class GameUI extends Stage
 		this.show();
 	}
 
+	/**
+	 * Creates a general type of unit icon
+	 */
 	public void createIcon()
 	{
 		selectIcon = Tools.createImageView(currentUnit.getIcon(), ICON_SIZE,
@@ -1065,7 +1169,10 @@ public class GameUI extends Stage
 				smallestRatio, Tools.SMALL_SHADE);
 		root.getChildren().add(selectIcon);
 	}
-
+	
+	/**
+	 * Creates the move button, used to move units
+	 */
 	public void createMoveButton()
 	{
 		EventHandler<MouseEvent> in = new EventHandler<MouseEvent>()
@@ -1102,6 +1209,10 @@ public class GameUI extends Stage
 		root.getChildren().addAll(moveButton, moveText);
 	}
 
+	/**
+	 * Creates a close button on the "naming players" slide
+	 * @return
+	 */
 	public Text createNameCloseButton()
 	{
 		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio,
@@ -1123,6 +1234,10 @@ public class GameUI extends Stage
 		return close;
 	}
 
+	/**
+	 * Creates a new Stage displaying the player's names
+	 * @param players
+	 */
 	public void createNameSet(int players)
 	{
 		nameSet = new Stage();
@@ -1145,6 +1260,12 @@ public class GameUI extends Stage
 		nameSet.show();
 	}
 
+	/**
+	 * Creates an OK button on the Name Set panel
+	 * @param root the layout on which the button is placed
+	 * @return an invisible rectangle which, when clicked, will 
+	 * allow the OK button to act like a button
+	 */
 	public Rectangle createNameSetOK(final AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(NAME_OK_WIDTH,
