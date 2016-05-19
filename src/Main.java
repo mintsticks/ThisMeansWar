@@ -1,4 +1,14 @@
-//Variables used to store the resolution of the computer running this application
+/** The Main class extends the Application class, which allows the user to display
+ *  JavaFX Stages. Upon launch, the class displays the IntroUI stage, which gives 
+ *  the user the options to look through instructions or to play the game. When the
+ *  game is played, the GameUI is displayed, which allows the player to select units, 
+ *  toggle turns, and play the game. 
+ *  @author Daniel Wong
+ *  @author Shishir Jessu
+ *  @author Corey Rogan
+ *  Date: 5-19-2016
+ *  Period: 3
+ */
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
 //Java FX Class Imports

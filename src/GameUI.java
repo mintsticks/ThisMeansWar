@@ -1,8 +1,13 @@
-/** The Game UI class is a Stage class, which is a JavaFX class that is used to
+/** The GameUI class is a Stage class, which is a JavaFX class that is used to
  * 	display graphics to the player. This class generates a screen to select the
  * 	names of the teams, the launches the game screen, where players buy and
  * 	command units. The last player with units alive is displayed as the winner
  * 	and the quite button is displayed.
+ *  @author Daniel Wong
+ *  @author Shishir Jessu
+ *  @author Corey Rogan
+ *  Date: 5-19-2016
+ *  Period: 3
  */
 import java.util.*;
 import javafx.animation.AnimationTimer;

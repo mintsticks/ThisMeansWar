@@ -1,4 +1,14 @@
-
+/** The IntroUI class is a Stage class, which is a JavaFX class that is used to
+ * 	display graphics to the player. This class generates a screen with "Play" and "Help" 
+ *  buttons. When the help button is pressed, several instructions screens can be clicked
+ *  through to reveal the instructions for the game. When the play button is pressed, the 
+ *  number of Players can be selected.
+ *  @author Daniel Wong
+ *  @author Shishir Jessu
+ *  @author Corey Rogan
+ *  Date: 5-19-2016
+ *  Period: 3
+ */
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
