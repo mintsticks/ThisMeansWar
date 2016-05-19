@@ -17,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.util.*;
 
 public class IntroUI extends Stage{
 	
@@ -195,9 +196,18 @@ public class IntroUI extends Stage{
 		this.close();
 		border.close();
 	}
+<<<<<<< HEAD
 	/**
 	 * Closes the numSelect screen
 	 */
+=======
+	
+	public void closeIntroOnly()
+	{
+		this.close();
+	}
+	
+>>>>>>> branch 'master' of https://github.com/crystalfire7/ThisMeansWar.git
 	public void closeNumScreen()
 	{
 		numSelect.close();
@@ -220,8 +230,8 @@ public class IntroUI extends Stage{
 			@Override
 			public void handle(MouseEvent arg0) {
 				root.setBackground(new Background(INTRO_HELP_HOVER));
-				closeIntroScreen();
 				createHelpStage();
+				closeIntroOnly();
 			}
         });
 		
@@ -808,10 +818,14 @@ public class IntroUI extends Stage{
 		this.setIconified(true);
 		border.setIconified(true);
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Opens the intro screen
 	 */
+=======
+	
+>>>>>>> branch 'master' of https://github.com/crystalfire7/ThisMeansWar.git
 	public void openIntroScreen()
 	{
 		border.show();

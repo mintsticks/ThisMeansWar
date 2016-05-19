@@ -1,6 +1,7 @@
 //JavaFx Imports
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -25,6 +26,7 @@ public abstract class UIElement extends ImageView{
 	protected void createCollShape()
 	{
 		setCollShape(new Rectangle(0, 0, 1, 1));
+		collisionShape.setFill(Tools.TRANSPARENT);
 	}
 	
 	/**Retrieves the collision shape for the element

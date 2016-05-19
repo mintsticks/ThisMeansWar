@@ -22,7 +22,9 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -30,8 +32,46 @@ import javafx.stage.StageStyle;
 
 public class GameUI extends Stage {
 	
+	//Constants for the map elements setup
+	public static final int[] TREE_X = {5, 1228, 580};
+	public static final int[] TREE_Y = {465, 450, 850};
+	
+	public static final int[] ROCK_X = {675, 600, 1247, 1287, 1260, 501};
+	public static final int[] ROCK_Y = {63, 70, 359, 365, 400, 844};
+	
+	public static double FIELD_SCALE = .8;
+	public static final double SMALL_ROCK_SIZE = 40 * FIELD_SCALE;
+	public static final double MEDIUM_ROCK_SIZE = 50 * FIELD_SCALE;
+	public static final double LARGE_ROCK_SIZE = 60 * FIELD_SCALE;
+	public static final double SUPER_LARGE_ROCK_SIZE = 85 * FIELD_SCALE;
+	public static final double MEDIUM_TREE_SIZE = 120 * FIELD_SCALE;
+	public static final double LARGE_TREE_SIZE = 155 * FIELD_SCALE;
+	public static final double HOUSE_TWO_Y = 350;
+	public static final double HOUSE_TWO_X = 791;
+	public static final double HOUSE_TWO_HEIGHT = 313 * FIELD_SCALE;
+	public static final double HOUSE_TWO_WIDTH = 286 * FIELD_SCALE;
+	
+	public static final double HOUSE_ONE_Y = 368;
+	public static final double HOUSE_ONE_X = 270;
+	public static final double HOUSE_ONE_HEIGHT = 261 * FIELD_SCALE;
+	public static final double HOUSE_ONE_WIDTH = 400 * FIELD_SCALE;
+	
+	public static final double WINNER_SIZE = 72 * FIELD_SCALE;
+	public static final double WINNER_Y = 176;
+	public static final double WINNER_X = 215;
+	public static final double EXIT_PANEL_Y = 352;
+	public static final double EXIT_PANEL_X = 151;
+	public static final double EXIT_PANEL_HEIGHT = 77 * FIELD_SCALE;
+	public static final double EXIT_PANEL_WIDTH = 407 * FIELD_SCALE;
+	public static final double END_SCREEN_HEIGHT = 500 * FIELD_SCALE;
+	public static final double END_SCREEN_WIDTH = 720 * FIELD_SCALE;
+	
+	public static final int MIN_MONEY_SPAWN = 100;
 	public static final int MIN_MONEY = 50;
-	public static final int BULLET_SPEED = 200;
+	public static final double TWO_MONEY_CHANCE = .05;
+	public static final double ONE_MONEY_CHANCE = .15;
+
+	public static final int BULLET_SPEED = 400;
 	public static final int BULLET_WIDTH = 20;
 	public static final int BULLET_HEIGHT = 10;
 	public static final int DAMAGE_Y = 575;
@@ -92,8 +132,11 @@ public class GameUI extends Stage {
 			Tools.createImage("NameSelect.png");
 	public static final Image NAME_SET_CLICKED_IMAGE = 
 			Tools.createImage("NameSelectClicked.png");
+	public static final Image END_SCREEN_IMAGE = 
+			Tools.createImage("EndScreen.png");
+	public static final Image END_SCREEN_CLICKED_IMAGE = 
+			Tools.createImage("EndScreenClicked.png");
 	
-	public static BackgroundImage NAME_SET;
 	public static final double GAME_WIDTH = 1920;
 	public static final double GAME_HEIGHT = 1080;
 	public static final int GAME_CONTROL_SIZE = 30;
@@ -198,7 +241,7 @@ public class GameUI extends Stage {
 	public static final double[] BASE_UNIT_X = {10, 1148.5, 10, 1148.5};
 	
 	public static final double[] BASE_UNIT_Y = {10, 10, 879.5, 879.5};
-	public static final double SCALE = .7;
+	public static final double SCALE = .6;
 	public static final double CORP_WIDTH = 200 * SCALE;
 	public static final double CORP_HEIGHT = 86 * SCALE;
 	
@@ -235,10 +278,13 @@ public class GameUI extends Stage {
 	public static final int SNIP_COST = 200;
 	public static final int TANK_COST = 400;
 	public static final int MAX_UNIT_LIST = 6;
-	public final BackgroundImage GRASSY_GROUND;
-	public final BackgroundImage GRASSY_GROUND_CLICKED;
 	
-	public final BackgroundImage NAME_SET_CLICKED;
+	public final BackgroundImage ground;
+	public final BackgroundImage groundClicked;
+	public final BackgroundImage nameSetBack;
+	public final BackgroundImage nameSetClicked;
+	public final BackgroundImage endScreenBack;
+	public final BackgroundImage endScreenClicked;
 	
 	private double widthRatio;
 	private double heightRatio;
@@ -278,6 +324,8 @@ public class GameUI extends Stage {
 	private Unit currentUnit;
 	private AnchorPane gamePane;
 	private AnchorPane root;
+	
+	private AnchorPane endRoot;
 	//Used to deselect the unit if the player clicks outside of the unit range
 	private AnchorPane coverPane;
 	private Rectangle clipAttack;
@@ -289,8 +337,6 @@ public class GameUI extends Stage {
 	private double prevTime;
 	
 	private Ellipse moveEllipse;
-	private List<Obstacle> playerBases;	
-	
 	
 	private Stage nameSet;
 	private Stage endScreen;
@@ -302,30 +348,42 @@ public class GameUI extends Stage {
 		this.heightRatio = heightRatio;
 		this.smallestRatio = smallestRatio;
 		this.numPlayers = numPlayers;
-		GRASSY_GROUND = new BackgroundImage(GRASSY_GROUND_IMAGE, 
+		ground = new BackgroundImage(GRASSY_GROUND_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(GRASSY_GROUND_IMAGE.getWidth() * 
 						widthRatio, GRASSY_GROUND_IMAGE.getHeight() * 
 						heightRatio, false, false, false, false));
-		GRASSY_GROUND_CLICKED = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, 
+		groundClicked = new BackgroundImage(GRASSY_GROUND_CLICKED_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(GRASSY_GROUND_CLICKED_IMAGE.getWidth() * 
 						widthRatio, GRASSY_GROUND_CLICKED_IMAGE.getHeight() * 
 						heightRatio, false, false, false, false));
-		NAME_SET = new BackgroundImage(NAME_SET_IMAGE, 
+		nameSetBack = new BackgroundImage(NAME_SET_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(NAME_SET_IMAGE.getWidth() * widthRatio, 
 						NAME_SET_IMAGE.getHeight() * heightRatio, false, 
-						false, true, false));
-		NAME_SET_CLICKED = new BackgroundImage(NAME_SET_CLICKED_IMAGE, 
+						false, false, false));
+		nameSetClicked = new BackgroundImage(NAME_SET_CLICKED_IMAGE, 
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
 				BackgroundPosition.DEFAULT,
 				new BackgroundSize(NAME_SET_CLICKED_IMAGE.getWidth() * 
 						widthRatio, NAME_SET_CLICKED_IMAGE.getHeight() * 
-						heightRatio, false, false, true, false));
+						heightRatio, false, false, false, false));
+		endScreenBack = new BackgroundImage(END_SCREEN_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(END_SCREEN_IMAGE.getWidth() * 
+						widthRatio, END_SCREEN_IMAGE.getHeight() * 
+						heightRatio, false, false, false, false));
+		endScreenClicked = new BackgroundImage(END_SCREEN_CLICKED_IMAGE, 
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, 
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(END_SCREEN_CLICKED_IMAGE.getWidth() * 
+						widthRatio, END_SCREEN_CLICKED_IMAGE.getHeight() *
+						heightRatio, false, false, false, false));
 		createNameSet(numPlayers);
 	}
 	
@@ -333,13 +391,11 @@ public class GameUI extends Stage {
 	{
 		for(int k = 0; k < numPlayers; k++)
 		{
-			Rectangle clipBase = new Rectangle(0, 0, 
-					GAME_PANE_WIDTH * widthRatio, 
-					GAME_PANE_HEIGHT * heightRatio);
 			Obstacle base = Tools.createBase(BASE_HEIGHT, BASE_WIDTH, 
 					BASE_X[k], BASE_Y[k], widthRatio, heightRatio, 
 					smallestRatio, TEAM_EFFECTS[k]);
-			base.setClip(clipBase);
+			moveElement(base, base.getLayoutX(), base.getLayoutY(), 0);
+			root.getChildren().add(base.getCollShape());
 			root.getChildren().add(base);
 		}
 	}
@@ -398,12 +454,56 @@ public class GameUI extends Stage {
 		
 		Projectile bullet = Tools.createProjectile(currentUnit.getDamage(), 
 				BULLET_HEIGHT, BULLET_WIDTH, bulletDirection,
-				unitX / widthRatio + 75 * , unitY / heightRatio, widthRatio, heightRatio, 
-				smallestRatio, Tools.MEDIUM_OUT_SHADE);
+				unitX / widthRatio - 75 * xDist / totalDist, unitY / heightRatio - 75 * yDist / totalDist, widthRatio, heightRatio, 
+				smallestRatio, TEAM_EFFECTS[currentPlayer]);
 		gamePane.getChildren().add(bullet);
-		fireBullet(bullet, mouseX, mouseY);
+		gamePane.getChildren().add(bullet.getCollShape());
+		fireBullet(bullet, mouseX, mouseY, bulletDirection);
 		
 	
+	}
+	
+	public void chanceAddMoney()
+	{
+		double chance = Math.random();
+		if(chance <= ONE_MONEY_CHANCE)
+		{
+			genMoney();
+		}
+		if(chance <= TWO_MONEY_CHANCE)
+		{
+			genMoney();
+		}
+	}
+	
+	public void checkEndGame()
+	{
+		int nonNull = 0;
+		for(Player p : players)
+		{
+			nonNull += (p == null) ? 0 : 1;
+		}
+		
+		if(nonNull == 1)
+		{
+			createEnd();
+		}
+	}
+	
+	public void checkPlayer()
+	{
+		for(int k = 0; k < players.size(); k++)
+		{
+			Player person = players.get(k);
+			if(person != null)
+			{
+				if(person.getUnitList().size() == 0 && 
+					person.getAmountOfMoney() < 100)
+				{
+					players.set(k, null);
+				}
+			}
+		}
 	}
 	
 	public boolean checkPurchase(int cost)
@@ -449,7 +549,6 @@ public class GameUI extends Stage {
 		back.show();
 		this.close();
 	}
-	
 	public void closeNameSet()
 	{
 		nameSet.close();
@@ -507,6 +606,7 @@ public class GameUI extends Stage {
 			createSkipButton();
 		}
 	}
+	
 	public void createBuyCorporalPanel()
 	{
 		Rectangle corpPanel = Tools.createRoundedRectangle(BUY_SIZE, 
@@ -524,6 +624,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(corp, corp.getLayoutX(), corp.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(CORP_COST);
 					players.get(currentPlayer).getUnitList().add(corp);
 					
@@ -534,6 +636,7 @@ public class GameUI extends Stage {
 							selectUnit(corp);
 						}
 			        });
+					gamePane.getChildren().add(corp.getCollShape());
 					gamePane.getChildren().add(corp);
 					updateInfo();
 				}
@@ -571,6 +674,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(priv, priv.getLayoutX(), priv.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(PRIV_COST);
 					players.get(currentPlayer).getUnitList().add(priv);
 					
@@ -581,6 +686,7 @@ public class GameUI extends Stage {
 							selectUnit(priv);
 						}
 			        });
+					gamePane.getChildren().add(priv.getCollShape());
 					gamePane.getChildren().add(priv);
 					updateInfo();
 				}
@@ -608,6 +714,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(scout, scout.getLayoutX(), scout.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(SCOUT_COST);
 					players.get(currentPlayer).getUnitList().add(scout);
 					
@@ -618,14 +726,15 @@ public class GameUI extends Stage {
 							selectUnit(scout);
 						}
 			        });
+					gamePane.getChildren().add(scout.getCollShape());
 					gamePane.getChildren().add(scout);
+					
 					updateInfo();
 				}
 			}
         });
 		root.getChildren().add(scoutPanel);
 	}
-	
 	public void createBuySergPanel()
 	{
 		Rectangle sergPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
@@ -644,6 +753,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(serg, serg.getLayoutX(), serg.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(SERG_COST);
 					players.get(currentPlayer).getUnitList().add(serg);
 					
@@ -654,6 +765,7 @@ public class GameUI extends Stage {
 							selectUnit(serg);
 						}
 			        });
+					gamePane.getChildren().add(serg.getCollShape());
 					gamePane.getChildren().add(serg);
 					updateInfo();
 				}
@@ -680,6 +792,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(snip, snip.getLayoutX(), snip.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(SNIP_COST);
 					players.get(currentPlayer).getUnitList().add(snip);
 					
@@ -690,6 +804,7 @@ public class GameUI extends Stage {
 							selectUnit(snip);
 						}
 			        });
+					gamePane.getChildren().add(snip.getCollShape());
 					gamePane.getChildren().add(snip);
 					updateInfo();
 				}
@@ -697,7 +812,6 @@ public class GameUI extends Stage {
         });
 		root.getChildren().add(snipPanel);
 	}
-	
 	public void createBuyTankPanel()
 	{
 		Rectangle tankPanel = Tools.createRoundedRectangle(BUY_SIZE, BUY_SIZE, 
@@ -716,6 +830,8 @@ public class GameUI extends Stage {
 							BASE_UNIT_Y[currentPlayer], widthRatio, 
 							heightRatio, smallestRatio, 
 							TEAM_EFFECTS[currentPlayer]);
+					//add the CollisionShape
+					moveElement(tank, tank.getLayoutX(), tank.getLayoutY(), 0);
 					players.get(currentPlayer).deductMoney(TANK_COST);
 					players.get(currentPlayer).getUnitList().add(tank);
 					
@@ -726,12 +842,58 @@ public class GameUI extends Stage {
 							selectUnit(tank);
 						}
 			        });
+					gamePane.getChildren().add(tank.getCollShape());
 					gamePane.getChildren().add(tank);
 					updateInfo();
 				}
 			}
         });
 		root.getChildren().add(tankPanel);
+	}
+	public void createEnd()
+	{
+		endScreen = new Stage();
+		endScreen.initStyle(StageStyle.TRANSPARENT);
+		endScreen.initOwner(this);
+		
+		endRoot = new AnchorPane();
+		Scene scene = new Scene(endRoot, END_SCREEN_WIDTH * widthRatio, END_SCREEN_HEIGHT * heightRatio);
+		
+		Text winner = Tools.createText(WINNER_X, WINNER_Y, widthRatio, heightRatio,
+				players.get(0).getName(), Color.DARKRED.darker(),
+				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, WINNER_SIZE, smallestRatio));
+		
+		Rectangle endExit = createEndExit();
+		
+		endRoot.getChildren().addAll(winner, endExit);
+		
+		endRoot.setBackground(new Background(endScreenBack));
+
+		endScreen.setScene(scene);
+		endScreen.show();
+		
+	}
+	public Rectangle createEndExit()
+	{
+		Rectangle exitPanel = Tools.createRoundedRectangle(EXIT_PANEL_WIDTH, EXIT_PANEL_HEIGHT, 
+				RECT_ARC_SIZE, RECT_ARC_SIZE, EXIT_PANEL_X, EXIT_PANEL_Y, 
+				widthRatio, heightRatio, smallestRatio, Color.TRANSPARENT, 
+				null);
+		
+		exitPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				endRoot.setBackground(new Background(endScreenClicked));
+			}
+        });
+		exitPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				endRoot.setBackground(new Background(endScreenBack));
+				closeGameScreen();
+			}
+        });
+		return exitPanel;
 	}
 	public void createEndPanel()
 	{
@@ -743,23 +905,28 @@ public class GameUI extends Stage {
 		endPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GRASSY_GROUND_CLICKED));
+				root.setBackground(new Background(groundClicked));
 			}
         });
 		
 		endPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GRASSY_GROUND));
+				root.setBackground(new Background(ground));
 				refreshSelect();
-				currentPlayer = (currentPlayer + 1) % players.size();
+				//while the next player is one that has been removed, keep adding to the index
+				do
+				{
+					currentPlayer = (currentPlayer + 1) % players.size();
+				}
+				while(players.get(currentPlayer) == null);
+				chanceAddMoney();
 				refreshPlayers();
 				updateInfo();
 			}
         });
 		root.getChildren().add(endPanel);
 	}
-	
 	public Text createGameCloseButton()
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, 
@@ -776,6 +943,7 @@ public class GameUI extends Stage {
 		
 		return close;
 	}
+	
 	public Text createGameMinButton()
 	{
 		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, 
@@ -792,6 +960,7 @@ public class GameUI extends Stage {
 		
 		return minimize;
 	}
+	
 	public void createGameUI()
 	{
 		this.initStyle(StageStyle.TRANSPARENT);
@@ -826,13 +995,17 @@ public class GameUI extends Stage {
 		createBuyPanels();
 		addBases(gamePane);
 		
+		
 		root.getChildren().addAll(close, minimize, gamePane, coverPane, 
 				moveEllipse, attackEllipse);
-		root.setBackground(new Background(GRASSY_GROUND));
+		root.setBackground(new Background(ground));
+		
+		createField();
 		
 		this.setScene(scene);
 		this.show();
 	}
+	
 	public void createIcon()
 	{
 		selectIcon = Tools.createImageView(currentUnit.getIcon(), ICON_SIZE, 
@@ -873,7 +1046,6 @@ public class GameUI extends Stage {
 		moveText.setOnMouseReleased(out);
 		root.getChildren().addAll(moveButton, moveText);
 	}
-	
 	public Text createNameCloseButton()
 	{
 		Text close = Tools.createText(NAME_CLOSE_X, NAME_CLOSE_Y, widthRatio, 
@@ -909,7 +1081,7 @@ public class GameUI extends Stage {
 		createNameTextFields(root, players);
 		
 		root.getChildren().addAll(ok, close);
-		root.setBackground(new Background(NAME_SET));
+		root.setBackground(new Background(nameSetBack));
 
 		nameSet.setScene(scene);
 		nameSet.show();
@@ -926,13 +1098,13 @@ public class GameUI extends Stage {
 		okPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(NAME_SET_CLICKED));
+				root.setBackground(new Background(nameSetClicked));
 			}
         });
 		okPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(NAME_SET));
+				root.setBackground(new Background(nameSetBack));
 				if(checkTextfields())
 				{
 					createPlayers();
@@ -1019,6 +1191,7 @@ public class GameUI extends Stage {
 		skipText.setOnMouseReleased(out);
 		root.getChildren().addAll(skipButton, skipText);
 	}
+	
 	public void createUnitStats()
 	{
 		selectType = Tools.createText(TYPE_X, TYPE_Y, widthRatio, heightRatio, 
@@ -1057,7 +1230,7 @@ public class GameUI extends Stage {
 	}
 	
 	public void fireBullet(final Projectile bullet, 
-			final double endpointX, final double endpointY)
+			final double endpointX, final double endpointY, final double angle)
 	{
 		prevTime = -1;
 		attacking = true;
@@ -1087,8 +1260,7 @@ public class GameUI extends Stage {
 					double dy2 = distance * distY / dist;
 					double dy = (Math.abs(dy1) > Math.abs(dy2)) ? dy2 : dy1;
 					
-					bullet.setLayoutX(bullet.getLayoutX() + dx);
-					bullet.setLayoutY(bullet.getLayoutY() + dy);
+					moveElement(bullet, bullet.getLayoutX() + dx, bullet.getLayoutY() + dy, angle);
 
 					// Check each unit for collision
 					for (Node child : gamePane.getChildren())
@@ -1107,7 +1279,7 @@ public class GameUI extends Stage {
 								}
 								hit(bullet);
 								stop();
-								break;
+								return;
 							}
 						}
 						else if(child instanceof Obstacle)
@@ -1118,7 +1290,7 @@ public class GameUI extends Stage {
 							{
 								hit(bullet);
 								stop();
-								break;
+								return;
 							}
 						}
 					}
@@ -1131,6 +1303,7 @@ public class GameUI extends Stage {
 					{
 						hit(bullet);
 						stop();
+						return;
 					}
 				}
 				prevTime = nowSec;
@@ -1139,141 +1312,104 @@ public class GameUI extends Stage {
 		anim.start();
 	}
 	
-	public void checkPlayer()
+	public void genMoney()
 	{
-		for(int k = 0; k < players.size(); k++)
+		Rectangle moneySpace = new Rectangle();
+		gamePane.getChildren().add(moneySpace);
+		int randomValue;
+		double randomX;
+		double randomY;
+		do
 		{
-			Player person = players.get(k);
-			if(person.getUnitList().size() == 0 && 
-					person.getAmountOfMoney() < 100)
+			randomValue = (int)(Math.random() * (Tools.MAX_MONEY_BAG - 
+				MIN_MONEY_SPAWN + 1)) + MIN_MONEY_SPAWN;
+			randomX = Math.random() * (GAME_PANE_WIDTH - Tools.MAX_MONEY_BAG / 2);
+			randomY = Math.random() * (GAME_PANE_HEIGHT - BASE_HEIGHT * 2 - Tools.MAX_MONEY_BAG / 2)
+				+ BASE_HEIGHT;
+			
+			moneySpace.setLayoutX(randomX * widthRatio);
+			moneySpace.setLayoutY(randomY * heightRatio);
+			moneySpace.setWidth(Tools.MONEY_SIZE * randomValue / Tools.MAX_MONEY_BAG);
+			moneySpace.setHeight(Tools.MONEY_SIZE * randomValue / Tools.MAX_MONEY_BAG);
+		}
+		while(!checkObstacles(moneySpace));
+		
+		
+		MoneyBag spawn = Tools.createMoneyBag(randomValue, 0, 0, widthRatio,
+				heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		spawn.setLayoutX(randomX * widthRatio);
+		spawn.setLayoutY(randomY * heightRatio);
+		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
+		
+		gamePane.getChildren().remove(moneySpace);
+		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
+	}
+	
+	public boolean checkObstacles(Rectangle moneySpace)
+	{
+		for (Node child : gamePane.getChildren())
+		{
+			if(child instanceof Obstacle)
 			{
-				players.remove(k);
-				k--;
+				Obstacle check = (Obstacle) child;
+				if(((Path)Shape.intersect(check.getCollShape(), moneySpace)).getElements().size() > 0)
+				{
+					return false;
+				}
 			}
 		}
-	}
-	public void checkEndGame()
-	{
-		if(players.size() == 1)
-		{
-			createEnd();
-		}
-	}
-	
-	public void createEnd()
-	{
-		endScreen = new Stage();
-		endScreen.initStyle(StageStyle.TRANSPARENT);
-		endScreen.initOwner(this);
-		
-		AnchorPane endRoot = new AnchorPane();
-		Scene scene = new Scene(endRoot, 500 * widthRatio, 300 * heightRatio);
-		
-		Text winner = Tools.createText(100, 50, widthRatio, heightRatio,
-				players.get(0).getName() + " is the winner!", Color.GRAY,
-				Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style",
-						null, 50, smallestRatio));
-		endRoot.setEffect(Tools.LARGE_SHADE);
-		
-		Rectangle endExit = createEndExit();
-		
-		endRoot.getChildren().addAll(winner);
-		
-		//create new background for this, with a close button
-		//root.setBackground(new Background(NAME_SET));
-
-		endScreen.setScene(scene);
-		endScreen.show();
-		
-	}
-	
-	public Rectangle createEndExit()
-	{
-		Rectangle exitPanel = Tools.createRoundedRectangle(100, 50, 
-				RECT_ARC_SIZE, RECT_ARC_SIZE, 25, 25, 
-				widthRatio, heightRatio, smallestRatio, Color.BLUE, 
-				null);
-		
-		exitPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				//root.setBackground(new Background());
-			}
-        });
-		exitPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				//root.setBackground(new Background(NAME_SET));
-				/*this.close;
-				IntroUI intro = new IntroUI(heightRatio, heightRatio, heightRatio);
-				introUI.show();
-				*/
-			}
-        });
-		return exitPanel;
+		return true;
 	}
 	public void hit(Projectile bullet)
 	{
 		attacking = false;
 		//Snap back to 0 degrees after attack
+		if(currentUnit != null)
 		currentUnit.getTransforms().remove(direction);
 		
-		gamePane.getChildren().remove(bullet);
+		gamePane.getChildren().removeAll(bullet.getCollShape(), bullet);
+		
 		//Removes attack ellipse after attack, but prevents action until 
 		//bullet is gone
 		coverPane.setVisible(false);
 		//Deselects the unit after attack
 		refreshSelect();
+		
+		checkPlayer();
+		checkEndGame();
 	}
+	
 	public void minimizeGameScreen()
 	{
 		this.setIconified(true);
 	}
-	public void refreshPlayers()
-	{
-		for(int k = 0; k < players.size(); k++)
-		{
-			Player person = players.get(k);
-				
-			for(Unit unit : person.getUnitList())
-			{
-				unit.refreshAction();
-			}
-		}
-	}
 	
-	public void moveElement(UIElement ele, double endpointX, double endpointY, 
-			double angle)
-	{
-		double xOffset = ele.getFitWidth() / 2;
-		double yOffset = ele.getFitHeight() / 2;
-		ele.setLayoutX(endpointX - xOffset);
-		ele.setLayoutY(endpointY - yOffset);
-		ele.updateCollShape(ele.getFitHeight(), ele.getFitWidth(), angle, 
-				ele.getLayoutX(), ele.getLayoutY(), 1, 1, 1);
-	}
 	public void moveClick(double endpointX, double endpointY)
 	{
 		boolean valid = true;
 		//Holds all money at that location
 		ArrayList<MoneyBag> bags = new ArrayList<MoneyBag>();
+		final Rectangle destination = new Rectangle(endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2,
+				currentUnit.getFitWidth(), currentUnit.getFitHeight());
+		gamePane.getChildren().add(destination);
+		
 		for(Node child : gamePane.getChildren())
 		{
-			UIElement check = (UIElement) child;
-			if (check.getCollShape().intersects(endpointX - 
-					currentUnit.getFitWidth() / 2, endpointY - 
-					currentUnit.getFitHeight() / 2,
-					currentUnit.getFitWidth(), currentUnit.getFitWidth()))
+			if(child instanceof UIElement)
 			{
-				if (check instanceof Obstacle && 
-						!((Obstacle)check).isWalkable())
+				UIElement check = (UIElement) child;
+				if (((Path)Shape.intersect(check.getCollShape(), destination)).getElements().size() > 0)
 				{
-					valid = false;
-					break;
-				}
-				else if (check instanceof MoneyBag)
-				{
-					bags.add((MoneyBag)check);
+					if (check instanceof Obstacle && 
+							!((Obstacle)check).isWalkable())
+					{
+						valid = false;
+						break;
+					}
+					else if (check instanceof MoneyBag)
+					{
+						bags.add((MoneyBag)check);
+					}
 				}
 			}
 		}
@@ -1290,16 +1426,42 @@ public class GameUI extends Stage {
 			for(MoneyBag money : bags)
 			{
 				players.get(currentPlayer).addMoney(money.getMoneyValue());
-				gamePane.getChildren().remove(money);
+				gamePane.getChildren().removeAll(money.getCollShape(), money);
 			}
-			
-			currentUnit.setLayoutX(endpointX - currentUnit.getFitWidth() / 2);
-			currentUnit.setLayoutY(endpointY - currentUnit.getFitHeight() / 2);
+			updateInfo();
+			moveElement(currentUnit, endpointX - currentUnit.getFitWidth() / 2, endpointY - currentUnit.getFitHeight() / 2, 0);
 			currentUnit.move();
+			refreshSelect();
 		}
+		gamePane.getChildren().remove(destination);
 		moveEllipse.setVisible(false);
 		coverPane.setVisible(false);
-		refreshSelect();
+	}
+	
+	public void moveElement(UIElement ele, double endpointX, double endpointY, 
+			double angle)
+	{
+		ele.setLayoutX(endpointX);
+		ele.setLayoutY(endpointY);
+		
+		ele.updateCollShape(ele.getFitHeight(), ele.getFitWidth(), angle, 
+				ele.getLayoutX() + ele.getFitWidth() / 2, ele.getLayoutY() +
+				ele.getFitHeight() / 2, 1, 1, 1);
+	}
+	
+	public void refreshPlayers()
+	{
+		for(int k = 0; k < players.size(); k++)
+		{
+			Player person = players.get(k);
+			if(person != null)	
+			{
+				for(Unit unit : person.getUnitList())
+				{
+					unit.refreshAction();
+				}
+			}
+		}
 	}
 	
 	public void refreshSelect()
@@ -1315,12 +1477,20 @@ public class GameUI extends Stage {
 	
 	public void removeUnit(Unit removed)
 	{
+		double deathX = removed.getLayoutX() + removed.getFitWidth() / 2;
+		double deathY = removed.getLayoutY() + removed.getFitHeight() / 2;
 		players.get(removed.getTeam()).getUnitList().remove(removed);
-		gamePane.getChildren().remove(removed);
-		//updateInfo();
+		gamePane.getChildren().removeAll(removed.getCollShape(), removed);
+		
 		int randomValue = (int)(Math.random() * (removed.getCost() - 
 				MIN_MONEY + 1)) + MIN_MONEY;
-		MoneyBag loot = new MoneyBag(randomValue);
+		MoneyBag loot = Tools.createMoneyBag(randomValue, 0, 0, widthRatio, heightRatio, smallestRatio, Tools.MEDIUM_OUT_SHADE);
+		loot.setLayoutX(deathX - loot.getFitWidth() / 2);
+		loot.setLayoutY(deathY - loot.getFitHeight() / 2);
+		moveElement(loot, loot.getLayoutX(), loot.getLayoutY(), 0);
+		
+		gamePane.getChildren().addAll(loot.getCollShape(), loot);
+		
 	}
 	
 	public void selectUnit(Unit unit)
@@ -1378,26 +1548,6 @@ public class GameUI extends Stage {
 	
 	public void setCoverPane()
 	{
-		/*
-		coverPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
-			@Override
-			public void handle(MouseEvent arg0)
-			{
-				if (currentUnit != null)
-				{
-					double mouseX = arg0.getX()- PANE_X;
-					double mouseY = arg0.getY()- PANE_Y;
-					
-					double unitX = currentUnit.getLayoutX() + 
-							currentUnit.getFitWidth() / 2;
-					double unitY = currentUnit.getLayoutY() + 
-							currentUnit.getFitHeight() / 2;
-					//uses degrees, must convert
-					direction.setAngle(Math.toDegrees(Math.atan2(mouseY - 
-							unitY, mouseX - unitX)));
-				}
-			}
-		});*/
 		coverPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event)
@@ -1412,7 +1562,6 @@ public class GameUI extends Stage {
 					{
 						currentUnit.getTransforms().remove(direction);
 					}
-					refreshSelect();
 				}
 			}
 		});
@@ -1498,4 +1647,62 @@ public class GameUI extends Stage {
 		
 		root.getChildren().addAll(playerName, playerMoney);
 	}
+	
+	public void createField()
+	{
+		createHouseOne(HOUSE_ONE_HEIGHT, HOUSE_ONE_WIDTH, HOUSE_ONE_X, HOUSE_ONE_Y);
+		createHouseTwo(HOUSE_TWO_HEIGHT, HOUSE_TWO_WIDTH, HOUSE_TWO_X, HOUSE_TWO_Y);
+		createTrees(LARGE_TREE_SIZE, LARGE_TREE_SIZE, TREE_X[0], TREE_Y[0]);
+		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[1], TREE_Y[1]);
+		createTrees(MEDIUM_TREE_SIZE, MEDIUM_TREE_SIZE, TREE_X[2], TREE_Y[2]);
+		
+		createRock(LARGE_ROCK_SIZE, LARGE_ROCK_SIZE, ROCK_X[0], ROCK_Y[0]);
+		createRock(SUPER_LARGE_ROCK_SIZE, SUPER_LARGE_ROCK_SIZE, ROCK_X[1], ROCK_Y[1]);
+		
+		createRock(LARGE_ROCK_SIZE, LARGE_ROCK_SIZE, ROCK_X[2], ROCK_Y[2]);
+		createRock(MEDIUM_ROCK_SIZE, MEDIUM_ROCK_SIZE, ROCK_X[3], ROCK_Y[3]);
+		createRock(SMALL_ROCK_SIZE, SMALL_ROCK_SIZE, ROCK_X[4], ROCK_Y[4]);
+		createRock(MEDIUM_ROCK_SIZE, MEDIUM_ROCK_SIZE, ROCK_X[5], ROCK_Y[5]);
+	
+	}
+	
+	public void createHouseOne(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle houseOne = Tools.createSolid(Tools.HOUSE_ONE, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
+		houseOne.updateCollShape(houseOne.getFitHeight(), houseOne.getFitWidth(), 0,
+				houseOne.getLayoutX() + houseOne.getFitWidth() / 2, houseOne.getLayoutY() + houseOne.getFitHeight() / 2, 1, 1, 1);
+		gamePane.getChildren().addAll(houseOne.getCollShape(), houseOne);
+	}
+	
+	public void createHouseTwo(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle houseTwo = Tools.createSolid(Tools.HOUSE_TWO, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
+		houseTwo.updateCollShape(houseTwo.getFitHeight(), houseTwo.getFitWidth(), 0, 
+				houseTwo.getLayoutX() + houseTwo.getFitWidth() / 2, houseTwo.getLayoutY() +
+				houseTwo.getFitHeight() / 2, 1, 1, 1);
+		gamePane.getChildren().addAll(houseTwo.getCollShape(), houseTwo);
+	}
+	
+	public void createTrees(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle trees = Tools.createSolid(Tools.TREE, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
+		trees.updateCollShape(trees.getFitHeight(), trees.getFitWidth(), 0, 
+				trees.getLayoutX() + trees.getFitWidth() / 2, trees.getLayoutY() +
+				trees.getFitHeight() / 2, 1, 1, 1);
+		gamePane.getChildren().addAll(trees.getCollShape(), trees);
+	} 
+	
+	public void createRock(double height, double width, double xLoc, double yLoc)
+	{
+		Obstacle rock = Tools.createSolid(Tools.ROCK, height, width,
+				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, Tools.LARGE_OUT_SHADE);
+		rock.updateCollShape(rock.getFitHeight(), rock.getFitWidth(), 0, 
+				rock.getLayoutX() + rock.getFitWidth() / 2, rock.getLayoutY() +
+				rock.getFitHeight() / 2, 1, 1, 1);
+		gamePane.getChildren().addAll(rock.getCollShape(), rock);
+	}
+	
 }

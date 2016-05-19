@@ -34,45 +34,45 @@ public class Tools {
 	public static final DropShadow PINK_OUT_SHADE = new DropShadow(5.0, TEAM_COLORS[3]);
 
 	//Constant statistics for units
-	public static final int PRIV_HEALTH = 50;
-	public static final double PRIV_ATT_RANGE = 100;
-	public static final int PRIV_DMG = 25;
-	public static final double PRIV_MOVE_RANGE = 100;
+	public static final int PRIV_HEALTH = 100;
+	public static final double PRIV_ATT_RANGE = 300;
+	public static final int PRIV_DMG = 50;
+	public static final double PRIV_MOVE_RANGE = 300;
 	public static final int PRIV_COST = 100;
 	
-	public static final int CORP_HEALTH = 100;
-	public static final double CORP_ATT_RANGE = 200;
-	public static final int CORP_DMG = 50;
-	public static final double CORP_MOVE_RANGE = 200;
+	public static final int CORP_HEALTH = 200;
+	public static final double CORP_ATT_RANGE = 350;
+	public static final int CORP_DMG = 100;
+	public static final double CORP_MOVE_RANGE = 350;
 	public static final int CORP_COST = 200;
 	
-	public static final int SERG_HEALTH = 150;
-	public static final double SERG_ATT_RANGE = 300;
-	public static final int SERG_DMG = 75;
-	public static final double SERG_MOVE_RANGE = 300;
+	public static final int SERG_HEALTH = 300;
+	public static final double SERG_ATT_RANGE = 400;
+	public static final int SERG_DMG = 150;
+	public static final double SERG_MOVE_RANGE = 400;
 	public static final int SERG_COST = 300;
 
-	public static final int TANK_HEALTH = 200;
-	public static final double TANK_ATT_RANGE = 300;
-	public static final int TANK_DMG = 100;
-	public static final double TANK_MOVE_RANGE = 200;
+	public static final int TANK_HEALTH = 450;
+	public static final double TANK_ATT_RANGE = 500;
+	public static final int TANK_DMG = 200;
+	public static final double TANK_MOVE_RANGE = 250;
 	public static final int TANK_COST = 400;
 	
-	public static final int SCOUT_HEALTH = 100;
-	public static final double SCOUT_ATT_RANGE = 200;
-	public static final int SCOUT_DMG = 25;
-	public static final double SCOUT_MOVE_RANGE = 400;
+	public static final int SCOUT_HEALTH = 150;
+	public static final double SCOUT_ATT_RANGE = 300;
+	public static final int SCOUT_DMG = 50;
+	public static final double SCOUT_MOVE_RANGE = 700;
 	public static final int SCOUT_COST = 200;
 	
-	public static final int SNIP_HEALTH = 50;
-	public static final double SNIP_ATT_RANGE = 400;
-	public static final int SNIP_DMG = 75;
-	public static final double SNIP_MOVE_RANGE = 200;
+	public static final int SNIP_HEALTH = 75;
+	public static final double SNIP_ATT_RANGE = 1000;
+	public static final int SNIP_DMG = 150;
+	public static final double SNIP_MOVE_RANGE = 150;
 	public static final int SNIP_COST = 200;
 	
 	//Other element settings
-	public static final int MAX_MONEY_BAG = 400;
-	public static final double MONEY_SIZE = 200;
+	public static final int MAX_MONEY_BAG = 300;
+	public static final double MONEY_SIZE = 150;
 	
 	public static final double DEFAULT_ANGLE = 0;
 	public static final int DEFAULT_FONT = 10;
@@ -92,6 +92,12 @@ public class Tools {
 	public static final Image TANK = Tools.createImage("Units/Tank.png");
 	public static final Image SNIPER = Tools.createImage("Units/Sniper.png");
 	public static final Image SCOUT = Tools.createImage("Units/Scout.png");
+	
+	public static final Image MONEY = Tools.createImage("MoneyLarge.png");
+	public static final Image HOUSE_ONE = Tools.createImage("House.png");
+	public static final Image HOUSE_TWO = Tools.createImage("House2.png");
+	public static final Image ROCK = Tools.createImage("Rock.png");
+	public static final Image TREE = Tools.createImage("Tree.png");
 	
 	public static final String PRIVATE_TEXT = "Private";
 	public static final String CORP_TEXT = "Corporal";
@@ -137,8 +143,8 @@ public class Tools {
 		base.setSmooth(true);
 		base.setCache(true);
 		
-		AnchorPane.setLeftAnchor(base, xLoc * widthRatio);
-		AnchorPane.setTopAnchor(base, yLoc * heightRatio);
+		base.setLayoutX(xLoc * widthRatio);
+		base.setLayoutY(yLoc * heightRatio);
 		base.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		
 		return base;
@@ -245,10 +251,9 @@ public class Tools {
 		return imgV;
 	}
 	
-	/**Creates a money bag with values based on a given setting number. 
+	/**Creates a money bag with size baased on money value 
 	 * It is displayed on the screen in a specified location with a given size and effect
-	 * @param setting a number to indicate what type of money bag desired
-	 * 1: Smallest money bag, 2: medium money bag, 3: large money bag, 4: extra large money bag
+	 * @param value amount of money this bag contains
 	 * @param xLoc the x-coordinate of the image view
 	 * @param yLoc the y-coordinate of the image view
 	 * @param widthRatio the ratio of the user's desired width resolution to the highest possible screen width
@@ -260,6 +265,7 @@ public class Tools {
 	public static MoneyBag createMoneyBag(int value, double xLoc, double yLoc, double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
 		MoneyBag bag = new MoneyBag(value);
+		bag.setImage(MONEY);
 		bag = (MoneyBag)setImgView(bag, MONEY_SIZE * value / MAX_MONEY_BAG, MONEY_SIZE * value / MAX_MONEY_BAG,
 				xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 
@@ -338,8 +344,8 @@ public class Tools {
 		rect.setArcHeight(arcH * heightRatio);
 		rect.setArcWidth(arcW * widthRatio);
 		
-		AnchorPane.setTopAnchor(rect, yLoc * heightRatio);
-		AnchorPane.setLeftAnchor(rect, xLoc * widthRatio);
+		rect.setLayoutX(xLoc * widthRatio);
+		rect.setLayoutY(yLoc * heightRatio);
 		
 		rect.setFill(col);
 		rect.setEffect(eff);
@@ -421,6 +427,7 @@ public class Tools {
 	
 	/**Creates a solid object, which is a object which players cannot pass through
 	 * It is displayed on the screen in a specified location with a given size and effect
+	 * @param img the visual for the solid
 	 * @param height desired height of solid 
 	 * @param width desired width of solid
 	 * @param xLoc the x-coordinate of the solid
@@ -431,11 +438,11 @@ public class Tools {
 	 * @param eff given visual effect
 	 * @return obstacle that is a rock with the given location, size, and effect
 	 */
-	public static Obstacle createSolid(String img, double height, double width, double xLoc, double yLoc,
+	public static Obstacle createSolid(Image img, double height, double width, double xLoc, double yLoc,
 			 double widthRatio, double heightRatio, double smallestRatio, Effect eff)
 	{
 		Obstacle solid = new Obstacle(false);
-		solid.setImage(createImage(img));
+		solid.setImage(img);
 		solid = (Obstacle)setImgView(solid, height, width, xLoc, yLoc, widthRatio, heightRatio, smallestRatio, eff);
 		solid.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc, widthRatio, heightRatio, smallestRatio);
 		return solid;
