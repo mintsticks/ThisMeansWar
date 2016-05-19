@@ -15,13 +15,12 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.util.*;
-	
+
 public class IntroUI extends Stage{
 	
+	//Dimensions of the main screen
 	public static final int SCENE_WIDTH = 1200;
 	public static final int SCENE_HEIGHT = 675;
 	public static final int BORDER_WIDTH = 1220;
@@ -29,27 +28,32 @@ public class IntroUI extends Stage{
 	
 	public static final int NUM_SELECT_WIDTH = 600;
 	public static final int NUM_SELECT_HEIGHT = 220;
-
+	
+	//Help button dimensions
 	public static final double HELP_WIDTH = 287.25;
 	public static final double HELP_HEIGHT = 153;
 	public static final double HELP_X = 699.75;
 	public static final double HELP_Y = 420.75;
 	
+	//Play button dimensions
 	public static final double PLAY_WIDTH = 482.25;
 	public static final double PLAY_HEIGHT = 153;
 	public static final double PLAY_X = 182.25;
 	public static final double PLAY_Y = 420.75;
 	
+	//Close button dimensions
 	public static final double CLOSE_X = 1150;
 	public static final double MIN_X = 1110;
 	public static final double CLOSE_Y = 5;
 	public static final double MIN_Y = 0;
 	
+	//Dropdown box dimensions
 	public static final double COMBO_X = 30;
 	public static final double COMBO_Y = 125;
 	public static final double COMBO_WIDTH = 400;
 	public static final double COMBO_HEIGHT = 45;
 	
+	//OK button dimensions
 	public static final double OK_WIDTH = 90;
 	public static final double OK_HEIGHT = 55;
 	public static final double OK_ARC_SIZE = 10;
@@ -63,7 +67,7 @@ public class IntroUI extends Stage{
 	
 	public static final int OFFSET = 10;
 	
-	
+	//Homepage Images
 	public static final Image INTRO_BORDER_IMAGE = Tools.createImage("background.jpg");
 	public static final Image INTRO_BACK_IMAGE = Tools.createImage("IntroBack.png");
 	public static final Image INTRO_HELP_CLICK_IMAGE = Tools.createImage("IntroHelpClick.png");
@@ -73,36 +77,44 @@ public class IntroUI extends Stage{
 	public static final Image NUM_PLAY_IMAGE = Tools.createImage("NumPlayers.png");
 	public static final Image NUM_PLAY_CLICKED_IMAGE = Tools.createImage("NumPlayersClicked.png");
 	
+	//"Selecting Units" page images
 	public static final Image SELECTING_UNITS_IMAGE = Tools.createImage("Selecting Units.png");
 	public static final Image SELECTING_UNITS_BACK_HOVER_IMAGE = Tools.createImage("Selecting Units (Back Option Hover).png");
 	public static final Image SELECTING_UNITS_BACK_CLICKED_IMAGE = Tools.createImage("Selecting Units (Back Option Clicked).png");
 	public static final Image SELECTING_UNITS_NEXT_HOVER_IMAGE = Tools.createImage("Selecting Units (Next Hover).png");
 	public static final Image SELECTING_UNITS_NEXT_CLICKED_IMAGE = Tools.createImage("Selecting Units (Next Clicked).png");
 	
+	//"Game Elements" page images
 	public static final Image GAME_ELEMENTS_IMAGE = Tools.createImage("Game Elements.png");
 	public static final Image GAME_ELEMENTS_PREVIOUS_HOVER_IMAGE = Tools.createImage("Game Elements (Previous Hover).png");
 	public static final Image GAME_ELEMENTS_PREVIOUS_CLICKED_IMAGE = Tools.createImage("Game Elements (Previous Clicked).png");
 	public static final Image GAME_ELEMENTS_NEXT_HOVER_IMAGE = Tools.createImage("Game Elements (Next Hover).png");
 	public static final Image GAME_ELEMENTS_NEXT_CLICKED_IMAGE = Tools.createImage("Game Elements (Next Clicked).png");
 	
+	//"Game Setup" page images
 	public static final Image GAME_SETUP_IMAGE = Tools.createImage("Game Setup.PNG");
 	public static final Image GAME_SETUP_HOMEPAGE_HOVER_IMAGE = Tools.createImage("Game Setup (Homepage Hover).png");
 	public static final Image GAME_SETUP_HOMEPAGE_CLICKED_IMAGE = Tools.createImage("Game Setup (Homepage Clicked).png");
 	public static final Image GAME_SETUP_NEXT_HOVER_IMAGE = Tools.createImage("Game Setup (Next Hover).png");
 	public static final Image GAME_SETUP_NEXT_CLICKED_IMAGE = Tools.createImage("Game Setup (Next Clicked).png");
 	
+	//"Gameplay" page images
 	public static final Image GAMEPLAY_IMAGE = Tools.createImage("Gameplay.PNG");
 	public static final Image GAMEPLAY_PREVIOUS_HOVER_IMAGE = Tools.createImage("Gameplay (Previous Hover).PNG");
 	public static final Image GAMEPLAY_PREVIOUS_CLICKED_IMAGE = Tools.createImage("Gameplay (Previous Clicked).PNG");
 	
-	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), INTRO_BORDER_IMAGE.getHeight(), false, false, false, false));
-	public static final BackgroundImage INTRO_BACK = new BackgroundImage(INTRO_BACK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(INTRO_BACK_IMAGE.getWidth(), INTRO_BACK_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage INTRO_HELP_CLICK = new BackgroundImage(INTRO_HELP_CLICK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(INTRO_HELP_CLICK_IMAGE.getWidth(), INTRO_HELP_CLICK_IMAGE.getHeight(), false, false, true, false));
-	public static final BackgroundImage INTRO_HELP_HOVER = new BackgroundImage(INTRO_HELP_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			new BackgroundSize(INTRO_HELP_HOVER_IMAGE.getWidth(), INTRO_HELP_HOVER_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage INTRO_BORDER = new BackgroundImage(INTRO_BORDER_IMAGE, BackgroundRepeat.REPEAT, 
+			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,new BackgroundSize(INTRO_BORDER_IMAGE.getWidth(), 
+			INTRO_BORDER_IMAGE.getHeight(), false, false, false, false));
+	public static final BackgroundImage INTRO_BACK = new BackgroundImage(INTRO_BACK_IMAGE, BackgroundRepeat.REPEAT, 
+			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,new BackgroundSize(INTRO_BACK_IMAGE.getWidth(), 
+			INTRO_BACK_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage INTRO_HELP_CLICK = new BackgroundImage(INTRO_HELP_CLICK_IMAGE, BackgroundRepeat.REPEAT, 
+			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,new BackgroundSize(INTRO_HELP_CLICK_IMAGE.getWidth(), 
+			INTRO_HELP_CLICK_IMAGE.getHeight(), false, false, true, false));
+	public static final BackgroundImage INTRO_HELP_HOVER = new BackgroundImage(INTRO_HELP_HOVER_IMAGE, BackgroundRepeat.REPEAT, 
+			BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(INTRO_HELP_HOVER_IMAGE.getWidth(), 
+			INTRO_HELP_HOVER_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage INTRO_PLAY_CLICK = new BackgroundImage(INTRO_PLAY_CLICK_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			new BackgroundSize(INTRO_PLAY_CLICK_IMAGE.getWidth(), INTRO_PLAY_CLICK_IMAGE.getHeight(), false, false, true, false));
 	public static final BackgroundImage INTRO_PLAY_HOVER = new BackgroundImage(INTRO_PLAY_HOVER_IMAGE, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
@@ -159,6 +171,12 @@ public class IntroUI extends Stage{
 	private Stage border, numSelect, help, setup, select, elements, gameplay;
 	private ComboBox<String> comboBox;
 	
+	/** 
+	 * Creates the Stage for the main IntroUI
+	 * @param widthRatio the ratio of the UI's width to the user's screen
+	 * @param heightRatio the ratio of the UI's height to the user's screen
+	 * @param smallestRatio the smallest of the two ratios
+	 */
 	public IntroUI(double widthRatio, double heightRatio, double smallestRatio)
 	{
 		this.widthRatio = widthRatio;
@@ -169,41 +187,35 @@ public class IntroUI extends Stage{
 		createIntroBorder();
 		createIntroUI();
 	}
-	
+	/**
+	 * Closes the intro screen and its border
+	 */
 	public void closeIntroScreen()
 	{
 		this.close();
 		border.close();
 	}
-	
+	/**
+	 * Closes the numSelect screen
+	 */
 	public void closeNumScreen()
 	{
 		numSelect.close();
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Help button which can be used to
+	 * create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createHelpPanel(final AnchorPane root)
 	{
-		Rectangle helpPanel = Tools.createRoundedRectangle(HELP_WIDTH, HELP_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, HELP_X, HELP_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle helpPanel = Tools.createRoundedRectangle(HELP_WIDTH, HELP_HEIGHT, RECT_ARC_SIZE, 
+				RECT_ARC_SIZE, HELP_X, HELP_Y, widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
-		helpPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_HELP_HOVER));
-			}
-        });
-		helpPanel.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_BACK));
-			}
-        });
-		helpPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_HELP_CLICK));
-			}
-        });
+		helpPanel = createRectangle(root, helpPanel, INTRO_HELP_HOVER, INTRO_BACK, INTRO_HELP_CLICK);
+		
 		helpPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -216,6 +228,9 @@ public class IntroUI extends Stage{
 		return helpPanel;
 	}
 	
+	/**
+	 * Creates a metallic-textured border to appear around the IntroUI
+	 */
 	private void createIntroBorder() 
 	{
 		border = new Stage();
@@ -231,6 +246,11 @@ public class IntroUI extends Stage{
 		border.centerOnScreen();
 	}
 	
+	/**
+	 * Creates a close button on the homepage
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the Text of the close button
+	 */
 	public Text createIntroCloseButton(AnchorPane root)
 	{
 		Text close = Tools.createText(CLOSE_X, CLOSE_Y, widthRatio, heightRatio, "x", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 50, smallestRatio));
@@ -244,9 +264,16 @@ public class IntroUI extends Stage{
 		
 		return close;
 	}
+	
+	/**
+	 * Creates a minimize button on the homepage
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the Text of the minimize button
+	 */
 	public Text createIntroMinButton(AnchorPane root)
 	{
-		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, Tools.createFont("Bookman Old Style", null, 60, smallestRatio));
+		Text minimize = Tools.createText(MIN_X, MIN_Y, widthRatio, heightRatio, "-", Color.LIGHTGRAY, Tools.SMALL_SHADE, 
+				Tools.createFont("Bookman Old Style", null, 60, smallestRatio));
 		
 		minimize.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -257,7 +284,10 @@ public class IntroUI extends Stage{
 		
 		return minimize;
 	}
-
+	
+	/**
+	 * Initializes the Stage for the homepage
+	 */
 	public void createIntroUI()
 	{
 		this.initStyle(StageStyle.TRANSPARENT);
@@ -283,6 +313,11 @@ public class IntroUI extends Stage{
 		this.setScene(scene);
 	}
 	
+	/**
+	 * Creates a close button on the homepage
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the Text of the close button
+	 */
 	public Text createNumCloseButton(AnchorPane root)
 	{
 		Text close = Tools.createText(NUM_CLOSE_X, NUM_CLOSE_Y, widthRatio, heightRatio, "X", Tools.DARK_GREEN , 
@@ -299,6 +334,9 @@ public class IntroUI extends Stage{
 		return close;
 	}
 	
+	/**
+	 * Creates the NumSelect Stage, where the number of players can be selected
+	 */
 	private void createNumSelect()
 	{
 		numSelect = new Stage();
@@ -332,6 +370,9 @@ public class IntroUI extends Stage{
 		numSelect.show();
 	}
 	
+	/**
+	 * Creates the Help Stage, where the initial Game Setup screen is displayed
+	 */
 	private void createHelpStage()
 	{
 		AnchorPane root = new AnchorPane();
@@ -345,6 +386,11 @@ public class IntroUI extends Stage{
 		help.show();
 	}
 	
+	/**
+	 * Creates a standard Stage, with code that is used every time a Stage is created
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the created Stage
+	 */
 	private Stage createStandardStage(AnchorPane root)
 	{
 		Stage standard = new Stage();
@@ -361,6 +407,9 @@ public class IntroUI extends Stage{
 		return standard;
 	}
 	
+	/**
+	 * Creates the stage on which the Selecting Units screen is displayed
+	 */
 	private void createSelectingUnits()
 	{
 		AnchorPane root = new AnchorPane();
@@ -373,6 +422,9 @@ public class IntroUI extends Stage{
 		select.show();
 	}
 	
+	/**
+	 * Creates the stage on which the Game Setup screen is displayed
+	 */
 	private void createGameSetup()
 	{
 		AnchorPane root = new AnchorPane();
@@ -383,6 +435,13 @@ public class IntroUI extends Stage{
 		root.getChildren().addAll(next, homepage);
 		root.setBackground(new Background(SELECTING_UNITS));
 	}
+	
+	/**
+	 * Creates an invisible rectangle shape around the OK button on the numSelect screen, which can be used to
+	 * create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createNumSelectOK(final AnchorPane root)
 	{
 		Rectangle okPanel = Tools.createRoundedRectangle(OK_WIDTH, OK_HEIGHT, OK_ARC_SIZE, OK_ARC_SIZE, OK_X, OK_Y, 
@@ -423,6 +482,12 @@ public class IntroUI extends Stage{
 		return okPanel;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Back button on the Selecting Units screen, which can be used to
+	 * create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createBackSelectingUnits(final AnchorPane root)
 	{
 		Rectangle back = setupHomepage(root);
@@ -460,9 +525,16 @@ public class IntroUI extends Stage{
 		return back;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Next button on the Selecting Units screen, which can be used to
+	 * create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createNextSelectingUnits(final AnchorPane root)
 	{
 		Rectangle next = setupNext(root);
+		
 		next.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -493,30 +565,18 @@ public class IntroUI extends Stage{
 		return next;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Back button on the Game Setup screen, which can be used to
+	 * create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle backToIntro (final AnchorPane root)
 	{
 		Rectangle back = Tools.createRoundedRectangle(450, 70, RECT_ARC_SIZE, RECT_ARC_SIZE, 
 				11, 600, widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
-		back.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(SELECTING_UNITS_BACK_HOVER));
-			}
-		 });
 		
-		back.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(SELECTING_UNITS));
-			}
-        });
-		
-		back.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(SELECTING_UNITS_BACK_CLICKED));
-			}
-        });
+		back = createRectangle(root, back, SELECTING_UNITS_BACK_HOVER, SELECTING_UNITS, SELECTING_UNITS_BACK_CLICKED);
 	
 		back.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
@@ -528,30 +588,19 @@ public class IntroUI extends Stage{
 		return back;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Homepage button on the Game Setup screen, which can be used to
+	 * create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle setupHomepage (final AnchorPane root)
 	{
 		Rectangle home = Tools.createRoundedRectangle(280, 53, RECT_ARC_SIZE, RECT_ARC_SIZE, 10, 610, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
-		home.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GAME_SETUP_HOMEPAGE_HOVER));
-			}
-		 });
+		home = createRectangle(root, home, GAME_SETUP_HOMEPAGE_HOVER, GAME_SETUP, GAME_SETUP_HOMEPAGE_CLICKED);
 		
-		home.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GAME_SETUP));
-			}
-        });
-		home.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GAME_SETUP_HOMEPAGE_CLICKED));
-			}
-        });
 		home.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -563,30 +612,19 @@ public class IntroUI extends Stage{
 		return home;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Next button on the Game Setup 
+	 * screen, which can be used to create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle setupNext(final AnchorPane root)
 	{
 		Rectangle next = Tools.createRoundedRectangle(190, 66, RECT_ARC_SIZE, RECT_ARC_SIZE, SCENE_WIDTH - 250, 600, 
 				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
-		next.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GAME_SETUP_NEXT_HOVER));
-			}
-		 });
-		
-		next.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GAME_SETUP));
-			}
-        });
-		next.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(GAME_SETUP_NEXT_CLICKED));
-			}
-        });
+		next = createRectangle(root, next, GAME_SETUP_NEXT_HOVER, GAME_SETUP, GAME_SETUP_NEXT_CLICKED);
+
 		next.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -598,30 +636,19 @@ public class IntroUI extends Stage{
 		return next;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Play button on the Intro 
+	 * screen, which can be used to create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createPlayPanel(final AnchorPane root)
 	{
-		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, RECT_ARC_SIZE, PLAY_X, PLAY_Y, 
-				widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
+		Rectangle playPanel = Tools.createRoundedRectangle(PLAY_WIDTH, PLAY_HEIGHT, RECT_ARC_SIZE, 
+				RECT_ARC_SIZE, PLAY_X, PLAY_Y, widthRatio, heightRatio, smallestRatio, Tools.TRANSPARENT, null);
 		
-		playPanel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_PLAY_HOVER));
-			}
-		 });
+		playPanel = createRectangle(root, playPanel, INTRO_PLAY_HOVER, INTRO_BACK, INTRO_PLAY_CLICK);
 		
-		playPanel.setOnMouseExited(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_BACK));
-			}
-        });
-		playPanel.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				root.setBackground(new Background(INTRO_PLAY_CLICK));
-			}
-        });
 		playPanel.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -634,6 +661,9 @@ public class IntroUI extends Stage{
 		return playPanel;
 	}
 	
+	/**
+	 * Creates the Stage on which the Game Elements screen is displayed
+	 */
 	private void createElementsStage()
 	{
 		AnchorPane root = new AnchorPane();
@@ -645,6 +675,12 @@ public class IntroUI extends Stage{
 		elements.show();
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Previous button on the Game Elements 
+	 * screen, which can be used to create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createElementsPrevious(final AnchorPane root)
 	{
 		Rectangle back = Tools.createRoundedRectangle(280, 53, RECT_ARC_SIZE, RECT_ARC_SIZE, 10, 610, 
@@ -664,6 +700,12 @@ public class IntroUI extends Stage{
 		return result;
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Next button on the Game Elements 
+	 * screen, which can be used to create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createElementsNext(final AnchorPane root)
 	{
 		Rectangle base = Tools.createRoundedRectangle(190, 66, RECT_ARC_SIZE, RECT_ARC_SIZE, SCENE_WIDTH - 250, 600, 
@@ -682,6 +724,9 @@ public class IntroUI extends Stage{
 		return result;
 	}
 	
+	/**
+	 * Creates the Stage on which the Gameplay screen is displayed
+	 */
 	public void createGameplayStage()
 	{
 		AnchorPane root = new AnchorPane();
@@ -692,6 +737,12 @@ public class IntroUI extends Stage{
 		gameplay.show();
 	}
 	
+	/**
+	 * Creates an invisible rectangle shape around the Previous button on the Gameplay 
+	 * screen, which can be used to create clicking effects for the button
+	 * @param root the AnchorPane layout on which the button is placed
+	 * @return the invisible rectangle
+	 */
 	public Rectangle createGameplayPrevious(final AnchorPane root)
 	{
 		Rectangle back = Tools.createRoundedRectangle(265, 53, RECT_ARC_SIZE, RECT_ARC_SIZE, 10, 610, 
@@ -711,8 +762,18 @@ public class IntroUI extends Stage{
 		return result;
 	}
 	
-	private Rectangle createRectangle(final AnchorPane root, Rectangle base, final BackgroundImage mouseEnter, final BackgroundImage mouseExit, 
-			final BackgroundImage mousePressed)
+	/**
+	 * Creates a standard transparent rectangle, which changes the background of the layout 
+	 * based on actions taken with the rectangle
+	 * @param root the layout which will experience a change in background
+	 * @param base the basic shape of the rectangle 
+	 * @param mouseEnter the background the layout will change to when the mouse hovers over it
+	 * @param mouseExit the background the layout will change to when the mouse stops hovering over it
+	 * @param mousePressed the background the layout will change to when the mouse presses (but does not release) it
+	 * @return the Rectangle with all these configurations
+	 */
+	private Rectangle createRectangle(final AnchorPane root, Rectangle base, final BackgroundImage mouseEnter, 
+			final BackgroundImage mouseExit, final BackgroundImage mousePressed)
 	{	
 		base.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -739,11 +800,18 @@ public class IntroUI extends Stage{
 		return base;
 	}
 	
+	/**
+	 * Minimizes the intro screen
+	 */
 	public void minimizeIntroScreen()
 	{
 		this.setIconified(true);
 		border.setIconified(true);
 	}
+
+	/**
+	 * Opens the intro screen
+	 */
 	public void openIntroScreen()
 	{
 		border.show();
