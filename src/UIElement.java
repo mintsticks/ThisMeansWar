@@ -37,7 +37,7 @@ public abstract class UIElement extends ImageView {
 	 */
 	protected void createCollShape() {
 		setCollShape(new Rectangle(0, 0, 1, 1));
-		collisionShape.setFill(Tools.DARK_GREEN);
+		collisionShape.setFill(Tools.TRANSPARENT);
 	}
 
 	/**
