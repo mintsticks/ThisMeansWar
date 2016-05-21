@@ -169,18 +169,9 @@ public class Tools {
 			double smallestRatio, Effect eff) {
 		Obstacle base = new Obstacle(true);
 		base.setImage(createImage("Base.png"));
-		base.setEffect(eff);
-
-		base.setFitHeight(height * smallestRatio);
-		base.setFitWidth(width * smallestRatio);
-
-		// set the quality of the image
-		base.setPreserveRatio(false);
-		base.setSmooth(true);
-		base.setCache(true);
-
-		base.setLayoutX(xLoc * widthRatio);
-		base.setLayoutY(yLoc * heightRatio);
+		base = (Obstacle)setImgView(base, height, width, xLoc, yLoc, widthRatio,
+				heightRatio, smallestRatio, eff);
+				
 		base.updateCollShape(height, widthRatio, DEFAULT_ANGLE, xLoc, yLoc,
 				widthRatio, heightRatio, smallestRatio);
 
@@ -298,7 +289,7 @@ public class Tools {
 		imgV.setFitWidth(width * smallestRatio);
 
 		// set the quality of the image
-		imgV.setPreserveRatio(true);
+		imgV.setPreserveRatio(false);
 		imgV.setSmooth(true);
 		imgV.setCache(true);
 
@@ -668,7 +659,7 @@ public class Tools {
 		imgV.setFitWidth(width * smallestRatio);
 
 		// set the quality of the image
-		imgV.setPreserveRatio(true);
+		imgV.setPreserveRatio(false);
 		imgV.setSmooth(true);
 		imgV.setCache(true);
 
