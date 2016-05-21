@@ -1657,6 +1657,7 @@ public class GameUI extends Stage
 			@Override
 			public void handle(MouseEvent arg0)
 			{
+				attackEllipse.setFill(GRADIENT_CIRCLE);
 				if (currentUnit != null)
 				{
 					double mouseX = arg0.getX();
