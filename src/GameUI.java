@@ -1497,7 +1497,6 @@ public class GameUI extends Stage
 		spawn.setLayoutY(randomY * heightRatio);
 		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
 
-		spawn.getCollShape().setFill(Color.BLACK);
 		gamePane.getChildren().remove(moneySpace);
 		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
 	}
