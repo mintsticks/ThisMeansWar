@@ -251,8 +251,15 @@ public class GameUI extends Stage
 			new Stop(0.0, Color.web("#ffffff00")),
 			new Stop(1.0, Color.web("#ffffff55")) };
 
+	public static final Stop[] BAD_ACTION_CIRCLE_STOP = {
+			new Stop(0.0, Color.web("#ff000000")),
+			new Stop(1.0, Color.web("#ff000055")) };
+	
 	public static final RadialGradient GRADIENT_CIRCLE = new RadialGradient(0,
 			0, .5, .5, .5, true, CycleMethod.NO_CYCLE, ACTION_CIRCLE_STOP);
+	
+	public static final RadialGradient BAD_GRADIENT_CIRCLE = new RadialGradient(0,
+			0, .5, .5, .5, true, CycleMethod.NO_CYCLE, BAD_ACTION_CIRCLE_STOP);
 	
 	//Effects for each team, appied to each object of the team
 	public static final DropShadow[] TEAM_EFFECTS = { Tools.RED_OUT_SHADE,
@@ -573,7 +580,7 @@ public class GameUI extends Stage
 			}
 		}
 
-		if (true)
+		if (nonNull == 1)
 		{
 			createEnd(winnerIndex);
 		}
@@ -1603,6 +1610,7 @@ public class GameUI extends Stage
 		spawn.setLayoutY(randomY * heightRatio);
 		moveElement(spawn, spawn.getLayoutX(), spawn.getLayoutY(), 0);
 
+		spawn.getCollShape().setFill(Color.BLACK);
 		gamePane.getChildren().remove(moneySpace);
 		gamePane.getChildren().addAll(spawn.getCollShape(), spawn);
 	}
@@ -1662,6 +1670,26 @@ public class GameUI extends Stage
 		this.setIconified(true);
 	}
 
+	private ArrayList<UIElement> getIntersections(UIElement test, Shape collShape)
+	{
+		ArrayList<UIElement> colls = new ArrayList<>();
+		for (Node child: gamePane.getChildren())
+		{
+			if (child instanceof UIElement && test != child)
+			{
+				UIElement check = (UIElement)child; 
+				if (((Path) Shape.intersect(check.getCollShape(), collShape))
+						.getElements().size() > 0){
+					colls.add(check);
+				}
+					
+			}
+		}
+		return colls;
+	}
+	
+	
+	
 	/**
 	 * Checks if there is an obstacle or money bag wherever a unit is about to move, and
 	 * rejects the movement if there is an obstacle
@@ -1670,46 +1698,10 @@ public class GameUI extends Stage
 	 */
 	public void moveClick(double endpointX, double endpointY)
 	{
-		boolean valid = true;
+		
 		// Holds all money at that location
 		ArrayList<MoneyBag> bags = new ArrayList<MoneyBag>();
-		final Rectangle destination = new Rectangle(
-				endpointX - currentUnit.getFitWidth() / 2,
-				endpointY - currentUnit.getFitHeight() / 2,
-				currentUnit.getFitWidth(), currentUnit.getFitHeight());
-		gamePane.getChildren().add(destination);
-
-		for (Node child : gamePane.getChildren())
-		{
-			if (child instanceof UIElement)
-			{
-				UIElement check = (UIElement) child;
-				if (((Path) Shape.intersect(check.getCollShape(), destination))
-						.getElements().size() > 0)
-				{
-					if (check instanceof Obstacle
-							&& !((Obstacle) check).isWalkable())
-					{
-						valid = false;
-						break;
-					} else if (check instanceof MoneyBag)
-					{
-						bags.add((MoneyBag) check);
-					}
-				}
-			}
-		}
-		if (endpointX - currentUnit.getFitWidth() / 2 < 0
-				|| endpointX + currentUnit.getFitWidth() / 2 > GAME_WIDTH
-						* widthRatio
-				|| endpointY - currentUnit.getFitHeight() / 2 < 0
-				|| endpointY + currentUnit.getFitHeight() / 2 > GAME_HEIGHT
-						* heightRatio)
-		{
-			valid = false;
-		}
-
-		if (valid)
+		if (checkMoveValid(endpointX, endpointY, bags))
 		{
 			for (MoneyBag money : bags)
 			{
@@ -1722,9 +1714,44 @@ public class GameUI extends Stage
 			currentUnit.move();
 			refreshSelect();
 		}
-		gamePane.getChildren().remove(destination);
 		moveEllipse.setVisible(false);
 		coverPane.setVisible(false);
+	}
+
+	private boolean checkMoveValid(double endpointX, double endpointY, ArrayList<MoneyBag> bags)
+	{
+		final Rectangle destination = new Rectangle(
+				endpointX - currentUnit.getFitWidth() / 2,
+				endpointY - currentUnit.getFitHeight() / 2,
+				currentUnit.getFitWidth(), currentUnit.getFitHeight());
+		gamePane.getChildren().add(destination);
+		
+		ArrayList<UIElement> colls = getIntersections(currentUnit, destination);
+		for (UIElement check : colls)
+		{
+			if (check instanceof Obstacle
+					&& !((Obstacle) check).isWalkable())
+			{
+				gamePane.getChildren().remove(destination);
+				return false;
+			} 
+			else if (check instanceof MoneyBag && bags != null)
+			{
+				bags.add((MoneyBag) check);
+			}
+		}
+		if (endpointX - currentUnit.getFitWidth() / 2 < 0
+				|| endpointX + currentUnit.getFitWidth() / 2 > GAME_WIDTH
+						* widthRatio
+				|| endpointY - currentUnit.getFitHeight() / 2 < 0
+				|| endpointY + currentUnit.getFitHeight() / 2 > GAME_HEIGHT
+						* heightRatio)
+		{
+			gamePane.getChildren().remove(destination);
+			return false;
+		}
+		gamePane.getChildren().remove(destination);
+		return true;
 	}
 
 	/**
@@ -1899,6 +1926,18 @@ public class GameUI extends Stage
 	public void setMoveEllipse()
 	{
 		moveEllipse.setVisible(false);
+		moveEllipse.setOnMouseMoved(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent arg0)
+			{
+				if (currentUnit == null || checkMoveValid(arg0.getX(), arg0.getY(), null)) 
+					moveEllipse.setFill(GRADIENT_CIRCLE);
+				else
+					moveEllipse.setFill(BAD_GRADIENT_CIRCLE);
+					
+			}
+		});
 		moveEllipse.setOnMousePressed(new EventHandler<MouseEvent>()
 		{
 			@Override
