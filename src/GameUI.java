@@ -30,6 +30,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -1074,6 +1075,10 @@ public class GameUI extends Stage
 		Text close = createGameCloseButton();
 		Text minimize = createGameMinButton();
 
+		HBox metalFrame = new HBox();
+		Tools.setUpFrame(metalFrame);
+		metalFrame.setPrefSize(100, 100);
+
 		gamePane = new AnchorPane();
 		gamePane.setPrefSize(GAME_PANE_WIDTH * widthRatio, GAME_PANE_HEIGHT * heightRatio);
 		AnchorPane.setLeftAnchor(gamePane, PANE_X * widthRatio);
@@ -1091,7 +1096,7 @@ public class GameUI extends Stage
 		createBuyPanels();
 		addBases(gamePane);
 
-		root.getChildren().addAll(close, minimize, gamePane, coverPane, moveEllipse, attackEllipse);
+		root.getChildren().addAll(close, minimize, gamePane, coverPane, moveEllipse, attackEllipse, metalFrame);
 		root.setBackground(new Background(ground));
 
 		createField();
